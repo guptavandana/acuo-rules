@@ -3,10 +3,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.acuo.rules</groupId>
-  <artifactId>acuo-rules</artifactId>
+  <artifactId>asset-rules</artifactId>
   <version>3.0</version>
   <packaging>kjar</packaging>
-  <name>Rule Engine</name>
+  <name>Asset Rule Engine</name>
   <repositories>
     <repository>
       <id>guvnor-m2-repo</id>
