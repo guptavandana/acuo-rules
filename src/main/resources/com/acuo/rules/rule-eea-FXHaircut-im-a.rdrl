@@ -1,0 +1,12 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-eea-FXHaircut-im-a"
+	dialect "mvel"
+	when
+		ag : Agreement( marginType == "Initial" )
+		as : Asset( currency != ag.terminateCurrency )
+	then
+		as.setFXHaircut( 0.08 );
+end

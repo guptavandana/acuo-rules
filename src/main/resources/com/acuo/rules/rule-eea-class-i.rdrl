@@ -1,0 +1,11 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-eea-class-i" extends "issuerInInterOrgs"
+	dialect "mvel"
+	when
+		as : Asset( type == "bond" )
+	then
+		as.setEeaClassType( "i" );
+end

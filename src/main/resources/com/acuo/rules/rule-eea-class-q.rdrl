@@ -1,0 +1,11 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-eea-class-q" extends "assetInMainIndexesAndRecogExchanges"
+	dialect "mvel"
+	when
+		as : Asset( type == "equity" )
+	then
+		as.setEeaClassType( "q" );
+end

@@ -1,0 +1,9 @@
+package demo.eligibleassetrule;
+
+rule "rule-eea-class-a"
+	dialect "mvel"
+	when
+		a : Asset( type == "cash" )
+	then
+		a.setEeaClassType( "a" );
+end

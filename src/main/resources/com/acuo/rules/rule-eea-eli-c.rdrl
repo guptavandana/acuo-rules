@@ -1,0 +1,11 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-eea-eli-c" extends "rule-eea-class-c"
+	dialect "mvel"
+	when
+		asset : Asset( currency != ( as.issuerDomCcy ) || ( currency == ( as.issuerDomCcy ) && CQS in ( 1, 2, 3, 4 ) ))
+	then
+		asset.setEligible( true );
+end

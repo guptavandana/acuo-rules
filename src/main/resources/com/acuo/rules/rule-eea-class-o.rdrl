@@ -1,0 +1,11 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-eea-class-o"
+	dialect "mvel"
+	when
+		a : Asset( type == "bond" , creditPrincipalCode == "SR" )
+	then
+		a.setEeaClassType( "o" );
+end

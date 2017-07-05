@@ -1,0 +1,11 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-eea-class-p"
+	dialect "mvel"
+	when
+		a : Asset( type == "bond" && convertibleFlag == true && convertibleTypeCode == "EI" )
+	then
+		a.setEeaClassType( "p" );
+end

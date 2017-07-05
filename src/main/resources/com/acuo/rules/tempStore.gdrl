@@ -1,0 +1,3 @@
+package demo.eligibleassetrule;
+
+global demo.eligibleassetrule.Asset tempAsset;

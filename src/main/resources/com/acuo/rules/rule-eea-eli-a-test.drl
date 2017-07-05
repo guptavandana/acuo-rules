@@ -1,0 +1,12 @@
+package demo.eligibleassetrule;
+
+rule "rule-eea-eli-a-test"
+lock-on-active true
+salience 10
+no-loop
+	dialect "mvel"
+	when
+		a : Asset(type=="cash" )
+	then
+		a.setEligible( true );
+end

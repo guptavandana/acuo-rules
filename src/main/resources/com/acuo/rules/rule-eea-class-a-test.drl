@@ -1,0 +1,12 @@
+package demo.eligibleassetrule;
+
+
+rule "rule-eea-class-a-test"
+salience 20
+lock-on-active true
+	dialect "mvel"
+	when
+		a : Asset( type == "cash" )
+	then
+		a.setEeaClassType( "a" );
+end

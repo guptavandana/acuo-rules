@@ -1,0 +1,12 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-eea-FXHaircut-vm-noncash"
+	dialect "mvel"
+	when
+		as : Asset( type != "cash" )
+		ag : Agreement( marginType == "VM" , eligibleCurrency contains as.currency )
+	then
+		as.setFXHaircut( 0 );
+end

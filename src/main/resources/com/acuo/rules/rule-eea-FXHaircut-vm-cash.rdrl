@@ -1,0 +1,13 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+import java.util.List;
+
+rule "rule-eea-FXHaircut-vm-cash"
+	dialect "mvel"
+	when
+		as : Asset( type == "cash" )
+		ag : Agreement( marginType == "Variation" )
+	then
+		as.setFXHaircut( 0 );
+end

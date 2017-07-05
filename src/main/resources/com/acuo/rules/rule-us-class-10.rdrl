@@ -1,0 +1,11 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-us-class-10"
+	dialect "mvel"
+	when
+		a : Asset( type == "gold" )
+	then
+		a.setUsClassType( "10" );
+end

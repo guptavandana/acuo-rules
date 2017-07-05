@@ -1,0 +1,41 @@
+<scenario>
+  <name>internationalOrg test.scenario</name>
+  <maxRuleFirings>100000</maxRuleFirings>
+  <globals/>
+  <fixtures>
+    <fact-data>
+      <type>Asset</type>
+      <fieldData>
+        <field-data>
+          <name>issuerOfficialName</name>
+          <value>INTERNATIONAL MONETARY FUND</value>
+          <nature>4</nature>
+        </field-data>
+      </fieldData>
+      <name>a</name>
+      <isModify>false</isModify>
+    </fact-data>
+    <execution-trace/>
+    <expect-fact>
+      <fieldValues>
+        <expect-field>
+          <fieldName>issuerIsInterOrg</fieldName>
+          <expected>true</expected>
+          <operator>==</operator>
+          <nature>0</nature>
+        </expect-field>
+      </fieldValues>
+      <name>a</name>
+      <anonymous>false</anonymous>
+    </expect-fact>
+  </fixtures>
+  <rules/>
+  <inclusive>false</inclusive>
+  <packageName>demo.eligibleassetrule</packageName>
+  <imports>
+    <imports/>
+  </imports>
+  <ksessions>
+    <string>defaultKieSession</string>
+  </ksessions>
+</scenario>

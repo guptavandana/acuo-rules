@@ -1,0 +1,11 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-eea-class-j" extends "issuerNotInMemberState"
+	dialect "mvel"
+	when
+		as : Asset( type == "bond" , datascopeAssetType == "GOVT" )
+	then
+		as.setEeaClassType( "j" );
+end

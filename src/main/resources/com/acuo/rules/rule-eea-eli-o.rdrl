@@ -1,0 +1,12 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-eea-eli-o" extends "rule-eea-class-o"
+	dialect "mvel"
+	when
+		c : Client( )
+		as : Asset( entityLei != c.entityLei && ultimateParentLei != c.ultimateParentLei && CQS in ( 1, 2, 3 ) )
+	then
+		as.setEligible( true );
+end

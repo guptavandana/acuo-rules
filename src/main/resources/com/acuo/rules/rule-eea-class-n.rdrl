@@ -1,0 +1,11 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-eea-class-n"
+	dialect "mvel"
+	when
+		a : Asset( type == "bond" , datascopeAssetType == "CORP" )
+	then
+		a.setEeaClassType( "n" );
+end

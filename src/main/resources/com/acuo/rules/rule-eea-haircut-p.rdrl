@@ -1,0 +1,11 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-eea-haircut-p" extends "rule-eea-class-p"
+	dialect "mvel"
+	when
+		asset : Asset( )
+	then
+		asset.setHaircut( 0.15 );
+end

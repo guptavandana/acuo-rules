@@ -1,0 +1,11 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-us-eli-10" extends "rule-us-class-10"
+	dialect "mvel"
+	when
+		as : Asset( )
+	then
+		as.setEligible( true );
+end

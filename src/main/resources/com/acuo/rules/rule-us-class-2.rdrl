@@ -1,0 +1,11 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-us-class-2"
+	dialect "mvel"
+	when
+		us2 : Asset( type == "bond" && issuer == "UNITED STATES TREASURY" )
+	then
+		us2.setUsClassType( "2" );
+end

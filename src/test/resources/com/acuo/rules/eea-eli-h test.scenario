@@ -1,0 +1,69 @@
+<scenario>
+  <name>eea-eli-h test.scenario</name>
+  <maxRuleFirings>100000</maxRuleFirings>
+  <globals/>
+  <fixtures>
+    <fact-data>
+      <type>Asset</type>
+      <fieldData>
+        <field-data>
+          <name>type</name>
+          <value>bond</value>
+          <nature>4</nature>
+        </field-data>
+        <field-data>
+          <name>issuerOfficialName</name>
+          <value>Inter-American Development Bank</value>
+          <nature>4</nature>
+        </field-data>
+      </fieldData>
+      <name>a</name>
+      <isModify>false</isModify>
+    </fact-data>
+    <execution-trace>
+      <executionTimeResult>24</executionTimeResult>
+      <numberOfRulesFired>4</numberOfRulesFired>
+    </execution-trace>
+    <expect-fact>
+      <fieldValues>
+        <expect-field>
+          <fieldName>issuerIsMultiDevBank</fieldName>
+          <expected>true</expected>
+          <successResult>true</successResult>
+          <explanation>[a] field [issuerIsMultiDevBank] was [true].</explanation>
+          <operator>==</operator>
+          <nature>0</nature>
+        </expect-field>
+        <expect-field>
+          <fieldName>eeaClassType</fieldName>
+          <expected>h</expected>
+          <successResult>true</successResult>
+          <explanation>[a] field [eeaClassType] was [h].</explanation>
+          <operator>==</operator>
+          <nature>1</nature>
+        </expect-field>
+        <expect-field>
+          <fieldName>eligible</fieldName>
+          <expected>true</expected>
+          <actualResult></actualResult>
+          <successResult>true</successResult>
+          <explanation>[a] field [eligible] was [true].</explanation>
+          <operator>==</operator>
+          <nature>0</nature>
+        </expect-field>
+      </fieldValues>
+      <name>a</name>
+      <anonymous>false</anonymous>
+    </expect-fact>
+  </fixtures>
+  <lastRunResult>2017-06-29 09:45:06.244 UTC</lastRunResult>
+  <rules/>
+  <inclusive>false</inclusive>
+  <packageName>demo.eligibleassetrule</packageName>
+  <imports>
+    <imports/>
+  </imports>
+  <ksessions>
+    <string>defaultKieSession</string>
+  </ksessions>
+</scenario>

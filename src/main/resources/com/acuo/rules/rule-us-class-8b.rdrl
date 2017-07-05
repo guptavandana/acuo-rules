@@ -1,0 +1,11 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-us-class-8b"
+	dialect "mvel"
+	when
+		a : Asset( type == "equity" , mainIndex == "S&P 1500" )
+	then
+		a.setUsClassType( "8b" );
+end

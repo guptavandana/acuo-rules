@@ -1,0 +1,11 @@
+package demo.eligibleassetrule;
+
+import java.lang.Number;
+
+rule "rule-us-class-6" extends "issuerInMultiDevBanks"
+	dialect "mvel"
+	when
+		us6 : Asset( type == "bond" )
+	then
+		us6.setUsClassType( "6" );
+end
