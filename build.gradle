@@ -12,6 +12,7 @@ apply from: "https://raw.githubusercontent.com/anaxo-io/gradle-plugins/master/ja
 group = 'com.acuo.rules'
 
 ext.versions += [
+        common  : '0.10.3',
         drools  : '7.0.0.Final'
 ]
 
@@ -22,6 +23,10 @@ test {
 }
 
 dependencies {
+    compile (
+            "com.acuo.collateral:acuo-common:${versions.common}"
+    ) { changing = true }
+
     compile "org.kie:kie-api:${versions.drools}"
     compile "org.drools:drools-compiler:${versions.drools}"
 }

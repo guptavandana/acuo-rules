@@ -6,4 +6,8 @@
         <ksession name="HelloWorldKS"/>
     </kbase>
 
+    <kbase name="AssetsKB" packages="com.acuo.rules.assets">
+        <ksession name="AssetsKS"/>
+    </kbase>
+
 </kmodule>

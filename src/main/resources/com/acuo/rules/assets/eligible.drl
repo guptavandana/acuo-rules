@@ -1,0 +1,21 @@
+package com.acuo.rules.assets
+
+import org.slf4j.Logger
+import com.acuo.common.model.assets.*
+
+global Logger log;
+
+rule "AA is always Eligibility"
+    when
+        $asset: Assets(fitchRating == "AA")
+        $eligible: Eligible()
+    then
+        log.info(
+            "Rule: '{}', asset: '{}'",
+            drools.getRule().getName(),
+            $asset
+        );
+
+        $eligible.setIsEligible(true);
+        update($eligible);
+end
