@@ -2,12 +2,14 @@ package com.acuo.rules.assets
 
 import org.slf4j.Logger
 import com.acuo.common.model.assets.*
+import com.acuo.common.model.agreements.*
 
 global Logger log;
 
 rule "AA is always Eligibility"
     when
         $asset: Assets(fitchRating == "AA")
+        :agreement: Agreement()
         $eligible: Eligible()
     then
         log.info(

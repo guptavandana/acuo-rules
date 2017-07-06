@@ -1,5 +1,6 @@
 package com.acuo.rules.assets
 
+import com.acuo.common.model.agreements.Agreement
 import com.acuo.common.model.assets.Assets
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
@@ -26,8 +27,10 @@ class AssetSpec extends Specification {
     def "should AA assets be eligible"() {
         when: "add an AA asset"
         def asset = new Assets(fitchRating: "AA", assetId: "a1")
+        def agreement = new Agreement(id: "a1")
         def eligible = new Eligible()
         ksession.insert(asset)
+        ksession.insert(agreement)
         ksession.insert(eligible)
 
         and: "we fire all rules"

@@ -12,7 +12,7 @@ apply from: "https://raw.githubusercontent.com/anaxo-io/gradle-plugins/master/ja
 group = 'com.acuo.rules'
 
 ext.versions += [
-        common  : '0.10.3',
+        common  : '0.11.0-SNAPSHOT',
         drools  : '7.0.0.Final'
 ]
 
