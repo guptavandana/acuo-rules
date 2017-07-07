@@ -4,6 +4,9 @@ import lombok.Data
 
 @Data
 class Eligible {
-
+    String regime
+    String classType
     boolean isEligible = false
+    double haircut
+    double fxHaircut
 }

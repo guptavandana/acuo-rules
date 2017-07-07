@@ -10,4 +10,8 @@
         <ksession name="AssetsKS"/>
     </kbase>
 
+    <kbase name="EligibilityKB" packages="com.acuo.rules.eligibility">
+        <ksession name="EligibilityKS"/>
+    </kbase>
+
 </kmodule>
