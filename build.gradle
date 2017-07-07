@@ -29,4 +29,5 @@ dependencies {
 
     compile "org.kie:kie-api:${versions.drools}"
     compile "org.drools:drools-compiler:${versions.drools}"
+    compile "org.drools:drools-decisiontables:${versions.drools}"
 }
