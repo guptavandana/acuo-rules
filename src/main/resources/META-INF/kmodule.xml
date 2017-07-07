@@ -11,7 +11,11 @@
     </kbase>
 
     <kbase name="EligibilityKB" packages="com.acuo.rules.eligibility">
+        <ruleTemplate dtable="https://raw.githubusercontent.com/anaxo-io/acuo-rules/develop/src/main/resources/com/acuo/rules/eligibility/eea-simpleclass-haircut.drt"
+                      template="https://raw.githubusercontent.com/anaxo-io/acuo-rules/develop/src/main/resources/com/acuo/rules/eligibility/eea-simpleclass-haircut.drt"
+                      row="2" col="2"/>
         <ksession name="EligibilityKS"/>
     </kbase>
+
 
 </kmodule>
