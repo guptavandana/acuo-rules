@@ -1,0 +1,33 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+
+global Logger log;
+
+rule "rule-eea-class-i"
+	when
+		$asset : LocalAsset( type == "bond" )
+		$issuer : Issuer(isInterOrg==true)
+		$eligible: Eligible()
+		$regime: Regime(name == "EEA")
+
+	then
+	log.info(
+                "Rule: '{}', asset: '{}', issuer:'{}'",
+                drools.getRule().getName(),
+                $asset,
+                $issuer
+            );
+
+		$eligible.setClassType( "EEAi" );
+		update($eligible)
+end
+
+rule "rule-eea-eli-i"
+	when
+		$asset : LocalAsset( )
+		$eligible: Eligible(classType == "EEAi")
+	then
+		$eligible.setIsEligible( true );
+		update($eligible)
+end
