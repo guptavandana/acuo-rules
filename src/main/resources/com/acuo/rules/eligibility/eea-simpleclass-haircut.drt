@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns="http://drools.org/xsd/kmodule">
+  <kbase name="TemplatesKB" packages="org.drools.examples.templates">
+    <ruleTemplate dtable="org/drools/examples/templates/ExampleCheese.xls"
+                  template="org/drools/examples/templates/Cheese.drt"
+                  row="2" col="2"/>
+      <ksession name="TemplatesKS"/>
+      </kbase>
+</kmodule>
+
+template header
+type
+log
+
+package org.drools.examples.templates;
+
+global java.util.List list;
+
+template "eea-simpleclass-haircut"
+
+rule "eea-simpleclass-haircut@{row.rowNumber}"
+when
+    Assets(type == "@{type}")
+then
+    list.add("@{log}");
+end
+
+end template
