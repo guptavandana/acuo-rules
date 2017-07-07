@@ -9,6 +9,8 @@ rule "rule-eea-class-a"
 	when
 		$asset : Assets( type == "cash" )
 		$eligible: Eligible()
+		$regime: Regime(name == "EEA")
+
 	then
 	log.info(
                 "Rule: '{}', asset: '{}'",
@@ -16,15 +18,14 @@ rule "rule-eea-class-a"
                 $asset
             );
 
-	    $eligible.setRegime("EEA");
-		$eligible.setClassType( "a" );
+		$eligible.setClassType( "EEAa" );
 		update($eligible)
 end
 
 rule "rule-eea-eli-a"
 	when
 		$asset : Assets( )
-		$eligible: Eligible(classType == "a" && regime == "EEA")
+		$eligible: Eligible(classType == "EEAa")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible)

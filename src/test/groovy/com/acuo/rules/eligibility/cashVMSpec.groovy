@@ -28,7 +28,7 @@ class cashVMSpec extends Specification {
     def "should cash be eligible"() {
         when: "add an cash asset"
         def asset = new Assets(type: "cash", assetId: "a1")
-        def agreement = new Agreement()
+        def agreement = new Agreement(id:"ag1")
         def eligible = new Eligible()
         ksession.insert(asset)
         ksession.insert(agreement)

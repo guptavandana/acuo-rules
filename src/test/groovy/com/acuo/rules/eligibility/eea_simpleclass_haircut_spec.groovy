@@ -3,7 +3,6 @@ package com.acuo.rules.eligibility
 import com.acuo.common.model.assets.Assets
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
-import org.kie.api.runtime.KieContainer
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import spock.lang.Specification
@@ -27,17 +26,17 @@ class eea_simpleclass_haircut_spec extends Specification  {
         when: "add an cash asset"
         def asset = new Assets(type: "cash", assetId: "a1")
         def eligible = new Eligible()
+        def regime = new Regime(name:"EEA")
         ksession.insert(asset)
         ksession.insert(eligible)
-        final List<String> list = new ArrayList<String>();
-        ksession.setGlobal( "list", list );
+        ksession.insert(regime)
 
         and: "we fire all rules"
         ksession.fireAllRules()
 
         then: "then we get rules regime and class"
-        eligible.regime == "EEA"
-        eligible.classType == "a"
+        eligible.classType == "EEAa"
         eligible.isEligible
+        eligible.haircut == 0
     }
 }

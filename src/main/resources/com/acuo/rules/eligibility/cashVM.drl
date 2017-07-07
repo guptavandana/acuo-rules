@@ -9,7 +9,7 @@ global Logger log;
 rule "cash is eligible for VM"
     when
         $asset: Assets(type == "cash")
-        $agreement: Agreement(id == "ag1")
+        $agreement: Agreement( id=="ag1")
         $eligible: Eligible()
     then
         log.info(
