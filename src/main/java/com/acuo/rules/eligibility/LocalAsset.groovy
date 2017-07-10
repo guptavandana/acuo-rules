@@ -8,4 +8,6 @@ class LocalAsset {
     String type
     double maturityYears
     Integer CQS
+    String datascopeAssetType
+    String currency
 }

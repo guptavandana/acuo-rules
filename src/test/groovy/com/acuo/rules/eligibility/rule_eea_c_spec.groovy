@@ -1,6 +1,5 @@
 package com.acuo.rules.eligibility
 
-import com.acuo.common.model.assets.Assets
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
@@ -23,9 +22,9 @@ class rule_eea_c_spec extends Specification {
     }
     def "is cash in EEA class c"() {
         when: "add an bond asset"
-        def asset = new LocalAsset(type:"bond", assetId: "c1", datascopeAssetType:"GOVT")
+        def asset = new LocalAsset(type:"bond", id: "c1", datascopeAssetType:"GOVT", CQS:1,currency:"USD")
         def eligible = new Eligible()
-        def issuer = new Issuer(domCurrency:"as.issuerDomCcy", CQS:1, country: "Austria")
+        def issuer = new Issuer(country: "Austria", domCurrency:"GBP")
         def regime = new Regime(name:"EEA")
         ksession.insert(asset)
         ksession.insert(eligible)
@@ -38,6 +37,6 @@ class rule_eea_c_spec extends Specification {
         then: "then we get rules regime and class"
         issuer.isMemberState
         eligible.classType == "EEAc"
-        //eligible.isEligible
+        eligible.isEligible
     }
 }
