@@ -1,6 +1,5 @@
 package com.acuo.rules.eligibility
 
-import com.acuo.common.model.assets.Assets
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
@@ -23,7 +22,7 @@ class rule_eea_a_spec extends Specification {
     }
     def "is cash in EEA class a"() {
         when: "add an cash asset"
-        def asset = new Assets(type: "cash", assetId: "a1")
+        def asset = new LocalAsset(type: "cash", id: "a1")
         def eligible = new Eligible()
         def regime = new Regime(name:"EEA")
         ksession.insert(asset)

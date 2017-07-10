@@ -4,27 +4,27 @@ import org.slf4j.Logger
 
 global Logger log;
 
-rule "rule-eea-class-a"
+rule "rule-us-class-10"
 	when
-		$asset : LocalAsset( type == "cash" )
+		$asset : LocalAsset( type == "gold" )
 		$eligible: Eligible()
-		$regime: Regime(name == "EEA")
+		$regime: Regime(name == "US")
 
 	then
 	log.info(
-                "Rule: '{}', asset: '{}'",
+                "Rule: '{}', asset: '{}', issuer:'{}'",
                 drools.getRule().getName(),
                 $asset
             );
 
-		$eligible.setClassType( "EEAa" );
+		$eligible.setClassType( "US10" );
 		update($eligible)
 end
 
-rule "rule-eea-eli-a"
+rule "rule-us-eli-10"
 	when
 		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "EEAa")
+		$eligible: Eligible(classType == "US10")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible)

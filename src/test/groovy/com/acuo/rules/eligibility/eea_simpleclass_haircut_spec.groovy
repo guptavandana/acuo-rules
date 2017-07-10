@@ -1,6 +1,5 @@
 package com.acuo.rules.eligibility
 
-import com.acuo.common.model.assets.Assets
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
@@ -22,9 +21,9 @@ class eea_simpleclass_haircut_spec extends Specification  {
         ksession.setGlobal("log", ruleLogger)
 
     }
-    def "is cash in EEA class a"() {
+    def "cash has haircut 0 in EEA  regime"() {
         when: "add an cash asset"
-        def asset = new Assets(type: "cash", assetId: "a1")
+        def asset = new LocalAsset(type: "cash", id: "a1")
         def eligible = new Eligible()
         def regime = new Regime(name:"EEA")
         ksession.insert(asset)
@@ -39,4 +38,5 @@ class eea_simpleclass_haircut_spec extends Specification  {
         eligible.isEligible
         eligible.haircut == 0
     }
+
 }

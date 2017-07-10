@@ -1,13 +1,12 @@
 package com.acuo.rules.eligibility
 
-import com.acuo.common.model.assets.Assets
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import spock.lang.Specification
 
-class eea_bond_haircut_spec  extends Specification {
+class us_simpleclass_haircut_spec  extends Specification  {
     String ksessionName = "EligibilityKS"
 
     KieSession ksession
@@ -22,14 +21,12 @@ class eea_bond_haircut_spec  extends Specification {
         ksession.setGlobal("log", ruleLogger)
 
     }
-    def "a bond has haircut 0.03 in EEA regime"() {
-        when: "add a bond asset"
-        def asset = new LocalAsset(id: "a1",type: "bond",maturityYears: 3,CQS: 3)
-        def issuer = new Issuer(name: "European Union")
+    def "cash has haircut 0 in US regime"() {
+        when: "add an cash asset"
+        def asset = new LocalAsset(type: "cash", id: "a1")
         def eligible = new Eligible()
-        def regime = new Regime(name:"EEA")
+        def regime = new Regime(name:"US")
         ksession.insert(asset)
-        ksession.insert(issuer)
         ksession.insert(eligible)
         ksession.insert(regime)
 
@@ -37,8 +34,26 @@ class eea_bond_haircut_spec  extends Specification {
         ksession.fireAllRules()
 
         then: "then we get rules regime and class"
-        eligible.classType == "EEAi"
+        eligible.classType == "US1"
         eligible.isEligible
-        eligible.haircut == 0.03
+        eligible.haircut == 0
+    }
+    def "gold has haircut 0.15 in US regime"() {
+        when: "add an cash asset"
+        def asset = new LocalAsset(type: "gold", id: "a1")
+        def eligible = new Eligible()
+        def regime = new Regime(name:"US")
+        ksession.insert(asset)
+        ksession.insert(eligible)
+        ksession.insert(regime)
+
+        and: "we fire all rules"
+        ksession.fireAllRules()
+
+        then: "then we get rules regime and class"
+        eligible.isEligible
+        eligible.classType == "US10"
+
+        eligible.haircut == 0.15
     }
 }

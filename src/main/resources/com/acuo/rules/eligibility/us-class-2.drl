@@ -1,0 +1,33 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+
+global Logger log;
+
+rule "rule-us-class-2"
+	when
+		$asset : LocalAsset( type == "bond" )
+		$issuer : Issuer(name=="UNITED STATES TREASURY")
+		$eligible: Eligible()
+		$regime: Regime(name == "US")
+
+	then
+	log.info(
+                "Rule: '{}', asset: '{}', issuer:'{}'",
+                drools.getRule().getName(),
+                $asset,
+                $issuer
+            );
+
+		$eligible.setClassType( "US2" );
+		update($eligible)
+end
+
+rule "rule-us-eli-2"
+	when
+		$asset : LocalAsset( )
+		$eligible: Eligible(classType == "US2")
+	then
+		$eligible.setIsEligible( true );
+		update($eligible)
+end

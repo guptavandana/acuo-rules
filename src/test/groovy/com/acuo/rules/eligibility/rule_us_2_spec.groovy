@@ -1,13 +1,12 @@
 package com.acuo.rules.eligibility
 
-import com.acuo.common.model.assets.Assets
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import spock.lang.Specification
 
-class eea_bond_haircut_spec  extends Specification {
+class rule_us_2_spec  extends Specification{
     String ksessionName = "EligibilityKS"
 
     KieSession ksession
@@ -20,14 +19,13 @@ class eea_bond_haircut_spec  extends Specification {
 
         ruleLogger = LoggerFactory.getLogger(ksessionName)
         ksession.setGlobal("log", ruleLogger)
-
     }
-    def "a bond has haircut 0.03 in EEA regime"() {
+    def "a bond is in US class 2"() {
         when: "add a bond asset"
-        def asset = new LocalAsset(id: "a1",type: "bond",maturityYears: 3,CQS: 3)
-        def issuer = new Issuer(name: "European Union")
+        def asset = new LocalAsset(type: "bond", id: "a1")
+        def issuer = new Issuer(name: "UNITED STATES TREASURY")
         def eligible = new Eligible()
-        def regime = new Regime(name:"EEA")
+        def regime = new Regime(name:"US")
         ksession.insert(asset)
         ksession.insert(issuer)
         ksession.insert(eligible)
@@ -37,8 +35,7 @@ class eea_bond_haircut_spec  extends Specification {
         ksession.fireAllRules()
 
         then: "then we get rules regime and class"
-        eligible.classType == "EEAi"
+        eligible.classType == "US2"
         eligible.isEligible
-        eligible.haircut == 0.03
     }
 }

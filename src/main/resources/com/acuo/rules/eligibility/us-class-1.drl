@@ -4,11 +4,11 @@ import org.slf4j.Logger
 
 global Logger log;
 
-rule "rule-eea-class-a"
+rule "rule-us-class-1"
 	when
 		$asset : LocalAsset( type == "cash" )
 		$eligible: Eligible()
-		$regime: Regime(name == "EEA")
+		$regime: Regime(name == "US")
 
 	then
 	log.info(
@@ -17,14 +17,14 @@ rule "rule-eea-class-a"
                 $asset
             );
 
-		$eligible.setClassType( "EEAa" );
+		$eligible.setClassType( "US1" );
 		update($eligible)
 end
 
-rule "rule-eea-eli-a"
+rule "rule-US-eli-a"
 	when
 		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "EEAa")
+		$eligible: Eligible(classType == "US1")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible)

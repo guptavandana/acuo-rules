@@ -38,6 +38,5 @@ class rule_eea_i_spec extends Specification {
         issuer.isInterOrg
         eligible.classType == "EEAi"
         eligible.isEligible
-
     }
 }
