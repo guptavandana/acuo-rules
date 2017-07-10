@@ -23,7 +23,7 @@ class rule_eea_h_spec extends Specification {
     }
     def "is cash in EEA class h"() {
         when: "add an bond asset"
-        def asset = new Assets(type: "bond", assetId: "h1")
+        def asset = new LocalAsset(type: "bond", assetId: "h1")
         def eligible = new Eligible()
         def regime = new Regime(name:"EEA")
         def issuer = new Issuer(name: "Nordic Investment Bank")
