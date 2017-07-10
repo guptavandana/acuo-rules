@@ -1,0 +1,34 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+import com.acuo.common.model.assets.*
+
+global Logger log;
+
+rule "rule-eea-class-c"
+salience -50
+	when
+		$asset : LocalAsset(type == "bond" , datascopeAssetType == "GOVT")
+		$issuer: Issuer(isMemberState == true)
+		$regime: Regime(name == "EEA")
+		$eligible: Eligible()
+	then
+		log.info(
+                    "Rule: '{}', asset: '{}', issuer:'{}'",
+                    drools.getRule().getName(),
+                    $asset,
+                    $issuer
+                );
+		$eligible.setClassType( "EEAc" );
+		update($eligible)
+end
+
+rule "rule-eea-eli-c"
+	when
+		$asset : LocalAsset( )
+		$eligible: Eligible(classType == "EEAc")
+		$issuer: Issuer (( domCurrency !="as.issuerDomCcy"  ) || (( domCurrency ==  "as.issuerDomCcy" ) && CQS in ( 1, 2, 3, 4 )) )
+	then
+		$eligible.setIsEligible( true );
+		update($eligible)
+end
