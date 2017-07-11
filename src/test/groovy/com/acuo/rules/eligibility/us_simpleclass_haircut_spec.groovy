@@ -24,7 +24,7 @@ class us_simpleclass_haircut_spec  extends Specification  {
     def "cash has haircut 0 in US regime"() {
         when: "add an cash asset"
         def asset = new LocalAsset(type: "cash", id: "a1",currency: "GBP")
-        def agreement = new Agreement(id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
+        def agreement = new LocalAgreement(id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
         def eligible = new Eligible()
         def regime = new Regime(name:"US")
         ksession.insert(asset)

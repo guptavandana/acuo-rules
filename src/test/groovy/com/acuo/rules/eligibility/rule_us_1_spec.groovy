@@ -23,7 +23,7 @@ class rule_us_1_spec  extends Specification{
     def "cash is in US class 1"() {
         when: "add a cash asset"
         def asset = new LocalAsset(type: "cash", id: "a1",currency:"USD")
-        def agreement = new Agreement(id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
+        def agreement = new LocalAgreement(id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
 
         def eligible = new Eligible()
         def regime = new Regime(name:"US")

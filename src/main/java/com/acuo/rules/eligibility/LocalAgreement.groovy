@@ -8,4 +8,6 @@ class LocalAgreement {
     String eligibleCurrency
     String terminateCurrency
     String settlementCurrency
+    String id;
+    String majorCurrency;
 }

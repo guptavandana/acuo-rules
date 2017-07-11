@@ -14,7 +14,7 @@ function boolean substrInStr(String substr,String str) {
 rule "rule-us-class-1"
 	when
 		$asset : LocalAsset( type == "cash" )
-		$agreement: Agreement(substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency )
+		$agreement: LocalAgreement(substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency )
 		$eligible: Eligible()
 		$regime: Regime(name == "US")
 
