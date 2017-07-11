@@ -23,7 +23,7 @@ class rule_eea_o_spec extends Specification {
     }
     def "is cash in EEA class o"() {
         when: "add an bond asset"
-        def asset = new LocalAsset(type: "bond", assetId: "o1", creditPrincipalCode: "SR",CQS:1)
+        def asset = new LocalAsset(type: "bond", id: "o1", creditPrincipalCode: "SR",CQS:1)
         def eligible = new Eligible()
         def regime = new Regime(name:"EEA")
         def issuer = new Issuer(entityLei: "abc", ultimateParentLei: "123")

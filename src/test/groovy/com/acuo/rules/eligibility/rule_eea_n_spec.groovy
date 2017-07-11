@@ -23,7 +23,7 @@ class rule_eea_n_spec extends Specification {
     }
     def "is cash in EEA class n"() {
         when: "add an bond asset"
-        def asset = new LocalAsset(type: "bond", assetId: "n1", datascopeAssetType: "CORP",CQS:1)
+        def asset = new LocalAsset(type: "bond", id: "n1", datascopeAssetType: "CORP",CQS:1)
         def eligible = new Eligible()
         def regime = new Regime(name:"EEA")
         def issuer = new Issuer(entityLei: "abc", ultimateParentLei: "123")

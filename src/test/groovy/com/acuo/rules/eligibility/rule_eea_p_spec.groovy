@@ -23,7 +23,7 @@ class rule_eea_p_spec extends Specification {
     }
     def "is cash in EEA class p"() {
         when: "add an bond asset"
-        def asset = new LocalAsset(type: "bond", assetId: "p1", convertibleFlag: true, convertibleTypeCode: "EI", index: "S&P 500,asdf", exchange:"asdf,XPAR")
+        def asset = new LocalAsset(type: "bond", id: "p1", convertibleFlag: true, convertibleTypeCode: "EI", index: "S&P 500,asdf", exchange:"asdf,XPAR")
         def eligible = new Eligible()
         def regime = new Regime(name:"EEA")
         ksession.insert(asset)

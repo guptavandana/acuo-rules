@@ -23,7 +23,7 @@ class rule_eea_q_spec extends Specification {
     }
     def "is cash in EEA class q"() {
         when: "add an equity asset"
-        def asset = new LocalAsset(type: "equity", assetId: "q1",index: "S&P 500,asdf", exchange: "XPAR,asdf")
+        def asset = new LocalAsset(type: "equity", id: "q1",index: "S&P 500,asdf", exchange: "XPAR,asdf")
         def eligible = new Eligible()
         def regime = new Regime(name:"EEA")
         def issuer = new Issuer(entityLei: "abc", ultimateParentLei: "123")

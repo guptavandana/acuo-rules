@@ -24,7 +24,7 @@ class rule_eea_FXHaircut_im_a_spec extends Specification {
     }
     def "FX Haircut rule im_a"() {
         when: "add an asset"
-        def asset = new LocalAsset(currency: "SGD", assetId: "ima")
+        def asset = new LocalAsset(currency: "SGD", id: "ima")
         def agreement = new LocalAgreement(marginType: "Initial",terminateCurrency: "USD")
         def regime = new Regime(name:"EEA")
         ksession.insert(asset)

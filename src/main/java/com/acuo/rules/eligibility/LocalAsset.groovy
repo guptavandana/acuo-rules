@@ -9,7 +9,6 @@ class LocalAsset {
     Integer CQS
     String datascopeAssetType
     String currency
-    String assetId;
     String idType;
     String name;
     String ICADCode;

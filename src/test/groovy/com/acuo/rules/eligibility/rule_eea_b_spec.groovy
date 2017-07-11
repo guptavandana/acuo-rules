@@ -23,7 +23,7 @@ class rule_eea_b_spec extends Specification {
     }
     def "is cash in EEA class b"() {
         when: "add an gold asset"
-        def asset = new LocalAsset(type: "gold", assetId: "a1")
+        def asset = new LocalAsset(type: "gold", id: "a1")
         def eligible = new Eligible()
         def regime = new Regime(name:"EEA")
         ksession.insert(asset)
