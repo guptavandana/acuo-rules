@@ -9,7 +9,7 @@ global Logger log;
 rule "us-FXHaircut-vm"
 	when
 		$asset: LocalAsset(type!= "cash")
-		$ag: LocalAgreement(marginType == "Variation", eligibleCurrency == $asset.currency)
+		$agreement: Agreement(marginType == "Variation", (substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency) )
 		$regime: Regime(name == "US")
 	then
 		$asset.setFXHaircut( 0 );

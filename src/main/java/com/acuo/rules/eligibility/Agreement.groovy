@@ -4,8 +4,9 @@ import lombok.Data;
 
 @Data
 class Agreement {
-    String id
-    String majorCurrency
-    String terminateCurrency
-    String settlementCurrency
+    String marginType;
+    String id;
+    String majorCurrency;
+    String terminateCurrency;
+    String settlementCurrency;
 }

@@ -1,7 +1,5 @@
 package com.acuo.rules.eligibility
 
-import com.acuo.common.model.agreements.Agreement
-import com.acuo.common.model.assets.Assets
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
@@ -24,9 +22,10 @@ class rule_us_FXHaircut_vm_spec extends Specification {
     }
     def "FX Haircut rule us vm"() {
         when: "add an asset"
-        def asset = new LocalAsset(type: "bond", id: "usvm", currency: "SGD")
-        def agreement = new LocalAgreement(marginType: "Variation", eligibleCurrency: "SGD")
-        def regime = new Regime(name:"US")
+
+        def asset = new LocalAsset(type: "bond", id: "usvma", currency: "USD")
+        def agreement = new Agreement(marginType:"Variation", id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
+        def regime = new Regime(name: "US")
         ksession.insert(asset)
         ksession.insert(regime)
         ksession.insert(agreement)
