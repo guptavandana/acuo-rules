@@ -6,6 +6,7 @@ import lombok.Data;
 class Client {
     String lei
     String name
+    String entityLei
     String ultimateParentLei
     String ultimateParentName
 }

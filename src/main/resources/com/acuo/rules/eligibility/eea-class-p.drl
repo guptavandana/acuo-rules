@@ -1,0 +1,40 @@
+
+       package com.acuo.rules.eligibility
+
+       import org.slf4j.Logger
+       import com.acuo.common.model.assets.*
+
+       global Logger log;
+
+       rule "rule-eea-class-p"
+       	when
+       		$asset : LocalAsset( type == "bond" && convertibleFlag == true && convertibleTypeCode == "EI")
+       		$eligible: Eligible()
+       		$regime: Regime(name == "EEA", ineeaMainIndex($asset.index), ineeaexchange($asset.exchange))
+
+       	then
+       	log.info(
+                       "Rule: '{}', asset: '{}'",
+                       drools.getRule().getName(),
+                       $asset
+                   );
+
+       		$eligible.setClassType( "EEAp" );
+       		update($eligible)
+       end
+
+
+       rule "rule-eea-eli-p"
+       	when
+       		$asset : LocalAsset()
+       		$eligible: Eligible(classType == "EEAp")
+       	then
+       		$eligible.setIsEligible( true );
+       		$asset.setHaircut( 0.15 );
+       		update($eligible)
+       		update($asset)
+       end
+
+
+
+

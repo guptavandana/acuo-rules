@@ -1,0 +1,53 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+import com.acuo.common.model.assets.*
+
+import java.util.List;
+import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
+
+global Logger log;
+
+function boolean ineeaexchange(String exchange)
+{
+    String e[]=exchange.split(",");
+
+    String bench[]={"XPAR","BERA","BERC","DUSA","DUSC","EQTA","EQTB","HAMA","HANA","MUNA","MUNC","STUA","FRAA","XETA","XGRM","XDUB","XLIS","XBAR","XMCE","XBIL","XMAD","MERF","XVAL","BOND","ETFP","MIVX","MOTX","MTAA","MTSC","MTSM","SEDX","XDPA","XDRF","SEND","XLUX","XCYS","SBMF","XBSE","XRMZ","XPRA","BATE","CHIX","ISDX","XLDN","XLON","XRIS","XSTO","XNGM","XCSE","XOAS","XOSL","XTAL","XHEL","WBAH","WBGF","XBUL","XICE","XBUD","XBRA","XLIT","XBRU","XZAG","HDAT","XATH","EWSM","XMAL","XAMS","RPWC","WBON","WETP","XLJU","GSXL"};
+    //String bench[]={"a","b","c","d"};
+    int flag = 0;
+
+    for(int i = 0; i < e.length; i++)
+    {
+    System.out.println(flag);
+    System.out.println("_____________");
+    System.out.println("e:" + e[i]);
+        for(int j = 0; j < bench.length; j++)
+        {
+         System.out.println("bench"+j+":" + bench[j] +"  " + "e"+i +":"+ e[i]+ "   " + "Judge:"+(bench[j].toString()==e[i].toString()));
+	     if (bench[j].equals(e[i]))
+         {
+		  flag = 1;
+		  break;
+         }
+        }
+        if (flag==1)
+         {
+              break;
+
+         }
+    }
+
+    System.out.println(flag);
+    if (flag==1)
+        {
+            return true;
+
+        }
+    else
+        {
+            return false;
+        }
+
+}

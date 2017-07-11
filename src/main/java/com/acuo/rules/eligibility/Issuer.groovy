@@ -10,7 +10,9 @@ class Issuer {
     String countryCode
     String domCurrency
     String ultimateParentLei
+    String entityLei
     Boolean isMemberState = false
     Boolean isMultiDevBank = false
     Boolean isInterOrg = false
+    boolean isUSGovtAgency = false
 }

@@ -1,0 +1,18 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+import com.acuo.common.model.assets.*
+import java.lang.Number
+
+global Logger log;
+
+rule "us-FXHaircut-im-a"
+	when
+		$ag: LocalAgreement(marginType == "Initial")
+		$asset: LocalAsset(currency!= $ag.terminateCurrency && currency != $ag.settlementCurrency)
+		$regime: Regime(name == "US")
+	then
+		$asset.setFXHaircut( 0.08 );
+		update($asset)
+end
+
