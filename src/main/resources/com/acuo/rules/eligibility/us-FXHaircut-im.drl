@@ -9,7 +9,7 @@ global Logger log;
 rule "us-FXHaircut-im"
 	when
 		$ag: LocalAgreement(marginType == "Initial")
-		$asset: LocalAsset(currency== $ag.terminateCurrency && currency == $ag.settlementCurrency)
+		$asset: LocalAsset(currency== $ag.terminateCurrency || currency == $ag.settlementCurrency)
 		$regime: Regime(name == "US")
 	then
 		$asset.setFXHaircut( 0 );
