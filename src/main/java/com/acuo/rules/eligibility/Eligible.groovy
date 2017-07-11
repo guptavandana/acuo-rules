@@ -6,7 +6,7 @@ import lombok.Data
 class Eligible {
     String classType
     boolean isEligible = false
-    double haircut
-    double fxHaircut
+    double haircut = -1
+    double fxHaircut = -1
 
 }

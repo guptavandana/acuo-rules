@@ -19,7 +19,7 @@ class LocalAsset {
     String issuer;
     String index;
     String exchange;
-    double maturityYears;
+    double maturityYears = -1;
     double setUsClassType;
     double parValue;
     double minUnit;

@@ -1,12 +1,20 @@
 package com.acuo.rules.eligibility
 
 import org.slf4j.Logger
-
+import java.util.List;
+import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 global Logger log;
+
+function boolean substrInStr(String substr,String str) {
+    return str.toLowerCase().contains(substr.toLowerCase());
+}
 
 rule "rule-us-class-1"
 	when
 		$asset : LocalAsset( type == "cash" )
+		$agreement: Agreement(substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency )
 		$eligible: Eligible()
 		$regime: Regime(name == "US")
 
@@ -26,6 +34,11 @@ rule "rule-US-eli-a"
 		$asset : LocalAsset( )
 		$eligible: Eligible(classType == "US1")
 	then
+		log.info(
+                    "Rule: '{}', asset: '{}'",
+                    drools.getRule().getName(),
+                    $asset
+                );
 		$eligible.setIsEligible( true );
 		update($eligible)
 end

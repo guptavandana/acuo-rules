@@ -1,7 +1,6 @@
 package com.acuo.rules.eligibility
 
 import org.slf4j.Logger
-import com.acuo.common.model.assets.*
 
 global Logger log;
 

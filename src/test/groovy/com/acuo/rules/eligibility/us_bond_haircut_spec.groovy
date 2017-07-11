@@ -1,6 +1,5 @@
 package com.acuo.rules.eligibility
 
-import com.acuo.common.model.assets.Assets
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger

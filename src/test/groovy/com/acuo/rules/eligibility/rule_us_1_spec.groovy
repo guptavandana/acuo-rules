@@ -6,7 +6,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import spock.lang.Specification
 
-class us_simpleclass_haircut_spec  extends Specification  {
+class rule_us_1_spec  extends Specification{
     String ksessionName = "EligibilityKS"
 
     KieSession ksession
@@ -19,12 +19,12 @@ class us_simpleclass_haircut_spec  extends Specification  {
 
         ruleLogger = LoggerFactory.getLogger(ksessionName)
         ksession.setGlobal("log", ruleLogger)
-
     }
-    def "cash has haircut 0 in US regime"() {
-        when: "add an cash asset"
-        def asset = new LocalAsset(type: "cash", id: "a1",currency: "GBP")
+    def "cash is in US class 1"() {
+        when: "add a cash asset"
+        def asset = new LocalAsset(type: "cash", id: "a1",currency:"USD")
         def agreement = new Agreement(id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
+
         def eligible = new Eligible()
         def regime = new Regime(name:"US")
         ksession.insert(asset)
@@ -38,24 +38,5 @@ class us_simpleclass_haircut_spec  extends Specification  {
         then: "then we get rules regime and class"
         eligible.classType == "US1"
         eligible.isEligible
-        eligible.haircut == 0
-    }
-    def "gold has haircut 0.15 in US regime"() {
-        when: "add an cash asset"
-        def asset = new LocalAsset(type: "gold", id: "a1")
-        def eligible = new Eligible()
-        def regime = new Regime(name:"US")
-        ksession.insert(asset)
-        ksession.insert(eligible)
-        ksession.insert(regime)
-
-        and: "we fire all rules"
-        ksession.fireAllRules()
-
-        then: "then we get rules regime and class"
-        eligible.isEligible
-        eligible.classType == "US10"
-
-        eligible.haircut == 0.15
     }
 }

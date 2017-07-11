@@ -6,7 +6,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import spock.lang.Specification
 
-class rule_eea_c_spec extends Specification {
+class rule_us_4_spec  extends Specification{
     String ksessionName = "EligibilityKS"
 
     KieSession ksession
@@ -20,23 +20,22 @@ class rule_eea_c_spec extends Specification {
         ruleLogger = LoggerFactory.getLogger(ksessionName)
         ksession.setGlobal("log", ruleLogger)
     }
-    def "is bond in EEA class c"() {
-        when: "add an bond asset"
-        def asset = new LocalAsset(type:"bond", id: "c1", datascopeAssetType:"GOVT", CQS:1,currency:"USD",maturityYears: 2)
+    def "a bond is in US class 4"() {
+        when: "add a bond asset"
+        def asset = new LocalAsset(type: "bond", id: "a1")
+        def issuer = new Issuer(name: "Republic of Singapore")
         def eligible = new Eligible()
-        def issuer = new Issuer(country: "Austria", domCurrency:"GBP")
-        def regime = new Regime(name:"EEA")
+        def regime = new Regime(name:"US")
         ksession.insert(asset)
+        ksession.insert(issuer)
         ksession.insert(eligible)
         ksession.insert(regime)
-        ksession.insert(issuer)
 
         and: "we fire all rules"
         ksession.fireAllRules()
 
         then: "then we get rules regime and class"
-        issuer.isMemberState
-        eligible.classType == "EEAc"
+        eligible.classType == "US4"
         eligible.isEligible
     }
 }
