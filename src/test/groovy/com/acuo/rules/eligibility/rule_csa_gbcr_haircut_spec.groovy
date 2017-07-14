@@ -22,9 +22,9 @@ class rule_csa_gbcr_haircut_spec  extends Specification {
         ksession.setGlobal("log", ruleLogger)
 
     }
-    def "a bond has haircut 0.075 in CSA fitch rules"() {
+    def "a bond has haircut 0.15 in CSA fitch rules"() {
         when: "add a bond asset"
-        def asset = new LocalAsset(id: "csa_fitch_govt",type: "bond",maturityYears: 9, fitchRating:"A+", datascopeAssetType: "GOVT")
+        def asset = new LocalAsset(currency: "USD", id: "csa_fitch_govt",type: "bond",maturityYears: 0.5, fitchRating:"F1+", datascopeAssetType: "GOVT")
         def issuer = new Issuer(country: "Australia")
         def eligible = new Eligible(classType: "")
         ksession.insert(asset)
@@ -35,6 +35,6 @@ class rule_csa_gbcr_haircut_spec  extends Specification {
         ksession.fireAllRules()
 
         then: "then we get rules regime and class"
-        eligible.haircut == 0.075
+        eligible.haircut == 0.15
     }
 }
