@@ -14,11 +14,13 @@ class LocalAsset {
     String ICADCode;
     String ticker;
     String fitchRating;
+    String moodyRating;
     String creditPrincipalCode;
     String convertibleTypeCode;
     String issuer;
     String index;
     String exchange;
+    String rateType;
     double maturityYears = -1;
     double setUsClassType;
     double parValue;
