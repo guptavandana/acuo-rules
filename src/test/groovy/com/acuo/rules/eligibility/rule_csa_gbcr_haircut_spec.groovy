@@ -25,7 +25,7 @@ class rule_csa_gbcr_haircut_spec  extends Specification {
     def "a bond has haircut 0.15 in CSA fitch rules"() {
         when: "add a bond asset"
         def asset = new LocalAsset(currency: "USD", id: "csa_fitch_govt",type: "bond",maturityYears: 0.5, fitchRating:"F1+", datascopeAssetType: "GOVT")
-        def issuer = new Issuer(country: "Australia")
+        def issuer = new Issuer(countryCode: "ASL")
         def eligible = new Eligible(classType: "")
         ksession.insert(asset)
         ksession.insert(issuer)
