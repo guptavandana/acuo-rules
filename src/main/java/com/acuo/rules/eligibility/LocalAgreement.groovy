@@ -10,4 +10,5 @@ class LocalAgreement {
     String settlementCurrency
     String id;
     String majorCurrency;
+    String baseCurrency;
 }

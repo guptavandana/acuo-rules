@@ -14,4 +14,9 @@ agenda-group "FitchHaircut"
 		$eligible.setHaircut(1- $secAR * $fxAR);
 		update($eligible);
 		System.out.println("fire rule-fitch-haircut-cmpt");
+<<<<<<< HEAD
 end
+=======
+end
+
+>>>>>>> dbf01e285c5eb0bd2f09c14c23a6c866ebb167b6
