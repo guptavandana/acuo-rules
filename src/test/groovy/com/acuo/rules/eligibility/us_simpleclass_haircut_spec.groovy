@@ -26,10 +26,12 @@ class us_simpleclass_haircut_spec  extends Specification  {
         def asset = new LocalAsset(type: "cash", id: "a1",currency: "GBP")
         def agreement = new LocalAgreement(id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
         def eligible = new Eligible()
+        def methods = new Methods()
         def regime = new Regime(name:"US")
         ksession.insert(asset)
         ksession.insert(agreement)
         ksession.insert(eligible)
+        ksession.insert(methods)
         ksession.insert(regime)
 
         and: "we fire all rules"

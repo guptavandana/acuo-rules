@@ -11,6 +11,7 @@ class Issuer {
     String domCurrency
     String ultimateParentLei
     String entityLei
+    String legalEntityType
     Boolean isMemberState = false
     Boolean isMultiDevBank = false
     Boolean isInterOrg = false

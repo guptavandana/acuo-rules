@@ -1,10 +1,7 @@
 package com.acuo.rules.eligibility
 
 import org.slf4j.Logger
-import java.util.List;
-import java.util.ArrayList;
-import java.io.*;
-import java.util.*;
+
 global Logger log;
 
 function boolean substrInStr(String substr,String str) {
@@ -13,8 +10,10 @@ function boolean substrInStr(String substr,String str) {
 
 rule "rule-us-class-1"
 	when
-		$asset : LocalAsset( type == "cash" )
-		$agreement: LocalAgreement(substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency )
+		$asset : LocalAsset( type == "cash",$currency:currency )
+		$agreement: LocalAgreement($majorCurrency:majorCurrency,$settlementCurrency:settlementCurrency)
+		$methods: Methods()
+		eval($methods.substrInStr($currency,$majorCurrency)||$currency==$settlementCurrency)
 		$eligible: Eligible()
 		$regime: Regime(name == "US")
 

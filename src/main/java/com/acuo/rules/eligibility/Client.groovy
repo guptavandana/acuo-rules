@@ -9,4 +9,5 @@ class Client {
     String entityLei
     String ultimateParentLei
     String ultimateParentName
+    String fitchRating;
 }

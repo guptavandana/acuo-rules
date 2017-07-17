@@ -20,12 +20,12 @@ function boolean ineeaexchange(String exchange)
 
     for(int i = 0; i < e.length; i++)
     {
-    System.out.println(flag);
-    System.out.println("_____________");
-    System.out.println("e:" + e[i]);
+    //System.out.println(flag);
+    //System.out.println("_____________");
+    //System.out.println("e:" + e[i]);
         for(int j = 0; j < bench.length; j++)
         {
-         System.out.println("bench"+j+":" + bench[j] +"  " + "e"+i +":"+ e[i]+ "   " + "Judge:"+(bench[j].toString()==e[i].toString()));
+         //System.out.println("bench"+j+":" + bench[j] +"  " + "e"+i +":"+ e[i]+ "   " + "Judge:"+(bench[j].toString()==e[i].toString()));
 	     if (bench[j].equals(e[i]))
          {
 		  flag = 1;

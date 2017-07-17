@@ -9,4 +9,5 @@ class Counterpart {
     String entityLei
     String ultimateParentLei
     String ultimateParentName
+    String fitchRating
 }

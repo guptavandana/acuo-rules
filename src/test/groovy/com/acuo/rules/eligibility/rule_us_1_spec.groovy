@@ -24,11 +24,12 @@ class rule_us_1_spec  extends Specification{
         when: "add a cash asset"
         def asset = new LocalAsset(type: "cash", id: "a1",currency:"USD")
         def agreement = new LocalAgreement(id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
-
         def eligible = new Eligible()
+        def methods = new Methods()
         def regime = new Regime(name:"US")
         ksession.insert(asset)
         ksession.insert(agreement)
+        ksession.insert(methods)
         ksession.insert(eligible)
         ksession.insert(regime)
 

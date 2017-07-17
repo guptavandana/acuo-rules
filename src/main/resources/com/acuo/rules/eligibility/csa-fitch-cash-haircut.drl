@@ -1,0 +1,24 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+
+global Logger log;
+
+rule "rule-fitch-cash-haircut"
+agenda-group "FitchHaircut"
+salience 200
+	when
+		$provider:HaircutProvider(name=="Fitch")
+		$asset:LocalAsset(type=="cash")
+		$agree:LocalAgreement()
+		$methods:Methods()
+		eval($methods.substrInStr($asset.getCurrency(),$agree.getEligibleCurrency()))
+		$eligible:Eligible()
+	then
+	    drools.getWorkingMemory().getAgenda().getAgendaGroup("FitchHaircut").clear();
+	    $eligible.setIsEligible(true);
+		$eligible.setFxHaircut(0);
+		$eligible.setHaircut(0);
+		update($eligible);
+		System.out.println("fire rule-fitch-cash-haircut");
+end
