@@ -52,4 +52,18 @@ class rule_csa_gbcr_haircut_spec  extends Specification {
         then: "then we get rules regime and class"
         eligible.haircut == 0.01
     }
+
+    def "a cash has haircut 0 in CSA fitch rules with ccy GBP"() {
+        when: "add a cash asset"
+        def asset = new LocalAsset(currency: "GBP", id: "csa_fitch_govt",type: "cash")
+        def eligible = new Eligible(classType: "")
+        ksession.insert(asset)
+        ksession.insert(eligible)
+
+        and: "we fire all rules"
+        ksession.fireAllRules()
+
+        then: "then we get rules regime and class"
+        eligible.haircut == 0
+    }
 }
