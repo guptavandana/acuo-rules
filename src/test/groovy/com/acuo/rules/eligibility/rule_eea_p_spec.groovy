@@ -36,6 +36,6 @@ class rule_eea_p_spec extends Specification {
         then: "then we get rules regime and class"
         eligible.classType == "EEAp"
         eligible.isEligible
-        asset.Haircut == 0.15
+        eligible.haircut == 0.15
     }
 }

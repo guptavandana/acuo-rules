@@ -26,7 +26,7 @@ class rule_eea_j_spec extends Specification {
         def asset = new LocalAsset(type: "bond", id: "j1", datascopeAssetType: "GOVT", CQS:1)
         def eligible = new Eligible()
         def regime = new Regime(name:"EEA")
-        def issuer = new Issuer(name:"China")
+        def issuer = new Issuer(countryCode: "CNA")
         ksession.insert(asset)
         ksession.insert(eligible)
         ksession.insert(regime)

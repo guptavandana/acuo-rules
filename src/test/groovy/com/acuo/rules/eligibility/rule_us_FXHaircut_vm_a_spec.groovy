@@ -26,14 +26,16 @@ class rule_us_FXHaircut_vm_a_spec extends Specification {
         def asset = new LocalAsset(type: "bond", id: "usvma", currency: "RMB")
         def agreement = new LocalAgreement(marginType:"Variation", id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
         def regime = new Regime(name: "US")
+        def eligible = new Eligible()
         ksession.insert(asset)
         ksession.insert(regime)
         ksession.insert(agreement)
+        ksession.insert(eligible)
 
         and: "we fire all rules"
         ksession.fireAllRules()
 
         then: "then we get rules regime and class"
-        asset.FXHaircut == 0.08
+        eligible.fxHaircut == 0.08
     }
 }

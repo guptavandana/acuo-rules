@@ -30,9 +30,8 @@
        		$eligible: Eligible(classType == "EEAp")
        	then
        		$eligible.setIsEligible( true );
-       		$asset.setHaircut( 0.15 );
+       		$eligible.setHaircut( 0.15 );
        		update($eligible)
-       		update($asset)
        end
 
 

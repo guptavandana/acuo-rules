@@ -27,14 +27,16 @@ class rule_eea_FXHaircut_im_spec extends Specification {
         def asset = new LocalAsset(currency: "SGD", id: "im")
         def agreement = new LocalAgreement(marginType: "Initial", terminateCurrency: "SGD")
         def regime = new Regime(name:"EEA")
+        def eligilbe = new Eligible()
         ksession.insert(asset)
         ksession.insert(regime)
         ksession.insert(agreement)
+        ksession.insert(eligilbe)
 
         and: "we fire all rules"
         ksession.fireAllRules()
 
         then: "then we get rules regime and class"
-        asset.FXHaircut == 0
+        eligilbe.fxHaircut == 0
     }
 }

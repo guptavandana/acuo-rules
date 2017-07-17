@@ -11,8 +11,9 @@ rule "us-FXHaircut-vm-a"
 		$asset: LocalAsset(type!= "cash")
 		$agreement: LocalAgreement(marginType == "Variation", !(substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency) )
 		$regime: Regime(name == "US")
+		$eligible: Eligible()
 	then
-		$asset.setFXHaircut( 0.08 );
-		update($asset)
+		$eligible.setFxHaircut( 0.08 );
+		update($eligible)
 end
 

@@ -10,10 +10,11 @@ rule "eea-FXHaircut-im"
 	when
 		$ag: LocalAgreement(marginType == "Initial")
 		$asset: LocalAsset(currency == $ag.terminateCurrency)
+		$eligible: Eligible()
 
 		$regime: Regime(name == "EEA")
 	then
-		$asset.setFXHaircut( 0 );
-		update($asset)
+		$eligible.setFxHaircut( 0 );
+		update($eligible)
 end
 

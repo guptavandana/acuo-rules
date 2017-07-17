@@ -29,7 +29,5 @@ class LocalAsset {
     double opptCost;
     double availableQuantities;
     double notional;
-    double FXHaircut;
-    double Haircut;
     boolean convertibleFlag;
 }
