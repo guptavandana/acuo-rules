@@ -13,6 +13,7 @@ salience -10
 	then
 		$eligible.setIsEligible(true);
 		$eligible.setFxHaircut(0);
+		$eligible.setValuationPercentage($secAR * $fxAR);
 		$eligible.setHaircut(1- $secAR * $fxAR);
 		update($eligible);
 		System.out.println("fire rule-fitch-haircut-cmpt");

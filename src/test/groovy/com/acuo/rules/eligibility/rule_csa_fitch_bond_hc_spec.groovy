@@ -44,6 +44,7 @@ class rule_csa_fitch_bond_hc_spec extends Specification {
         eligible.securityAR == 0.99
         eligible.FXAR == 0.86
         eligible.isEligible
+        Math.round(eligible.valuationPercentage*100000)/100000 == 0.99*0.86
         Math.round(eligible.haircut*100000)/100000 == 1-0.99*0.86
     }
 }
