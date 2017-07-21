@@ -4,5 +4,5 @@ import lombok.Data
 
 @Data
 class Regime {
-    String name;
+    String name = "Null";
 }

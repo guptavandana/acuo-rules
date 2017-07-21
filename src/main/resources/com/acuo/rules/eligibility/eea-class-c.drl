@@ -5,20 +5,15 @@ import org.slf4j.Logger
 global Logger log;
 
 rule "rule-eea-class-c"
-salience -50
+
 	when
 		$asset : LocalAsset(type == "bond" , datascopeAssetType == "GOVT")
 
 		$issuer: Issuer(isMemberState == true)
-		$regime: Regime(name == "EEA")
+		$provider: HaircutProvider(name == "EEA")
 		$eligible: Eligible()
 	then
-		log.info(
-                    "Rule: '{}', asset: '{}', issuer:'{}'",
-                    drools.getRule().getName(),
-                    $asset,
-                    $issuer
-                );
+
 		$eligible.setClassType( "EEAc" );
 		update($eligible)
 end
@@ -30,5 +25,6 @@ rule "rule-eea-eli-c"
 		$asset : LocalAsset( (currency!=$issuer.domCurrency) || ((currency==$issuer.domCurrency) && CQS in ( 1, 2, 3, 4 )) )
 	then
 		$eligible.setIsEligible( true );
-		update($eligible)
+		update($eligible);
+		System.out.println("fire rule-eea-eli-c");
 end

@@ -5,8 +5,8 @@ import org.slf4j.Logger
 global Logger log;
 
 rule "rule-fitch-haircut-cmpt"
-agenda-group "FitchHaircut"
-salience -10
+//agenda-group "FitchHaircut"
+//salience -10
 	when
 		$provider:HaircutProvider(name=="Fitch")
 		$eligible:Eligible($secAR: securityAR!=-1, $fxAR: FXAR!=-1)
@@ -19,4 +19,3 @@ salience -10
 		System.out.println("fire rule-fitch-haircut-cmpt");
 
 end
-

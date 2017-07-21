@@ -9,7 +9,7 @@ rule "rule-us-class-3"
 		$asset : LocalAsset( type == "bond" )
 		$issuer : Issuer(isUSGovtAgency)
 		$eligible: Eligible()
-		$regime: Regime(name == "US")
+		$provider: HaircutProvider(name == "US")
 
 	then
 	log.info(
@@ -29,5 +29,6 @@ rule "rule-us-eli-3"
 		$eligible: Eligible(classType == "US3")
 	then
 		$eligible.setIsEligible( true );
-		update($eligible)
+		update($eligible);
+		System.out.println("fire rule-US-eli-3");
 end

@@ -9,7 +9,7 @@ rule "rule-us-class-4"
 		$asset : LocalAsset( type == "bond" )
 		$issuer : Issuer(isEUCtrBank||isSovRWLess20)
 		$eligible: Eligible()
-		$regime: Regime(name == "US")
+		$provider: HaircutProvider(name == "US")
 
 	then
 	log.info(
@@ -34,5 +34,6 @@ rule "rule-us-eli-4"
                     $eligible
                 );
 		$eligible.setIsEligible( true );
-		update($eligible)
+		update($eligible);
+		System.out.println("fire rule-US-eli-4");
 end

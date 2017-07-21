@@ -21,16 +21,18 @@ class rule_eea_q_spec extends Specification {
         ruleLogger = LoggerFactory.getLogger(ksessionName)
         ksession.setGlobal("log", ruleLogger)
     }
-    def "is cash in EEA class q"() {
+    def "is equity in EEA class q"() {
         when: "add an equity asset"
         def asset = new LocalAsset(type: "equity", id: "q1",index: "S&P 500,asdf", exchange: "XPAR,asdf")
         def eligible = new Eligible()
-        def regime = new Regime(name:"EEA")
         def issuer = new Issuer(entityLei: "abc", ultimateParentLei: "123")
         def client = new Client(entityLei: "edf", ultimateParentLei: "456")
+        def provider = new HaircutProvider(name:"EEA")
+        def rulelist = new RuleList()
+        ksession.insert(rulelist)
+        ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(eligible)
-        ksession.insert(regime)
         ksession.insert(issuer)
         ksession.insert(client)
 
@@ -40,5 +42,6 @@ class rule_eea_q_spec extends Specification {
         then: "then we get rules regime and class"
         eligible.classType == "EEAq"
         eligible.isEligible
+        eligible.haircut == 0.15
     }
 }

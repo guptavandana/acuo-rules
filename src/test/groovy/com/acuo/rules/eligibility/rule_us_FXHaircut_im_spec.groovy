@@ -26,10 +26,12 @@ class rule_us_FXHaircut_im_spec extends Specification {
         when: "add an asset"
         def asset = new LocalAsset(currency: "SGD", id: "usim")
         def agreement = new LocalAgreement(marginType: "Initial",terminateCurrency: "SGD", settlementCurrency: "SGD")
-        def regime = new Regime(name:"US")
         def eligible = new Eligible()
+        def provider = new HaircutProvider(name:"US")
+        def rulelist = new RuleList()
+        ksession.insert(rulelist)
+        ksession.insert(provider)
         ksession.insert(asset)
-        ksession.insert(regime)
         ksession.insert(agreement)
         ksession.insert(eligible)
 

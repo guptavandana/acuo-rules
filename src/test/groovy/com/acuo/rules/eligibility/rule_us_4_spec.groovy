@@ -25,11 +25,14 @@ class rule_us_4_spec  extends Specification{
         def asset = new LocalAsset(type: "bond", id: "a1")
         def issuer = new Issuer(name: "Republic of Singapore")
         def eligible = new Eligible()
-        def regime = new Regime(name:"US")
+        def provider = new HaircutProvider(name:"US")
+        def rulelist = new RuleList()
+        ksession.insert(rulelist)
+        ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(issuer)
         ksession.insert(eligible)
-        ksession.insert(regime)
+
 
         and: "we fire all rules"
         ksession.fireAllRules()

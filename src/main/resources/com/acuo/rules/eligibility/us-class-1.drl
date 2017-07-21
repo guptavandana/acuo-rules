@@ -15,7 +15,7 @@ rule "rule-us-class-1"
 		$methods: Methods()
 		eval($methods.substrInStr($currency,$majorCurrency)||$currency==$settlementCurrency)
 		$eligible: Eligible()
-		$regime: Regime(name == "US")
+		$provider: HaircutProvider(name == "US")
 
 	then
 	log.info(
@@ -28,7 +28,7 @@ rule "rule-us-class-1"
 		update($eligible)
 end
 
-rule "rule-US-eli-a"
+rule "rule-US-eli-1"
 	when
 		$asset : LocalAsset( )
 		$eligible: Eligible(classType == "US1")
@@ -39,5 +39,6 @@ rule "rule-US-eli-a"
                     $asset
                 );
 		$eligible.setIsEligible( true );
-		update($eligible)
+		update($eligible);
+		System.out.println("fire rule-US-eli-1");
 end

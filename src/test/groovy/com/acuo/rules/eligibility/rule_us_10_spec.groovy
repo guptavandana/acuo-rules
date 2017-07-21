@@ -24,10 +24,13 @@ class rule_us_10_spec  extends Specification{
         when: "add a gold asset"
         def asset = new LocalAsset(type: "gold", id: "a1")
         def eligible = new Eligible()
-        def regime = new Regime(name:"US")
+        def provider = new HaircutProvider(name:"US")
+        def rulelist = new RuleList()
+        ksession.insert(rulelist)
+        ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(eligible)
-        ksession.insert(regime)
+
 
         and: "we fire all rules"
         ksession.fireAllRules()

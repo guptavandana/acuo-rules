@@ -24,11 +24,13 @@ class rule_eea_c_spec extends Specification {
         when: "add an bond asset"
         def asset = new LocalAsset(type:"bond", id: "c1", datascopeAssetType:"GOVT", CQS:1,currency:"USD",maturityYears: 2)
         def eligible = new Eligible()
-        def issuer = new Issuer(countryCode: "ASL", domCurrency:"GBP")
-        def regime = new Regime(name:"EEA")
+        def issuer = new Issuer(countryCode: "AU", domCurrency:"GBP")
+        def provider = new HaircutProvider(name:"EEA")
+        def rulelist = new RuleList()
+        ksession.insert(rulelist)
+        ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(eligible)
-        ksession.insert(regime)
         ksession.insert(issuer)
 
         and: "we fire all rules"

@@ -27,12 +27,14 @@ class us_simpleclass_haircut_spec  extends Specification  {
         def agreement = new LocalAgreement(id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
         def eligible = new Eligible()
         def methods = new Methods()
-        def regime = new Regime(name:"US")
+        def provider = new HaircutProvider(name:"US")
+        def rulelist = new RuleList()
+        ksession.insert(rulelist)
+        ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(agreement)
         ksession.insert(eligible)
         ksession.insert(methods)
-        ksession.insert(regime)
 
         and: "we fire all rules"
         ksession.fireAllRules()
@@ -43,13 +45,15 @@ class us_simpleclass_haircut_spec  extends Specification  {
         eligible.haircut == 0
     }
     def "gold has haircut 0.15 in US regime"() {
-        when: "add an cash asset"
+        when: "add an gold asset"
         def asset = new LocalAsset(type: "gold", id: "a1")
         def eligible = new Eligible()
-        def regime = new Regime(name:"US")
+        def provider = new HaircutProvider(name:"US")
+        def rulelist = new RuleList()
+        ksession.insert(rulelist)
         ksession.insert(asset)
         ksession.insert(eligible)
-        ksession.insert(regime)
+        ksession.insert(provider)
 
         and: "we fire all rules"
         ksession.fireAllRules()
@@ -57,7 +61,6 @@ class us_simpleclass_haircut_spec  extends Specification  {
         then: "then we get rules regime and class"
         eligible.isEligible
         eligible.classType == "US10"
-
         eligible.haircut == 0.15
     }
 }

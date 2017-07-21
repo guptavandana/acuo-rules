@@ -9,7 +9,7 @@ rule "rule-eea-class-h"
 	when
 		$asset : LocalAsset(type == "bond" )
 		$issuer: Issuer(isMultiDevBank == true)
-		$regime: Regime(name == "EEA")
+		$provider: HaircutProvider(name == "EEA")
 		$eligible: Eligible()
 	then
 		log.info(
@@ -28,5 +28,6 @@ rule "rule-eea-eli-h"
 		$eligible: Eligible(classType == "EEAh")
 	then
 		$eligible.setIsEligible( true );
-		update($eligible)
+		update($eligible);
+		System.out.println("fire rule-eea-eli-h");
 end

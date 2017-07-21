@@ -5,6 +5,6 @@ package com.acuo.rules.eligibility
  */
 class HaircutProvider {
 
-    String name;
+    String name = "Null";
 }
 

@@ -9,7 +9,7 @@ rule "rule-eea-class-n"
 	when
 		$asset : LocalAsset( type == "bond", datascopeAssetType == "CORP" )
 		$eligible: Eligible()
-		$regime: Regime(name == "EEA")
+		$provider: HaircutProvider(name == "EEA")
 
 	then
 	log.info(
@@ -30,5 +30,6 @@ rule "rule-eea-eli-n"
 		$eligible: Eligible(classType == "EEAn")
 	then
 		$eligible.setIsEligible( true );
-		update($eligible)
+		update($eligible);
+		System.out.println("fire rule-eea-eli-n");
 end

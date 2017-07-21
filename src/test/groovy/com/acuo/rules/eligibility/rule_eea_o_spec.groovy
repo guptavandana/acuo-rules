@@ -25,12 +25,14 @@ class rule_eea_o_spec extends Specification {
         when: "add an bond asset"
         def asset = new LocalAsset(type: "bond", id: "o1", creditPrincipalCode: "SR",CQS:1)
         def eligible = new Eligible()
-        def regime = new Regime(name:"EEA")
         def issuer = new Issuer(entityLei: "abc", ultimateParentLei: "123")
         def client = new Client(entityLei: "edf", ultimateParentLei: "456")
+        def provider = new HaircutProvider(name:"EEA")
+        def rulelist = new RuleList()
+        ksession.insert(rulelist)
+        ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(eligible)
-        ksession.insert(regime)
         ksession.insert(issuer)
         ksession.insert(client)
 

@@ -9,7 +9,7 @@ rule "rule-us-class-2"
 		$asset : LocalAsset( type == "bond" )
 		$issuer : Issuer(name=="UNITED STATES TREASURY")
 		$eligible: Eligible()
-		$regime: Regime(name == "US")
+		$provider: HaircutProvider(name == "US")
 
 	then
 	log.info(
@@ -29,5 +29,6 @@ rule "rule-us-eli-2"
 		$eligible: Eligible(classType == "US2")
 	then
 		$eligible.setIsEligible( true );
-		update($eligible)
+		update($eligible);
+		System.out.println("fire rule-US-eli-2");
 end

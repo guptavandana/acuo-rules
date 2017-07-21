@@ -10,7 +10,7 @@
        	when
        		$asset : LocalAsset( type == "bond" && convertibleFlag == true && convertibleTypeCode == "EI")
        		$eligible: Eligible()
-       		$regime: Regime(name == "EEA", ineeaMainIndex($asset.index), ineeaexchange($asset.exchange))
+       		$provider: HaircutProvider(name == "EEA", ineeaMainIndex($asset.index), ineeaexchange($asset.exchange))
 
        	then
        	log.info(
@@ -30,8 +30,8 @@
        		$eligible: Eligible(classType == "EEAp")
        	then
        		$eligible.setIsEligible( true );
-       		$eligible.setHaircut( 0.15 );
-       		update($eligible)
+       		update($eligible);
+       		System.out.println("fire rule-eea-eli-p");
        end
 
 

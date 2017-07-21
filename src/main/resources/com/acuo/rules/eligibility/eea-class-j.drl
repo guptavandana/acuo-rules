@@ -10,7 +10,7 @@ rule "rule-eea-class-j"
 		$asset : LocalAsset( type == "bond", datascopeAssetType == "GOVT" )
 		$eligible: Eligible()
 		$issuer: Issuer(isMemberState == false)
-		$regime: Regime(name == "EEA")
+		$provider: HaircutProvider(name == "EEA")
 
 	then
 	log.info(
@@ -29,5 +29,6 @@ rule "rule-eea-eli-j"
 		$eligible: Eligible(classType == "EEAj")
 	then
 		$eligible.setIsEligible( true );
-		update($eligible)
+		update($eligible);
+		System.out.println("fire rule-eea-eli-j");
 end

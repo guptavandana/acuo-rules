@@ -25,10 +25,12 @@ class rule_eea_p_spec extends Specification {
         when: "add an bond asset"
         def asset = new LocalAsset(type: "bond", id: "p1", convertibleFlag: true, convertibleTypeCode: "EI", index: "S&P 500,asdf", exchange:"asdf,XPAR")
         def eligible = new Eligible()
-        def regime = new Regime(name:"EEA")
+        def provider = new HaircutProvider(name:"EEA")
+        def rulelist = new RuleList()
+        ksession.insert(rulelist)
+        ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(eligible)
-        ksession.insert(regime)
 
         and: "we fire all rules"
         ksession.fireAllRules()

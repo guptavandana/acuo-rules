@@ -10,10 +10,11 @@ rule "eea-FXHaircut-vm-cash"
 	when
 		$asset: LocalAsset(type== "cash")
 		$ag: LocalAgreement(marginType == "Variation")
-		$regime: Regime(name == "EEA")
+		$provider: HaircutProvider(name == "EEA")
 		$eligible: Eligible()
 	then
 		$eligible.setFxHaircut( 0 );
-		update($eligible)
+		update($eligible);
+		System.out.println("fire eea-FXHaircut-vm-cash");
 end
 

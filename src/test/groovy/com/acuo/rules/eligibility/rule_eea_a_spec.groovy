@@ -24,10 +24,13 @@ class rule_eea_a_spec extends Specification {
         when: "add an cash asset"
         def asset = new LocalAsset(type: "cash", id: "a1")
         def eligible = new Eligible()
-        def regime = new Regime(name:"EEA")
+        def provider = new HaircutProvider(name:"EEA")
+        def rulelist = new RuleList()
+        ksession.insert(rulelist)
+        ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(eligible)
-        ksession.insert(regime)
+
 
         and: "we fire all rules"
         ksession.fireAllRules()

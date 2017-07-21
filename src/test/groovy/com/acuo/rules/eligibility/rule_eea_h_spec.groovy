@@ -25,11 +25,13 @@ class rule_eea_h_spec extends Specification {
         when: "add an bond asset"
         def asset = new LocalAsset(type: "bond", id: "h1")
         def eligible = new Eligible()
-        def regime = new Regime(name:"EEA")
         def issuer = new Issuer(name: "Nordic Investment Bank")
+        def provider = new HaircutProvider(name:"EEA")
+        def rulelist = new RuleList()
+        ksession.insert(rulelist)
+        ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(eligible)
-        ksession.insert(regime)
         ksession.insert(issuer)
 
         and: "we fire all rules"

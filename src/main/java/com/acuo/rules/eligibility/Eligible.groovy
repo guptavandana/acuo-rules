@@ -4,7 +4,7 @@ import lombok.Data
 
 @Data
 class Eligible {
-    String classType
+    String classType = "Null"
     boolean isEligible = false
     double haircut = -1
     double fxHaircut = -1

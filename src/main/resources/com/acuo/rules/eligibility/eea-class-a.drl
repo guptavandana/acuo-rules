@@ -8,7 +8,7 @@ rule "rule-eea-class-a"
 	when
 		$asset : LocalAsset( type == "cash" )
 		$eligible: Eligible()
-		$regime: Regime(name == "EEA")
+		$provider: HaircutProvider(name == "EEA")
 
 	then
 	log.info(
@@ -27,5 +27,7 @@ rule "rule-eea-eli-a"
 		$eligible: Eligible(classType == "EEAa")
 	then
 		$eligible.setIsEligible( true );
-		update($eligible)
+		update($eligible);
+		System.out.println("fire rule-eea-eli-a");
+
 end

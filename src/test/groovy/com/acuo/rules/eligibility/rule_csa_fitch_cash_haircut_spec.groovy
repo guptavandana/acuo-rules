@@ -29,6 +29,8 @@ class rule_csa_fitch_cash_haircut_spec extends Specification {
         def haircutProvider = new HaircutProvider(name: "Fitch")
         def methods = new Methods()
         def eligible = new Eligible()
+        def rulelist = new RuleList()
+        ksession.insert(rulelist)
         ksession.insert(asset)
         ksession.insert(agreement)
         ksession.insert(eligible)

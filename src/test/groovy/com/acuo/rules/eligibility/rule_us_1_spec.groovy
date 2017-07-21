@@ -26,12 +26,14 @@ class rule_us_1_spec  extends Specification{
         def agreement = new LocalAgreement(id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
         def eligible = new Eligible()
         def methods = new Methods()
-        def regime = new Regime(name:"US")
+        def provider = new HaircutProvider(name:"US")
+        def rulelist = new RuleList()
+        ksession.insert(rulelist)
+        ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(agreement)
         ksession.insert(methods)
         ksession.insert(eligible)
-        ksession.insert(regime)
 
         and: "we fire all rules"
         ksession.fireAllRules()

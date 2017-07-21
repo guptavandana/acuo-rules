@@ -9,7 +9,7 @@ rule "rule-us-class-6"
 		$asset : LocalAsset( type == "bond" )
 		$issuer : Issuer(isMultiDevBank)
 		$eligible: Eligible()
-		$regime: Regime(name == "US")
+		$provider: HaircutProvider(name == "US")
 
 	then
 	log.info(
@@ -29,5 +29,6 @@ rule "rule-us-eli-6"
 		$eligible: Eligible(classType == "US6")
 	then
 		$eligible.setIsEligible( true );
-		update($eligible)
+		update($eligible);
+		System.out.println("fire rule-US-eli-6");
 end

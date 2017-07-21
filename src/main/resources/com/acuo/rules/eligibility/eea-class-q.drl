@@ -8,7 +8,7 @@ global Logger log;
 rule "rule-eea-class-q"
 	when
 		$asset : LocalAsset(type == "equity")
-		$regime: Regime(name == "EEA",ineeaMainIndex($asset.index), ineeaexchange($asset.exchange))
+		$provider: HaircutProvider(name =="EEA",ineeaMainIndex($asset.index), ineeaexchange($asset.exchange))
 		$eligible: Eligible()
 
 
@@ -31,5 +31,7 @@ rule "rule-eea-eli-q"
 		$issuer: Issuer(entityLei != $c.entityLei && ultimateParentLei != $c.ultimateParentLei )
 	then
 		$eligible.setIsEligible( true );
-		update($eligible)
+		$eligible.setHaircut(0.15);
+		update($eligible);
+		System.out.println("fire rule-eea-eli-q");
 end

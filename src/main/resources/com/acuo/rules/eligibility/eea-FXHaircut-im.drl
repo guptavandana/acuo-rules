@@ -12,9 +12,10 @@ rule "eea-FXHaircut-im"
 		$asset: LocalAsset(currency == $ag.terminateCurrency)
 		$eligible: Eligible()
 
-		$regime: Regime(name == "EEA")
+		$provider: HaircutProvider(name == "EEA")
 	then
 		$eligible.setFxHaircut( 0 );
-		update($eligible)
+		update($eligible);
+		System.out.println("fire eea-FXHaircut-im");
 end
 

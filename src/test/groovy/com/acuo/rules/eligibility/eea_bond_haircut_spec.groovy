@@ -27,11 +27,11 @@ class eea_bond_haircut_spec  extends Specification {
         def asset = new LocalAsset(id: "a1",type: "bond",maturityYears: 3,CQS: 3)
         def issuer = new Issuer(name: "European Union")
         def eligible = new Eligible()
-        def regime = new Regime(name:"EEA")
+        def provider = new HaircutProvider(name:"EEA")
         ksession.insert(asset)
         ksession.insert(issuer)
         ksession.insert(eligible)
-        ksession.insert(regime)
+        ksession.insert(provider)
 
         and: "we fire all rules"
         ksession.fireAllRules()

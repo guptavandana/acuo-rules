@@ -7,7 +7,7 @@ global Logger log;
 rule "rule-us-class-8b"
 	when
 		$asset : LocalAsset( type == "equity")
-		$regime: Regime(name == "US",inusMainIndex($asset.index) == 1)
+		$provider: HaircutProvider(name == "US",inusMainIndex($asset.index) == 1)
 		$eligible: Eligible()
 
 
@@ -23,5 +23,6 @@ rule "rule-us-eli-8b"
 		$eligible: Eligible(classType == "US8b")
 	then
 		$eligible.setIsEligible( true );
-		update($eligible)
+		update($eligible);
+		System.out.println("fire rule-US-eli-8b");
 end

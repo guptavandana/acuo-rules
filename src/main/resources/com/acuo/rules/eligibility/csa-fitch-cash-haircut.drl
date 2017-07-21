@@ -5,8 +5,8 @@ import org.slf4j.Logger
 global Logger log;
 
 rule "rule-fitch-cash-haircut"
-agenda-group "FitchHaircut"
-salience 200
+//agenda-group "FitchHaircut"
+//salience 200
 	when
 		$provider:HaircutProvider(name=="Fitch")
 		$asset:LocalAsset(type=="cash")

@@ -27,10 +27,12 @@ class rule_us_8a_spec  extends Specification{
         when: "add a bond asset"
         def asset = new LocalAsset(type: "equity", id: "us8a", index: "S&P 1500,S&P 500")
         def eligible = new Eligible()
-        def regime = new Regime(name:"US")
+        def provider = new HaircutProvider(name:"US")
+        def rulelist = new RuleList()
+        ksession.insert(rulelist)
+        ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(eligible)
-        ksession.insert(regime)
 
         and: "we fire all rules"
         ksession.fireAllRules()

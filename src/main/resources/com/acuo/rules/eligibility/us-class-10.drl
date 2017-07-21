@@ -8,7 +8,7 @@ rule "rule-us-class-10"
 	when
 		$asset : LocalAsset( type == "gold" )
 		$eligible: Eligible()
-		$regime: Regime(name == "US")
+		$provider: HaircutProvider(name == "US")
 
 	then
 	log.info(
@@ -27,5 +27,6 @@ rule "rule-us-eli-10"
 		$eligible: Eligible(classType == "US10")
 	then
 		$eligible.setIsEligible( true );
-		update($eligible)
+		update($eligible);
+		System.out.println("fire rule-US-eli-10");
 end

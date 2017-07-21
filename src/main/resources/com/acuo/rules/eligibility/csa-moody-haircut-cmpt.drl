@@ -16,4 +16,3 @@ rule "rule-moody-haircut-cmpt"
 		System.out.println("fire rule-moody-haircut-cmpt");
 
 end
-

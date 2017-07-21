@@ -1,0 +1,168 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+import com.acuo.common.model.assets.*
+import java.lang.Number
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.io.*;
+import java.util.*;
+import java.util.UUID;
+
+global Logger log;
+//global java.util.ArrayList mylist;
+
+
+
+function String[] rule2list(String provider)
+{
+
+    String p[]=provider.split(",");
+    //System.out.println(r);
+
+    int length_p=p.length;
+    String[] c= new String[length_p+1];
+    for(int i = 0; i<length_p; i++)
+    {
+    c[i]=p[i];
+    }
+
+
+    //System.out.println(c[3]);
+    return c;
+}
+
+function int getLength(String a)
+{
+    String r[]=a.split(",");
+    return r.length;
+}
+
+function double[] addNode(double a[], double b)
+{
+    double[] c = new double[a.length+1];
+    for (int i=0; i<a.length; i++)
+    {
+    c[i] = a[i];
+    }
+    c[a.length]=b;
+    return c;
+}
+
+
+function double findMAX(double a[])
+{
+    double max = -1;
+    for (int i = 0; i < a.length; i++)
+    {
+    if (max < a[i])
+    {
+    max = a[i];
+    }
+    }
+    return max;
+}
+
+function int findMAXindex(double a[])
+{
+    double max = -1;
+    int b = -1;
+    for (int i = 0; i < a.length; i++)
+    {
+    if (max < a[i])
+    {
+    max = a[i];
+    b=i;
+    }
+    }
+    return b;
+}
+
+
+
+
+rule "rules-to-list-start"
+salience 100
+	when
+		$provider: HaircutProvider($providername: name != "Null")
+		$rulelist: RuleList(startSignal == 0)
+	then
+        $rulelist.setListname(rule2list($providername));
+        $rulelist.setStartSignal(1);
+        $rulelist.setListLength(rule2list($providername).length);
+        $rulelist.setLengthProvider(getLength($providername));
+        $rulelist.setListHaircut(new double[0]);
+        $provider.setName("Null");
+        update($provider);
+        update($rulelist);
+		System.out.println("fire rules-to-list-start");
+end
+
+rule "rules-to-list-provider-start"
+	when
+		$provider: HaircutProvider($providername: name == "Null")
+		$rulelist: RuleList(endSignal == 0, startSignal == 1, listIndex == -1, $lname: listname)
+	then
+        $provider.setName($lname[0]);
+        $rulelist.setListIndex(0);
+        update($provider);
+        update($rulelist);
+		System.out.println("fire rules-to-list-provider-start");
+end
+
+
+
+rule "rules-to-list-provider"
+
+	when
+	    $eligible: Eligible($hc: haircut !=-1)
+	    $rulelist: RuleList(endSignal == 0, startSignal == 1, $lindex: listIndex < listLength, $llength: listLength, $lname: listname, $lhaircut: listHaircut)
+	    $provider: HaircutProvider()
+	then
+
+        $rulelist.setListIndex($lindex+1);
+        $rulelist.setListHaircut(addNode($lhaircut, $hc));
+        $provider.setName($lname[$lindex+1]);
+        $eligible.setHaircut(-1);
+        $eligible.setValuationPercentage(-1);
+        //$eligible.setSecurityAR(-1);
+        //$eligible.setFXAR(-1);
+        $eligible.setIsEligible(false);
+        update($provider);
+        update($rulelist);
+        update($eligible);
+		System.out.println("fire rules-to-list-provider"+":"+$lname[$lindex]);
+		System.out.println($hc);
+		System.out.println($lindex==$llength);
+
+end
+
+
+
+
+rule "rules-to-list-final-haircut"
+
+    when
+        $rulelist: RuleList(listIndex == listLength-1, $lhaircut: listHaircut)
+        $eligible: Eligible()
+    then
+        $eligible.setHaircut(findMAX($lhaircut));
+        $eligible.setIsEligible(true);
+        $rulelist.setEndSignal(1);
+        update($rulelist);
+        update($eligible);
+        System.out.println("fire rules-to-list-final-haircut"+":"+findMAX($lhaircut));
+end
+
+rule "rules-to-list-final-provider"
+
+    when
+        $rulelist: RuleList(endSignal == 1, $lhaircut: listHaircut, $lname: listname)
+        $provider: HaircutProvider()
+    then
+        $provider.setName($lname[findMAXindex($lhaircut)]);
+        update($provider);
+        System.out.println("fire rules-to-list-final-provider"+":"+$lname[findMAXindex($lhaircut)]);
+end
+
