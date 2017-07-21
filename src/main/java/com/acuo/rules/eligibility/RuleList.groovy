@@ -6,6 +6,7 @@ package com.acuo.rules.eligibility
 class RuleList {
     String[] listname;
     double[] listHaircut;
+    double[] listFXHaircut;
     Integer startSignal = 0;
     Integer listLength = 0;
     Integer listIndex = -1;

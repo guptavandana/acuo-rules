@@ -64,19 +64,25 @@ function double findMAX(double a[])
     return max;
 }
 
-function int findMAXindex(double a[])
+function int findMAXindex(double a[], double d[])
 {
+    double c[]= new double[a.length];
     double max = -1;
-    int b = -1;
     for (int i = 0; i < a.length; i++)
     {
-    if (max < a[i])
+    c[i] = a[i] + d[i];
+    }
+    int index = -1;
+
+    for (int i = 0; i < a.length; i++)
     {
-    max = a[i];
-    b=i;
+    if (max < c[i])
+    {
+    max = c[i];
+    index=i;
     }
     }
-    return b;
+    return index;
 }
 
 
@@ -87,15 +93,19 @@ salience 100
 	when
 		$provider: HaircutProvider($providername: name != "Null")
 		$rulelist: RuleList(startSignal == 0)
+		$eligible: Eligible()
 	then
         $rulelist.setListname(rule2list($providername));
         $rulelist.setStartSignal(1);
         $rulelist.setListLength(rule2list($providername).length);
         $rulelist.setLengthProvider(getLength($providername));
         $rulelist.setListHaircut(new double[0]);
+        $rulelist.setListFXHaircut(new double[0]);
         $provider.setName("Null");
+        $eligible.setFxHaircut(0);
         update($provider);
         update($rulelist);
+        update($eligible);
 		System.out.println("fire rules-to-list-start");
 end
 
@@ -116,14 +126,16 @@ end
 rule "rules-to-list-provider"
 
 	when
-	    $eligible: Eligible($hc: haircut !=-1)
-	    $rulelist: RuleList(endSignal == 0, startSignal == 1, $lindex: listIndex < listLength, $llength: listLength, $lname: listname, $lhaircut: listHaircut)
+	    $eligible: Eligible($hc: haircut !=-1, $fc: fxHaircut)
+	    $rulelist: RuleList(endSignal == 0, startSignal == 1, $lindex: listIndex < listLength, $llength: listLength, $lname: listname, $lhaircut: listHaircut, $lfhaircut:listFXHaircut)
 	    $provider: HaircutProvider()
 	then
 
         $rulelist.setListIndex($lindex+1);
         $rulelist.setListHaircut(addNode($lhaircut, $hc));
+        $rulelist.setListFXHaircut(addNode($lfhaircut, $fc));
         $provider.setName($lname[$lindex+1]);
+        $eligible.setFxHaircut(0);
         $eligible.setHaircut(-1);
         $eligible.setValuationPercentage(-1);
         //$eligible.setSecurityAR(-1);
@@ -147,7 +159,6 @@ rule "rules-to-list-final-haircut"
         $rulelist: RuleList(listIndex == listLength-1, $lhaircut: listHaircut)
         $eligible: Eligible()
     then
-        $eligible.setHaircut(findMAX($lhaircut));
         $eligible.setIsEligible(true);
         $rulelist.setEndSignal(1);
         update($rulelist);
@@ -158,11 +169,15 @@ end
 rule "rules-to-list-final-provider"
 
     when
-        $rulelist: RuleList(endSignal == 1, $lhaircut: listHaircut, $lname: listname)
+        $rulelist: RuleList(endSignal == 1, $lhaircut: listHaircut, $lname: listname, $lfhaircut:listFXHaircut)
         $provider: HaircutProvider()
+        $eligible: Eligible()
     then
-        $provider.setName($lname[findMAXindex($lhaircut)]);
+        $provider.setName($lname[findMAXindex($lhaircut, $lfhaircut)]);
+        $eligible.setHaircut($lhaircut[findMAXindex($lhaircut, $lfhaircut)]);
+        $eligible.setFxHaircut($lfhaircut[findMAXindex($lhaircut, $lfhaircut)]);
         update($provider);
-        System.out.println("fire rules-to-list-final-provider"+":"+$lname[findMAXindex($lhaircut)]);
+        update($eligible);
+        System.out.println("fire rules-to-list-final-provider"+":"+$lname[findMAXindex($lhaircut, $lfhaircut)]);
 end
 
