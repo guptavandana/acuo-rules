@@ -3,6 +3,9 @@
          xmlns="http://jboss.org/kie/6.0.0/kmodule">
 
     <kbase name="HelloWorldKB" packages="com.acuo.rules.helloworld">
+        <ruleTemplate dtable="com/acuo/rules/helloworld/ExampleCheese.xls"
+                      template="com/acuo/rules/helloworld/Cheese.drt"
+                      row="2" col="2"/>
         <ksession name="HelloWorldKS"/>
     </kbase>
 
