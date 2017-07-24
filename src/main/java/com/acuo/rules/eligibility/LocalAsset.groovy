@@ -9,25 +9,25 @@ class LocalAsset {
     Integer CQS
     String datascopeAssetType
     String currency
-    String idType;
-    String name;
-    String ICADCode;
-    String ticker;
-    String fitchRating;
-    String moodyRating;
-    String creditPrincipalCode;
-    String convertibleTypeCode;
-    String issuer;
-    String index;
-    String exchange;
-    String rateType;
-    double maturityYears = -1;
-    double setUsClassType;
-    double parValue;
-    double minUnit;
-    double internalCost;
-    double opptCost;
-    double availableQuantities;
-    double notional;
-    boolean convertibleFlag;
+    String idType
+    String name
+    String ICADCode
+    String ticker
+    String fitchRating
+    String moodyRating
+    String creditPrincipalCode
+    String convertibleTypeCode
+    String issuer
+    String index
+    String exchange
+    String rateType
+    double maturityYears = -1
+    double setUsClassType
+    double parValue
+    double minUnit
+    double internalCost
+    double opptCost
+    double availableQuantities
+    double notional
+    Boolean convertibleFlag
 }

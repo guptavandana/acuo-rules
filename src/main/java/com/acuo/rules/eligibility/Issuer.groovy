@@ -15,7 +15,7 @@ class Issuer {
     Boolean isMemberState = false
     Boolean isMultiDevBank = false
     Boolean isInterOrg = false
-    boolean isUSGovtAgency = false
+    Boolean isUSGovtAgency = false
     Boolean isEUCtrBank = false
     Boolean isSovRWLess20 = false
 }

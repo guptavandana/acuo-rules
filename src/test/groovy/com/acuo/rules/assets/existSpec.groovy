@@ -27,7 +27,7 @@ class existSpec extends Specification {
         when: "add an asset"
         def asset1 = new Assets(assetId: "a1",type:"cash")
         def asset2 = new Assets(assetId: "a1",type:"bond")
-        def exist = new Exist()
+        def exist = new com.acuo.rules.assets.Exist()
         ksession.insert(asset1)
         ksession.insert(asset2)
         ksession.insert(exist)
@@ -42,7 +42,7 @@ class existSpec extends Specification {
         when: "add an asset"
         def asset1 = new Assets(assetId: "a1",type:"bond")
         def asset2 = new Assets(assetId: "a1",type:"bond")
-        def exist = new Exist()
+        def exist = new com.acuo.rules.assets.Exist()
         ksession.insert(asset1)
         ksession.insert(asset2)
         ksession.insert(exist)
