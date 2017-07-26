@@ -19,11 +19,15 @@ ext.versions += [
 sourceSets {
     main {
         java { srcDirs = [] }    // no source dirs for the java compiler
-        groovy { srcDir "src/main" }  // compile everything in src/ with groovy
+        groovy {
+            srcDir 'src/main/groovy'
+        }  // compile everything in src/ with groovy
     }
     test {
         java { srcDirs = [] }    // no source dirs for the java compiler
-        groovy { srcDir "src/test" }  // compile everything in src/ with groovy
+        groovy {
+            srcDir 'src/test/groovy'
+        }  // compile everything in src/ with groovy
     }
 }
 
@@ -41,4 +45,9 @@ dependencies {
     compile "org.kie:kie-api:${versions.drools}"
     compile "org.drools:drools-compiler:${versions.drools}"
     compile "org.drools:drools-decisiontables:${versions.drools}"
+
+    testCompile(
+            "com.acuo.collateral:acuo-common:${versions.common}:tests",
+            "org.spockframework:spock-guice:1.1-groovy-2.4"
+    )
 }

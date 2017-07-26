@@ -1,8 +1,8 @@
 package com.acuo.rules.eligibility
 
-import lombok.Data
+import groovy.transform.ToString
 
-@Data
+@ToString(includePackage=false, includeNames=true)
 class Eligible {
     String classType = "Null"
     boolean isEligible = false

@@ -1,8 +1,8 @@
 package com.acuo.rules.eligibility
 
-/**
- * Created by seanliu on 20/07/17.
- */
+import groovy.transform.ToString
+
+@ToString(includePackage=false, includeNames=true)
 class RuleList {
     String[] listname;
     double[] listHaircut;

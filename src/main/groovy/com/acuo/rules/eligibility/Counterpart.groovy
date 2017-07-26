@@ -1,13 +1,13 @@
 package com.acuo.rules.eligibility
 
-import lombok.Data;
+import groovy.transform.ToString
 
-@Data
-class Client {
+@ToString(includePackage=false, includeNames=true)
+class Counterpart {
     String lei
     String name
     String entityLei
     String ultimateParentLei
     String ultimateParentName
-    String fitchRating;
+    String fitchRating
 }
