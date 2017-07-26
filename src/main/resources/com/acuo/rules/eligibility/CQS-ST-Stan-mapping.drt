@@ -1,0 +1,25 @@
+template header
+fitchRatingST
+moodyRatingST
+snpRatingST
+CQS
+
+
+package com.acuo.rules.eligibility;
+
+global java.util.List list;
+
+template "CQS-ST-Stan-mapping"
+
+rule "CQS-ST-Stan-mapping @{row.rowNumber}"
+    when
+        $asset: LocalAsset(ratingMethod=="Standard" &&(fitchRating == "@{fitchRatingST}" ||moodyRating == "@{moodyRatingST}" || snpRating == "@{snpRatingST}"))
+    then
+        $asset.setCQS(@{CQS});
+        update($asset);
+        log.info("Rule: '{}', asset: '{}'",
+                        drools.getRule().getName(),
+                        $asset
+                    );
+end
+end template

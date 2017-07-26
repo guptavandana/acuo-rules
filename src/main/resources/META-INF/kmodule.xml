@@ -14,9 +14,24 @@
     </kbase>
 
     <kbase name="EligibilityKB" packages="com.acuo.rules.eligibility">
-        <ruleTemplate dtable="https://raw.githubusercontent.com/anaxo-io/acuo-rules/develop/src/main/resources/com/acuo/rules/eligibility/eea-simpleclass-haircut.drt"
-                      template="https://raw.githubusercontent.com/anaxo-io/acuo-rules/develop/src/main/resources/com/acuo/rules/eligibility/eea-simpleclass-haircut.drt"
+        <ruleTemplate dtable="com/acuo/rules/eligibility/csa-fitch-secAR-template.xls"
+                      template="com/acuo/rules/eligibility/csa-fitch-secAR.drt"
                       row="2" col="2"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/csa-fitch-fxAR-template.xls"
+                      template="com/acuo/rules/eligibility/csa-fitch-fxAR.drt"
+                      row="2" col="2"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/CQS-LT-Stan-mapping.xls"
+                      template="com/acuo/rules/eligibility/CQS-LT-Stan-mapping.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/CQS-ST-Stan-mapping.xls"
+                      template="com/acuo/rules/eligibility/CQS-ST-Stan-mapping.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/CQS-LT-IRB-mapping.xls"
+                      template="com/acuo/rules/eligibility/CQS-LT-IRB-mapping.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/CQS-ST-IRB-mapping.xls"
+                      template="com/acuo/rules/eligibility/CQS-ST-IRB-mapping.drt"
+                      row="2" col="1"/>
         <ksession name="EligibilityKS"/>
     </kbase>
 

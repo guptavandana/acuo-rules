@@ -1,0 +1,35 @@
+template header
+countryCode
+legalEntityType
+AssetType
+maturityLb
+maturityUb
+clientRating
+ctpyRating
+secAR
+print
+
+package com.acuo.rules.eligibility;
+
+global java.util.List list;
+
+template "fitch-secAR"
+
+rule "fitch-secAR @{row.rowNumber}"
+    when
+        HaircutProvider(name == "Fitch")
+        $rulelist: RuleList(fitchSecStop == 0)
+        Issuer(countryCode in (@{countryCode}) && legalEntityType in (@{legalEntityType}) )
+        LocalAsset(datascopeAssetType == "@{AssetType}" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && fitchRating in (@{clientRating}))
+
+        Counterpart(fitchRating in (@{ctpyRating}))
+        $eligible: Eligible()
+
+    then
+        $eligible.setSecurityAR(@{secAR});
+        $rulelist.setFitchSecStop(1);
+        update($eligible);
+        update($rulelist);
+        list.add("@{print}");
+end
+end template
