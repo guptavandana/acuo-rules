@@ -25,7 +25,7 @@ class EligibilityServiceSpec extends Specification {
         asset.setId("a1")
         Eligible eligible = new Eligible()
         HaircutProvider provider = new HaircutProvider()
-        provider.setName("name:EEA")
+        provider.setName("EEA")
         RuleList ruleList = new RuleList()
 
         service.fireRules(ImmutableList.of(asset, eligible, provider, ruleList))
