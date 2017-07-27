@@ -12,14 +12,9 @@ rule "rule-eea-class-n"
 		$provider: HaircutProvider(name == "EEA")
 
 	then
-	log.info(
-                "Rule: '{}', asset: '{}'",
-                drools.getRule().getName(),
-                $asset
-            );
-
 		$eligible.setClassType( "EEAn" );
 		update($eligible)
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
 rule "rule-eea-eli-n"
@@ -31,5 +26,5 @@ rule "rule-eea-eli-n"
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
-		System.out.println("fire rule-eea-eli-n");
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end

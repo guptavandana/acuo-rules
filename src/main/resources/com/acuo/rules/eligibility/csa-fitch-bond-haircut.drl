@@ -16,6 +16,5 @@ rule "rule-fitch-haircut-cmpt"
 		$eligible.setValuationPercentage($secAR * $fxAR);
 		$eligible.setHaircut(1- $secAR * $fxAR);
 		update($eligible);
-		System.out.println("fire rule-fitch-haircut-cmpt");
-
+        log.info("Rule: '{}'", drools.getRule().getName() );
 end

@@ -1,4 +1,5 @@
 template header
+ruleName
 countryCode
 legalEntityType
 AssetType
@@ -11,16 +12,14 @@ print
 
 package com.acuo.rules.eligibility;
 
-global java.util.List list;
-
 template "fitch-secAR"
 
-rule "fitch-secAR @{row.rowNumber}"
+rule "@{ruleName}"
     when
         HaircutProvider(name == "Fitch")
         $rulelist: RuleList(fitchSecStop == 0)
         Issuer(countryCode in (@{countryCode}) && legalEntityType in (@{legalEntityType}) )
-        LocalAsset(datascopeAssetType == "@{AssetType}" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && fitchRating in (@{clientRating}))
+        $asset:LocalAsset(datascopeAssetType == "@{AssetType}" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && fitchRating in (@{clientRating}))
 
         Counterpart(fitchRating in (@{ctpyRating}))
         $eligible: Eligible()
@@ -30,6 +29,6 @@ rule "fitch-secAR @{row.rowNumber}"
         $rulelist.setFitchSecStop(1);
         update($eligible);
         update($rulelist);
-        list.add("@{print}");
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 end template

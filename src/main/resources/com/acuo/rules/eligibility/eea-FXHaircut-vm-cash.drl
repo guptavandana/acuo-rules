@@ -14,7 +14,6 @@ rule "eea-FXHaircut-vm-cash"
 		$eligible: Eligible()
 	then
 		$eligible.setFxHaircut( 0 );
-		update($eligible);
-		System.out.println("fire eea-FXHaircut-vm-cash");
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 

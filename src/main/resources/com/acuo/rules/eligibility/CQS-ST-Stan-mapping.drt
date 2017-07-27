@@ -17,9 +17,6 @@ rule "CQS-ST-Stan-mapping @{row.rowNumber}"
     then
         $asset.setCQS(@{CQS});
         update($asset);
-        log.info("Rule: '{}', asset: '{}'",
-                        drools.getRule().getName(),
-                        $asset
-                    );
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 end template

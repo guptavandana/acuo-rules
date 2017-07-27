@@ -12,15 +12,10 @@ rule "rule-us-class-3"
 		$provider: HaircutProvider(name == "US")
 
 	then
-	log.info(
-                "Rule: '{}', asset: '{}', issuer:'{}'",
-                drools.getRule().getName(),
-                $asset,
-                $issuer
-            );
 
 		$eligible.setClassType( "US3" );
 		update($eligible)
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
 rule "rule-us-eli-3"
@@ -30,5 +25,5 @@ rule "rule-us-eli-3"
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
-		System.out.println("fire rule-US-eli-3");
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end

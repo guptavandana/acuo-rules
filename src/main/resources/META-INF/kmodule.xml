@@ -14,9 +14,27 @@
     </kbase>
 
     <kbase name="EligibilityKB" packages="com.acuo.rules.eligibility">
+        <ruleTemplate dtable="com/acuo/rules/eligibility/us-simpleclass-haircut-template.xls"
+                      template="com/acuo/rules/eligibility/us-simpleclass-haircut.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/eea-simpleclass-haircut-template.xls"
+                      template="com/acuo/rules/eligibility/eea-simpleclass-haircut.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/us-bond-haircut-template.xls"
+                      template="com/acuo/rules/eligibility/us-bond-haircut.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/eea-bond-haircut-template.xls"
+                      template="com/acuo/rules/eligibility/eea-bond-haircut.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/csa-moodys-haircut-template.xls"
+                      template="com/acuo/rules/eligibility/csa-moodys-haircut.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/csa-moodys-haircut-template-test.xls"
+                      template="com/acuo/rules/eligibility/csa-moodys-haircut-test.drt"
+                      row="2" col="1"/>
         <ruleTemplate dtable="com/acuo/rules/eligibility/csa-fitch-secAR-template.xls"
                       template="com/acuo/rules/eligibility/csa-fitch-secAR.drt"
-                      row="2" col="2"/>
+                      row="2" col="1"/>
         <ruleTemplate dtable="com/acuo/rules/eligibility/csa-fitch-fxAR-template.xls"
                       template="com/acuo/rules/eligibility/csa-fitch-fxAR.drt"
                       row="2" col="2"/>

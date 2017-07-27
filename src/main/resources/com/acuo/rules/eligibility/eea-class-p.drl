@@ -1,38 +1,33 @@
+package com.acuo.rules.eligibility
 
-       package com.acuo.rules.eligibility
+import org.slf4j.Logger
+import com.acuo.common.model.assets.*
 
-       import org.slf4j.Logger
-       import com.acuo.common.model.assets.*
+global Logger log;
 
-       global Logger log;
+rule "rule-eea-class-p"
+when
+    $asset : LocalAsset( type == "bond" && convertibleFlag == true && convertibleTypeCode == "EI")
+    $eligible: Eligible()
+    $provider: HaircutProvider(name == "EEA", ineeaMainIndex($asset.index), ineeaexchange($asset.exchange))
 
-       rule "rule-eea-class-p"
-       	when
-       		$asset : LocalAsset( type == "bond" && convertibleFlag == true && convertibleTypeCode == "EI")
-       		$eligible: Eligible()
-       		$provider: HaircutProvider(name == "EEA", ineeaMainIndex($asset.index), ineeaexchange($asset.exchange))
+then
 
-       	then
-       	log.info(
-                       "Rule: '{}', asset: '{}'",
-                       drools.getRule().getName(),
-                       $asset
-                   );
-
-       		$eligible.setClassType( "EEAp" );
-       		update($eligible)
-       end
+    $eligible.setClassType( "EEAp" );
+    update($eligible)
+    log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
 
 
-       rule "rule-eea-eli-p"
-       	when
-       		$asset : LocalAsset()
-       		$eligible: Eligible(classType == "EEAp")
-       	then
-       		$eligible.setIsEligible( true );
-       		update($eligible);
-       		System.out.println("fire rule-eea-eli-p");
-       end
+rule "rule-eea-eli-p"
+when
+    $asset : LocalAsset()
+    $eligible: Eligible(classType == "EEAp")
+then
+    $eligible.setIsEligible( true );
+    update($eligible);
+    log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
 
 
 

@@ -18,7 +18,8 @@ rule "rule-us-class-10"
             );
 
 		$eligible.setClassType( "US10" );
-		update($eligible)
+		update($eligible);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
 rule "rule-us-eli-10"
@@ -28,5 +29,5 @@ rule "rule-us-eli-10"
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
-		System.out.println("fire rule-US-eli-10");
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end

@@ -1,0 +1,27 @@
+template header
+currencyList
+ctpyRating
+fxAR
+
+package com.acuo.rules.eligibility;
+
+template "fitch-fxAR"
+
+rule "rule-fitch-fxAR-@{row.rowNumber}"
+    when
+        HaircutProvider(name == "Fitch")
+        $eligible: Eligible()
+        $rulelist: RuleList(fitchFxStop == 0)
+        $asset: LocalAsset(currency in (@{currencyList}))
+        LocalAgreement(baseCurrency!=$asset.getCurrency())
+        Counterpart(fitchRating in (@{ctpyRating}))
+
+    then
+        $eligible.setFXAR(@{fxAR});
+        $rulelist.setFitchFxStop(1);
+        update($eligible);
+        update($rulelist);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+
+end
+end template

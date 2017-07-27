@@ -13,14 +13,9 @@ rule "rule-eea-class-q"
 
 
 	then
-	log.info(
-                "Rule: '{}', asset: '{}'",
-                drools.getRule().getName(),
-                $asset
-            );
-
 		$eligible.setClassType( "EEAq" );
 		update($eligible)
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
 rule "rule-eea-eli-q"
@@ -33,5 +28,5 @@ rule "rule-eea-eli-q"
 		$eligible.setIsEligible( true );
 		$eligible.setHaircut(0.15);
 		update($eligible);
-		System.out.println("fire rule-eea-eli-q");
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end

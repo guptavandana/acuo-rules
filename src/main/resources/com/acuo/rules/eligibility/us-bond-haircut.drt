@@ -1,0 +1,22 @@
+template header
+ruleName
+maturityLb
+maturityUb
+classType
+haircut
+
+package com.acuo.rules.eligibility;
+
+template "us-bond-haircut"
+
+rule "@{ruleName}"
+    when
+        LocalAsset(type == "bond" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb})
+        $eligible: Eligible(classType in (@{classType}))
+
+    then
+        $eligible.setHaircut(@{haircut});
+        update($eligible);
+        log.info("Rule: '{}'", drools.getRule().getName());
+end
+end template

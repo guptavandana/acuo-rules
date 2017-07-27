@@ -16,6 +16,7 @@ rule "rule-eea-class-c"
 
 		$eligible.setClassType( "EEAc" );
 		update($eligible)
+		log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
 rule "rule-eea-eli-c"
@@ -26,5 +27,5 @@ rule "rule-eea-eli-c"
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
-		System.out.println("fire rule-eea-eli-c");
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end

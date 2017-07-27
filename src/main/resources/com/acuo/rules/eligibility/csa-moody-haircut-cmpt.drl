@@ -13,6 +13,6 @@ rule "rule-moody-haircut-cmpt"
 		$eligible.setFxHaircut(0);
 		$eligible.setHaircut(1- $vp);
 		update($eligible);
-		System.out.println("fire rule-moody-haircut-cmpt");
+        log.info("Rule: '{}'", drools.getRule().getName());
 
 end

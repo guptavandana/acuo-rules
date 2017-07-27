@@ -15,6 +15,6 @@ rule "eea-FXHaircut-im-a"
 	then
 		$eligible.setFxHaircut( 0.08 );
 		update($eligible);
-		System.out.println("fire eea-FXHaircut-im-a");
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 

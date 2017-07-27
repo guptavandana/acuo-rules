@@ -106,7 +106,7 @@ salience 100
         update($provider);
         update($rulelist);
         update($eligible);
-		System.out.println("fire rules-to-list-start");
+        log.info("Rule: '{}'", drools.getRule().getName() );
 end
 
 rule "rules-to-list-provider-start"
@@ -118,7 +118,7 @@ rule "rules-to-list-provider-start"
         $rulelist.setListIndex(0);
         update($provider);
         update($rulelist);
-		System.out.println("fire rules-to-list-provider-start");
+        log.info("Rule: '{}'", drools.getRule().getName() );
 end
 
 
@@ -144,10 +144,11 @@ rule "rules-to-list-provider"
         update($provider);
         update($rulelist);
         update($eligible);
-		System.out.println("fire rules-to-list-provider"+":"+$lname[$lindex]);
-		System.out.println($hc);
-		System.out.println($lindex==$llength);
+		//System.out.println("fire rules-to-list-provider"+":"+$lname[$lindex]);
+		//System.out.println($hc);
+		//System.out.println($lindex==$llength);
 
+        log.info("Rule: '{}',haircut:'{}',end:'{}'", drools.getRule().getName(),$hc, ($rulelist.getListIndex()==($llength-1)));
 end
 
 
@@ -163,7 +164,8 @@ rule "rules-to-list-final-haircut"
         $rulelist.setEndSignal(1);
         update($rulelist);
         update($eligible);
-        System.out.println("fire rules-to-list-final-haircut"+":"+findMAX($lhaircut));
+        //System.out.println("fire rules-to-list-final-haircut"+":"+findMAX($lhaircut));
+        log.info("Rule: '{}',haircut:'{}'", drools.getRule().getName() ,findMAX($lhaircut));
 end
 
 rule "rules-to-list-final-provider"
@@ -173,11 +175,14 @@ rule "rules-to-list-final-provider"
         $provider: HaircutProvider()
         $eligible: Eligible()
     then
-        $provider.setName($lname[findMAXindex($lhaircut, $lfhaircut)]);
+        $provider.setName("");
+        $rulelist.setProvider($lname[findMAXindex($lhaircut, $lfhaircut)]);
         $eligible.setHaircut($lhaircut[findMAXindex($lhaircut, $lfhaircut)]);
         $eligible.setFxHaircut($lfhaircut[findMAXindex($lhaircut, $lfhaircut)]);
         update($provider);
         update($eligible);
-        System.out.println("fire rules-to-list-final-provider"+":"+$lname[findMAXindex($lhaircut, $lfhaircut)]);
+        update($rulelist);
+        log.info("Rule: '{}',provider:'{}'", drools.getRule().getName(), $lname[findMAXindex($lhaircut, $lfhaircut)]);
+        //System.out.println("fire rules-to-list-final-provider"+":"+$lname[findMAXindex($lhaircut, $lfhaircut)]);
 end
 

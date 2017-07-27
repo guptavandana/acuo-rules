@@ -51,7 +51,8 @@ class function_rule2list_test extends Specification  {
         then: "then we get rules regime and class"
         //regime.name == "US"
         //rulelist.listFXHaircut == 0
-        provider.name == "Fitch"
+        //provider.name == "Fitch"
+        rulelist.provider == "Fitch"
         eligible.isEligible == true
         Math.round(eligible.haircut*100000)/100000 == 1-0.99*0.86
         eligible.fxHaircut == 0

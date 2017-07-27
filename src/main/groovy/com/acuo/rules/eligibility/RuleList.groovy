@@ -15,4 +15,5 @@ class RuleList {
     Integer fitchFxStop = 0;
     Integer fitchSecStop = 0;
     Integer endSignal = 0;
+    String provider;
 }
