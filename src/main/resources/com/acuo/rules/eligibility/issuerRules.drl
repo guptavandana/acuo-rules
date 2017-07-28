@@ -1,0 +1,162 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+
+global Logger log;
+
+rule "issuerInEuCtrBank"
+	when
+		$issuer : Issuer(name in ("European Union",
+                                  "European Financial Stability Facility S.A.",
+                                  "European Stability Mechanism"));
+	then
+		$issuer.setIsEUCtrBank( true );
+		update($issuer);
+        log.info("Rule: '{}'", drools.getRule().getName());
+end
+rule "issuerInInternationalOrgs"
+	when
+		$issuer : Issuer(name in ("European Union",
+                                  "INTERNATIONAL MONETARY FUND",
+                                  "Bank for International Settlements",
+                                  "European Financial Stability Facility S.A.",
+                                  "European Stability Mechanism"));
+	then
+		$issuer.setIsInterOrg( true );
+		update($issuer);
+        log.info("Rule: '{}'", drools.getRule().getName());
+end
+
+rule "issuerInMemberStates"
+	when
+		$issuer : Issuer(countryCode in ("AU","BE","BG","HR","CY",
+                                  "CZ","DK","EE","FI","FR",
+                                  "DE","GR","HU","IE","IT",
+                                  "LV","LT","LU","MT","NL",
+                                  "PL","PT","RO","SK","SI",
+                                  "ES","SE","GB"));
+	then
+		$issuer.setIsMemberState( true );
+		update($issuer);
+        log.info("Rule: '{}'", drools.getRule().getName());
+end
+
+
+rule "issuerInMultiDevBank"
+	when
+		$issuer : Issuer(name in ("Nordic Investment Bank",
+                                  "International Bank for Reconstruction and Development",
+                                  "INTERNATIONAL FINANCE CORPORATION",
+                                  "Inter-American Development Bank",
+                                  "Asian Development Bank",
+                                  "African Development Bank",
+                                  "COUNCIL OF EUROPE DEVELOPMENT BANK",
+                                  "Caribbean Development Bank",
+                                  "European Bank for Reconstruction and Development",
+                                  "European Investment Bank",
+                                  "European Investment Fund",
+                                  "Multilateral Investment Guarantee Agency",
+                                  "INTERNATIONAL FINANCE FACILITY FOR IMMUNISATION COMPANY",
+                                  "Islamic Development Bank"));
+	then
+		$issuer.setIsMultiDevBank( true );
+		update($issuer);
+        log.info("Rule: '{}'", drools.getRule().getName());
+end
+
+rule "issuerInSovLess20RW"
+	when
+		$issuer : Issuer(name in ( "Commonwealth of Australia",
+                                  "Republic of Austria",
+                                  "Kingdom of Belgium",
+                                  "Canada",
+                                  "Republic of Chile",
+                                  "People's Republic of China[k]",
+                                  "Kingdom of Denmark",
+                                  "Republic of Estonia",
+                                  "Republic of Finland",
+                                  "French Republic",
+                                  "Federal Republic of Germany",
+                                  "State of Israel",
+                                  "Japan",
+                                  "Ireland",
+                                  "State of Kuwait",
+                                  "Republic of Latvia",
+                                  "Grand Duchy of Luxembourg",
+                                  "Malaysia",
+                                  "Republic of Malta",
+                                  "Kingdom of the Netherlands",
+                                  "NewZealand",
+                                  "Kingdom of Norway",
+                                  "Republic of Poland",
+                                  "Kingdom of Saudi Arabia",
+                                  "Republic of Singapore",
+                                  "Slovak Republic",
+                                  "Republic of Slovenia",
+                                  "Kingdom of Sweden",
+                                  "Swiss Confederation",
+                                  "Syrian Arab Republic",
+                                  "United Kingdom of Great Britain and Northern Ireland"));
+	then
+		$issuer.setIsSovRWLess20( true );
+		update($issuer);
+        log.info("Rule: '{}'", drools.getRule().getName());
+end
+
+
+rule "issuerInUsGovAgency"
+	when
+		$issuer : Issuer(name in ("Department of the Navy",
+                                  "Department of the Army",
+                                  "Department of the Air Force",
+                                  "Corps of Engineers, Civil",
+                                  "Other Defense Agencies",
+                                  "Total Defense",
+                                  "Department of Agriculture",
+                                  "Department of Commerce",
+                                  "Department of the Interior",
+                                  "Department of State",
+                                  "Department of the Treasury",
+                                  "Office of Personnel Management",
+                                  "Smithsonian Institution",
+                                  "Department of Veterans Affairs",
+                                  "General Services Administration",
+                                  "National Science Foundation",
+                                  "Environmental Protection Agency",
+                                  "Department of Transportation",
+                                  "Department of Homeland Security",
+                                  "Dept of Health and Human Services",
+                                  "National Aeronautics and Space Administration",
+                                  "National Archives and Records Administration",
+                                  "Department of Energy",
+                                  "Army and Air Force Exchange Service",
+                                  "US Virgin Islands",
+                                  "Administration on Aging",
+                                  "Administration for Children and Families",
+                                  "Administrative Committee of the Federal Register",
+                                  "Administrative Office of the U.S. Courts",
+                                  "Advisory Council on Historic Preservation",
+                                  "African Development Foundation",
+                                  "Agency for Healthcare Research and Quality ",
+                                  "Agency for International Development",
+                                  "Agency for Toxic Substances and Disease Registry",
+                                  "Agricultural Marketing Service",
+                                  "Agricultural Research Service",
+                                  "Agriculture Department",
+                                  "Arctic Research Commission",
+                                  "Armed Forces Retirement Home",
+                                  "Arms Control and International Security",
+                                  "Army",
+                                  "Army Corps of Engineers",
+                                  "Arthritis and Musculoskeletal Interagency Coordinating Committee",
+                                  "Bankruptcy Courts",
+                                  "Barry M. Goldwater Scholarship and Excellence in Education Foundation",
+                                  "Bilingual Education and Minority Languages Affairs Office",
+                                  "Botanic Garden"));
+	then
+		$issuer.setIsUSGovtAgency( true );
+		update($issuer);
+        log.info("Rule: '{}'", drools.getRule().getName());
+end
+
+
