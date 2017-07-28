@@ -17,6 +17,6 @@ rule "@{ruleName}"
     then
         $eligible.setHaircut(@{haircut});
         update($eligible);
-        log.info("Rule: '{}'", drools.getRule().getName());
+        System.out.println("fire "+ drools.getRule().getName());
 end
 end template
