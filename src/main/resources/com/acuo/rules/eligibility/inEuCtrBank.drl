@@ -1,0 +1,16 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+
+global Logger log;
+
+rule "issuerInEuCtrBank"
+	when
+		$issuer : Issuer(name in ("European Union",
+                                  "European Financial Stability Facility S.A.",
+                                  "European Stability Mechanism"));
+	then
+		$issuer.setIsEUCtrBank( true );
+		update($issuer);
+        log.info("Rule: '{}'", drools.getRule().getName());
+end

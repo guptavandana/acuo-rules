@@ -98,7 +98,7 @@ rule "rule-us-class-4"
 
 		$eligible.setClassType( "US4" );
 		update($eligible);
-        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+        log.info("Rule: '{}', asset: '{}',issuer:'{}'", drools.getRule().getName(), $asset, $issuer );
 end
 
 rule "rule-us-eli-4"

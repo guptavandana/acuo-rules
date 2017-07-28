@@ -1,0 +1,18 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+
+global Logger log;
+
+rule "issuerInInternationalOrgs"
+	when
+		$issuer : Issuer(name in ("European Union",
+                                  "INTERNATIONAL MONETARY FUND",
+                                  "Bank for International Settlements",
+                                  "European Financial Stability Facility S.A.",
+                                  "European Stability Mechanism"));
+	then
+		$issuer.setIsInterOrg( true );
+		update($issuer);
+        log.info("Rule: '{}'", drools.getRule().getName());
+end

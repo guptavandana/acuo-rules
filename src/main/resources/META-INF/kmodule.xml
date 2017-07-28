@@ -29,6 +29,9 @@
         <ruleTemplate dtable="com/acuo/rules/eligibility/csa-moodys-haircut-template.xls"
                       template="com/acuo/rules/eligibility/csa-moodys-haircut.drt"
                       row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/csa-moodys-haircut-template-test.xls"
+                      template="com/acuo/rules/eligibility/csa-moodys-haircut-test.drt"
+                      row="2" col="1"/>
         <ruleTemplate dtable="com/acuo/rules/eligibility/csa-fitch-secAR-template.xls"
                       template="com/acuo/rules/eligibility/csa-fitch-secAR.drt"
                       row="2" col="1"/>

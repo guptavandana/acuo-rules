@@ -1,0 +1,60 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+
+global Logger log;
+
+rule "issuerInUsGovAgency"
+	when
+		$issuer : Issuer(name in ("Department of the Navy",
+                                  "Department of the Army",
+                                  "Department of the Air Force",
+                                  "Corps of Engineers, Civil",
+                                  "Other Defense Agencies",
+                                  "Total Defense",
+                                  "Department of Agriculture",
+                                  "Department of Commerce",
+                                  "Department of the Interior",
+                                  "Department of State",
+                                  "Department of the Treasury",
+                                  "Office of Personnel Management",
+                                  "Smithsonian Institution",
+                                  "Department of Veterans Affairs",
+                                  "General Services Administration",
+                                  "National Science Foundation",
+                                  "Environmental Protection Agency",
+                                  "Department of Transportation",
+                                  "Department of Homeland Security",
+                                  "Dept of Health and Human Services",
+                                  "National Aeronautics and Space Administration",
+                                  "National Archives and Records Administration",
+                                  "Department of Energy",
+                                  "Army and Air Force Exchange Service",
+                                  "US Virgin Islands",
+                                  "Administration on Aging",
+                                  "Administration for Children and Families",
+                                  "Administrative Committee of the Federal Register",
+                                  "Administrative Office of the U.S. Courts",
+                                  "Advisory Council on Historic Preservation",
+                                  "African Development Foundation",
+                                  "Agency for Healthcare Research and Quality ",
+                                  "Agency for International Development",
+                                  "Agency for Toxic Substances and Disease Registry",
+                                  "Agricultural Marketing Service",
+                                  "Agricultural Research Service",
+                                  "Agriculture Department",
+                                  "Arctic Research Commission",
+                                  "Armed Forces Retirement Home",
+                                  "Arms Control and International Security",
+                                  "Army",
+                                  "Army Corps of Engineers",
+                                  "Arthritis and Musculoskeletal Interagency Coordinating Committee",
+                                  "Bankruptcy Courts",
+                                  "Barry M. Goldwater Scholarship and Excellence in Education Foundation",
+                                  "Bilingual Education and Minority Languages Affairs Office",
+                                  "Botanic Garden"));
+	then
+		$issuer.setIsUSGovtAgency( true );
+		update($issuer);
+        log.info("Rule: '{}'", drools.getRule().getName());
+end
