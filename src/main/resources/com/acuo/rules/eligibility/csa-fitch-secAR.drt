@@ -32,3 +32,4 @@ rule "@{ruleName}"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 end template
+

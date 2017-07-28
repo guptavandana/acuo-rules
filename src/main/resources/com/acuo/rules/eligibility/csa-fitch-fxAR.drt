@@ -25,3 +25,20 @@ rule "rule-fitch-fxAR-@{row.rowNumber}"
 
 end
 end template
+
+rule "rule-fitch-fxAR-0"
+    when
+        HaircutProvider(name == "Fitch")
+        $eligible: Eligible()
+        $rulelist: RuleList(fitchFxStop == 0)
+        $asset: LocalAsset()
+        LocalAgreement(baseCurrency==$asset.getCurrency())
+
+    then
+        $eligible.setFXAR(1);
+        $rulelist.setFitchFxStop(1);
+        update($eligible);
+        update($rulelist);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+
+end
