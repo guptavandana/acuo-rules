@@ -50,8 +50,13 @@
         <ruleTemplate dtable="com/acuo/rules/eligibility/CQS-ST-IRB-mapping.xls"
                       template="com/acuo/rules/eligibility/CQS-ST-IRB-mapping.drt"
                       row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/countryCurrency-map.xls"
+                      template="com/acuo/rules/eligibility/countryCurrency-map.drt"
+                      row="2" col="1"/>
         <ksession name="EligibilityKS"/>
     </kbase>
 
-
+    <kbase name="MarginRulesKB" packages="com.acuo.rules.marginRules">
+        <ksession name="MarginRulesKS"/>
+    </kbase>
 </kmodule>
