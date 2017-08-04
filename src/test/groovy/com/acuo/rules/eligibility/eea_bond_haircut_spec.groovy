@@ -24,7 +24,7 @@ class eea_bond_haircut_spec  extends Specification {
     def "a bond has haircut 0.03 in EEA regime"() {
         when: "add a bond asset"
         def asset = new LocalAsset(id: "a1",type: "bond",maturityYears: 3,CQS: 3)
-        def issuer = new Issuer(name: "European Union")
+        def issuer = new Issuer(countryCode: "FR" , sector:"SPRA")
         def eligible = new Eligible()
         def provider = new HaircutProvider(name:"EEA")
         ksession.insert(asset)
@@ -36,7 +36,7 @@ class eea_bond_haircut_spec  extends Specification {
         ksession.fireAllRules()
 
         then: "then we get rules regime and class"
-        eligible.classType == "EEAi"
+        eligible.classType == "EEAhi"
         eligible.isEligible
         eligible.haircut == 0.03
     }

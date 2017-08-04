@@ -23,7 +23,7 @@ class rule_csa_fitch_securityAR_spec extends Specification{
     def "An Australian Bond will be applied 0.99 security AR."() {
         when: "add a bond asset"
         def asset = new LocalAsset(type: "bond", id: "a1",currency:"AUD",maturityYears: 0.5,fitchRating: "AAA",datascopeAssetType: "GOVT")
-        def issuer = new Issuer(countryCode: "AU",legalEntityType: "GVT")
+        def issuer = new Issuer(countryCode: "AU",sector: "SOVERGRN")
         def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP")
         def haircutProvider = new HaircutProvider(name: "Fitch")
         def counterpart = new Counterpart(fitchRating: "AA")
@@ -47,7 +47,7 @@ class rule_csa_fitch_securityAR_spec extends Specification{
     def "A US Bond will be applied 0.98 security AR."() {
         when: "add a bond asset"
         def asset = new LocalAsset(type: "bond", id: "a1",currency:"USD",maturityYears: 0.5,fitchRating: "AAA",datascopeAssetType: "GOVT")
-        def issuer = new Issuer(countryCode: "US",legalEntityType: "GVT")
+        def issuer = new Issuer(countryCode: "US",sector: "SOVERGRN")
         def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP")
         def haircutProvider = new HaircutProvider(name: "Fitch")
         def counterpart = new Counterpart(fitchRating: "BB")

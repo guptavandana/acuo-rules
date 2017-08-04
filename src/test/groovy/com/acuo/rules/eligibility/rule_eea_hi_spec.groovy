@@ -6,7 +6,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import spock.lang.Specification
 
-class rule_eea_h_spec extends Specification {
+class rule_eea_hi_spec extends Specification {
     String ksessionName = "EligibilityKS"
 
     KieSession ksession
@@ -20,11 +20,11 @@ class rule_eea_h_spec extends Specification {
         ruleLogger = LoggerFactory.getLogger(ksessionName)
         ksession.setGlobal("log", ruleLogger)
     }
-    def "is cash in EEA class hi"() {
+    def "is a bond in EEA class hi"() {
         when: "add an bond asset"
         def asset = new LocalAsset(type: "bond", id: "h1")
         def eligible = new Eligible()
-        def issuer = new Issuer(countryCode: "AU",sector:"SPRA")
+        def issuer = new Issuer(sector:"SPRA")
         def provider = new HaircutProvider(name:"EEA")
         def rulelist = new RuleList()
         ksession.insert(rulelist)

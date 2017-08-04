@@ -1,7 +1,7 @@
 template header
 ruleName
 countryCode
-legalEntityType
+sector
 AssetType
 maturityLb
 maturityUb
@@ -18,7 +18,7 @@ rule "@{ruleName}"
     when
         HaircutProvider(name == "Fitch")
         $rulelist: RuleList(fitchSecStop == 0)
-        Issuer(countryCode in (@{countryCode}) && legalEntityType in (@{legalEntityType}) )
+        Issuer(countryCode in (@{countryCode}) && sector in (@{sector}) )
         $asset:LocalAsset(datascopeAssetType == "@{AssetType}" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && fitchRating in (@{clientRating}))
 
         Counterpart(fitchRating in (@{ctpyRating}))

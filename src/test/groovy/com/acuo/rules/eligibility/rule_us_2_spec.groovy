@@ -23,7 +23,7 @@ class rule_us_2_spec  extends Specification{
     def "a bond is in US class 2"() {
         when: "add a bond asset"
         def asset = new LocalAsset(type: "bond", id: "a1")
-        def issuer = new Issuer(name: "UNITED STATES TREASURY")
+        def issuer = new Issuer(countryCode: "US" , sector:"SOVERGRN")
         def eligible = new Eligible()
         def provider = new HaircutProvider(name:"US")
         def rulelist = new RuleList()

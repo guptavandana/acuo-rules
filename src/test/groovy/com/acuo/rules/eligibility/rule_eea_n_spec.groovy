@@ -20,20 +20,16 @@ class rule_eea_n_spec extends Specification {
         ruleLogger = LoggerFactory.getLogger(ksessionName)
         ksession.setGlobal("log", ruleLogger)
     }
-    def "is cash in EEA class n"() {
-        when: "add an bond asset"
+    def "is a bond in EEA class n"() {
+        when: "add a bond asset"
         def asset = new LocalAsset(type: "bond", id: "n1", datascopeAssetType: "CORP",CQS:1)
         def eligible = new Eligible()
-        def issuer = new Issuer(entityLei: "abc", ultimateParentLei: "123")
-        def client = new Client(entityLei: "edf", ultimateParentLei: "456")
         def provider = new HaircutProvider(name:"EEA")
         def rulelist = new RuleList()
         ksession.insert(rulelist)
         ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(eligible)
-        ksession.insert(issuer)
-        ksession.insert(client)
 
         and: "we fire all rules"
         ksession.fireAllRules()

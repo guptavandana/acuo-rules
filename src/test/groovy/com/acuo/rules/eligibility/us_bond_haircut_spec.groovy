@@ -24,7 +24,7 @@ class us_bond_haircut_spec  extends Specification{
     def "a bond has haircut 0.02 in US regime"() {
         when: "add a bond asset"
         def asset = new LocalAsset(id: "a1",type: "bond",maturityYears: 3)
-        def issuer = new Issuer(name: "UNITED STATES TREASURY")
+        def issuer = new Issuer(countryCode: "US",sector:"SOVERGRN")
         def eligible = new Eligible()
         def provider = new HaircutProvider(name:"US")
         def rulelist = new RuleList()

@@ -1,0 +1,20 @@
+template header
+ruleName
+countryCode
+domCurrency
+
+package com.acuo.rules.eligibility;
+
+global java.util.List list;
+
+template "countryCurrency"
+
+rule "@{ruleName}"
+    when
+        $issuer: Issuer(countryCode=="@{countryCode}")
+    then
+        $issuer.setDomCurrency("@{domCurrency}");
+        update($issuer);
+        log.info("Rule: '{}', issuer: '{}'", drools.getRule().getName(), $issuer );
+end
+end template

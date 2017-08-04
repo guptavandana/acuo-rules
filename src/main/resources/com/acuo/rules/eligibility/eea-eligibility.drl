@@ -69,54 +69,31 @@ rule "rule-eea-eli-c"
 	when
 		$issuer: Issuer()
 		$eligible: Eligible(classType == "EEAc")
-		$asset : LocalAsset( (currency!=$issuer.domCurrency) || ((currency==$issuer.domCurrency) && CQS in ( 1, 2, 3, 4 )) )
+		//$asset : LocalAsset( (currency!=$issuer.domCurrency && $issuer.domCurrency!=null) || ((currency==$issuer.domCurrency) && CQS in ( 1, 2, 3, 4 )) )
+		$asset : LocalAsset( CQS in ( 1, 2, 3, 4 ))
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-eea-class-h"
+rule "rule-eea-class-hi"
 
 	when
-		$asset : LocalAsset(type == "bond" )
-		$issuer: Issuer(isMultiDevBank == true)
+		$asset : LocalAsset(type == "bond")
+		$issuer: Issuer(sector == "SPRA")
 		$provider: HaircutProvider(name == "EEA")
 		$eligible: Eligible()
 	then
-		$eligible.setClassType( "EEAh" );
+		$eligible.setClassType( "EEAhi" );
 		update($eligible)
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-eea-eli-h"
+rule "rule-eea-eli-hi"
 	when
 		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "EEAh")
-	then
-		$eligible.setIsEligible( true );
-		update($eligible);
-        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
-end
-
-rule "rule-eea-class-i"
-	when
-		$asset : LocalAsset( type == "bond" )
-		$issuer : Issuer(isInterOrg==true)
-		$eligible: Eligible()
-		$provider: HaircutProvider(name == "EEA")
-
-	then
-
-		$eligible.setClassType( "EEAi" );
-		update($eligible)
-        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
-end
-
-rule "rule-eea-eli-i"
-	when
-		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "EEAi")
+		$eligible: Eligible(classType == "EEAhi")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
@@ -161,91 +138,10 @@ end
 
 rule "rule-eea-eli-n"
 	when
-	    $c : Client()
-	    $asset: LocalAsset()
-		$issuer : Issuer(entityLei != $c.entityLei && ultimateParentLei != $c.ultimateParentLei && $asset.CQS in ( 1, 2, 3 )  )
+	    $asset: LocalAsset(CQS in ( 1, 2, 3 ))
 		$eligible: Eligible(classType == "EEAn")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
-
-rule "rule-eea-class-o"
-	when
-		$asset : LocalAsset( type == "bond", creditPrincipalCode == "SR" )
-		$eligible: Eligible()
-		$provider: HaircutProvider(name == "EEA")
-
-	then
-
-		$eligible.setClassType( "EEAo" );
-		update($eligible)
-        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
-end
-
-rule "rule-eea-eli-o"
-	when
-		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "EEAo")
-		$c: Client()
-		$issuer: Issuer( entityLei != $c.entityLei && ultimateParentLei != $c.ultimateParentLei && $asset.CQS in ( 1, 2, 3 ))
-	then
-		$eligible.setIsEligible( true );
-		update($eligible);
-        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
-end
-
-rule "rule-eea-class-p"
-when
-    $asset : LocalAsset( type == "bond" && convertibleFlag == true && convertibleTypeCode == "EI")
-    $eligible: Eligible()
-    $provider: HaircutProvider(name == "EEA", ineeaMainIndex($asset.index), ineeaexchange($asset.exchange))
-
-then
-
-    $eligible.setClassType( "EEAp" );
-    update($eligible)
-    log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
-end
-
-
-rule "rule-eea-eli-p"
-when
-    $asset : LocalAsset()
-    $eligible: Eligible(classType == "EEAp")
-then
-    $eligible.setIsEligible( true );
-    update($eligible);
-    log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
-end
-
-
-rule "rule-eea-class-q"
-	when
-		$asset : LocalAsset(type == "equity")
-		$provider: HaircutProvider(name =="EEA",ineeaMainIndex($asset.index), ineeaexchange($asset.exchange))
-		$eligible: Eligible()
-
-
-	then
-		$eligible.setClassType( "EEAq" );
-		update($eligible)
-        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
-end
-
-rule "rule-eea-eli-q"
-	when
-		$asset : LocalAsset()
-		$eligible: Eligible(classType == "EEAq")
-		$c: Client()
-		$issuer: Issuer(entityLei != $c.entityLei && ultimateParentLei != $c.ultimateParentLei )
-	then
-		$eligible.setIsEligible( true );
-		$eligible.setHaircut(0.15);
-		update($eligible);
-        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
-end
-
-
-

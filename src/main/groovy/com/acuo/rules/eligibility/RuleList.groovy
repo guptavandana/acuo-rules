@@ -7,6 +7,7 @@ class RuleList {
     String[] listname;
     double[] listHaircut;
     double[] listFXHaircut;
+    boolean[] listEligible;
     Integer startSignal = 0;
     Integer listLength = 0;
     Integer listIndex = -1;

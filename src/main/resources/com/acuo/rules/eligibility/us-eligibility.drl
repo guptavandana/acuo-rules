@@ -16,9 +16,7 @@ rule "rule-us-class-1"
 		eval($methods.substrInStr($currency,$majorCurrency)||$currency==$settlementCurrency)
 		$eligible: Eligible()
 		$provider: HaircutProvider(name == "US")
-
 	then
-
 		$eligible.setClassType( "US1" );
 		update($eligible)
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
@@ -42,12 +40,10 @@ end
 rule "rule-us-class-2"
 	when
 		$asset : LocalAsset( type == "bond" )
-		$issuer : Issuer(name=="UNITED STATES TREASURY")
+		$issuer : Issuer(countryCode=="US" && sector=="SOVERGRN")
 		$eligible: Eligible()
 		$provider: HaircutProvider(name == "US")
-
 	then
-
 		$eligible.setClassType( "US2" );
 		update($eligible)
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
@@ -66,12 +62,10 @@ end
 rule "rule-us-class-3"
 	when
 		$asset : LocalAsset( type == "bond" )
-		$issuer : Issuer(isUSGovtAgency)
+		$issuer : Issuer(countryCode == "US" && sector=="AGENCY")
 		$eligible: Eligible()
 		$provider: HaircutProvider(name == "US")
-
 	then
-
 		$eligible.setClassType( "US3" );
 		update($eligible)
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
@@ -90,12 +84,10 @@ end
 rule "rule-us-class-4"
 	when
 		$asset : LocalAsset( type == "bond" )
-		$issuer : Issuer(isEUCtrBank||isSovRWLess20)
+		$issuer : Issuer(sector=="SOVERGRN" && isMemberState)
 		$eligible: Eligible()
 		$provider: HaircutProvider(name == "US")
-
 	then
-
 		$eligible.setClassType( "US4" );
 		update($eligible);
         log.info("Rule: '{}', asset: '{}',issuer:'{}'", drools.getRule().getName(), $asset, $issuer );
@@ -120,12 +112,10 @@ end
 rule "rule-us-class-6"
 	when
 		$asset : LocalAsset( type == "bond" )
-		$issuer : Issuer(isMultiDevBank)
+		$issuer : Issuer(sector=="SPRA")
 		$eligible: Eligible()
 		$provider: HaircutProvider(name == "US")
-
 	then
-
 		$eligible.setClassType( "US6" );
 		update($eligible);
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
@@ -135,51 +125,6 @@ rule "rule-us-eli-6"
 	when
 		$asset : LocalAsset( )
 		$eligible: Eligible(classType == "US6")
-	then
-		$eligible.setIsEligible( true );
-		update($eligible);
-        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
-end
-
-rule "rule-us-class-8a"
-	when
-		$asset : LocalAsset( type == "equity")
-		$provider: HaircutProvider(name == "US",inusMainIndex($asset.index) == 0)
-		$eligible: Eligible()
-
-	then
-		$eligible.setClassType( "US8a" );
-		update($eligible);
-		log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
-end
-
-rule "rule-us-eli-8a"
-	when
-		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "US8a")
-	then
-		$eligible.setIsEligible( true );
-		update($eligible);
-        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
-end
-
-rule "rule-us-class-8b"
-	when
-		$asset : LocalAsset( type == "equity")
-		$provider: HaircutProvider(name == "US",inusMainIndex($asset.index) == 1)
-		$eligible: Eligible()
-
-	then
-
-		$eligible.setClassType( "US8b" );
-		update($eligible);
-        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
-end
-
-rule "rule-us-eli-8b"
-	when
-		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "US8b")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
