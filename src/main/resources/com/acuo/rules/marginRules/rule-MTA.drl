@@ -11,7 +11,7 @@ rule "rule-mta-netExposore-vm"
         $agreement: LocalAgreement(type in ("bilateral","legacy"),$MTA1: MTA1, $MTA2: MTA2)
         // if the client is the posting party, and deliverAmount+returnAmount is larger than MTA1, then margin call should be generated
         // if the client is the collecting party, and deliverAmount+returnAmount is larger than  MTA2, then margin call should be generated
-        eval(($callVM.getDirection() == "OUT" && $callVM.getDeliverAmount() + $callVM.getReturnAmount() > $MTA1) || ($callVM.getDirection() == "IN" && $callVM.getDeliverAmount() + $callVM.getReturnAmount() > $MTA2))
+        eval(($callVM.getDirection() == "OUT" && $callVM.getDeliverAmount() + $callVM.getReturnAmount() >= $MTA1) || ($callVM.getDirection() == "IN" && $callVM.getDeliverAmount() + $callVM.getReturnAmount() >= $MTA2))
         $result: MarginResult();
     then
        $result.setMarginAmountVM($marginVM);
@@ -27,7 +27,7 @@ rule "rule-mta-netExposore-im"
         $agreement: LocalAgreement(type in ("bilateral","legacy"),$MTA1: MTA1, $MTA2: MTA2)
         // if the client is the posting party, and deliverAmount+returnAmount is larger than MTA1, then margin call should be generated
         // if the client is the collecting party, and deliverAmount+returnAmount is larger than  MTA2, then margin call should be generated
-        eval(($callIM.getDirection() == "OUT" && $callIM.getDeliverAmount() + $callIM.getReturnAmount() > $MTA1) || ($callIM.getDirection() == "IN" && $callIM.getDeliverAmount() + $callIM.getReturnAmount() > $MTA2))
+        eval(($callIM.getDirection() == "OUT" && $callIM.getDeliverAmount() + $callIM.getReturnAmount() >= $MTA1) || ($callIM.getDirection() == "IN" && $callIM.getDeliverAmount() + $callIM.getReturnAmount() >= $MTA2))
         $result: MarginResult();
 	then
         $result.setMarginAmountIM($marginIM);
@@ -46,7 +46,7 @@ rule "rule-mta-netExposore-vmim-sameDir"
         $result: MarginResult();
         // if the client is the posting party, and deliverAmount+returnAmount of both IM and VM is larger than MTA1, then margin call should be generated
         // if the client is the collecting party, and deliverAmount+returnAmount of both IM and VM is larger than  MTA2, then margin call should be generated
-        eval(($dirVM =="OUT" && $dirIM=="OUT" && ($marginVM+$marginIM > $MTA1))|| ($dirVM =="IN" && $dirIM=="IN" && ($marginVM+$marginIM > $MTA2)))
+        eval(($dirVM =="OUT" && $dirIM=="OUT" && ($marginVM+$marginIM >= $MTA1))|| ($dirVM =="IN" && $dirIM=="IN" && ($marginVM+$marginIM >= $MTA2)))
 
 	then
         $result.setMarginAmountIM($marginIM);
@@ -67,7 +67,7 @@ rule "rule-mta-netExposore-vmim-diffDir-vmLarger"
         $result: MarginResult();
         // if the client is posting party of VM and collecting party of IM, then if $marginVM - $marginIM > $MTA1, it will be overall OUT
         // if the client is collecting party of VM and posting party of IM, then if $marginVM - $marginIM > $MTA2, it will be overall IN
-        eval(($dirVM=="OUT" && $dirIM=="IN" && ($marginVM - $marginIM > $MTA1))||($dirVM=="IN" && $dirIM=="OUT" && ($marginVM - $marginIM > $MTA2)));
+        eval(($dirVM=="OUT" && $dirIM=="IN" && ($marginVM - $marginIM >= $MTA1))||($dirVM=="IN" && $dirIM=="OUT" && ($marginVM - $marginIM >= $MTA2)));
 	then
         $result.setMarginAmountIM($marginIM);
         $result.setMarginAmountVM($marginVM);
@@ -87,7 +87,7 @@ rule "rule-mta-netExposore-vmim-diffDir-imLarger"
         $result: MarginResult();
         // if the client is collecting party of VM and posting party of IM, then if $marginIM - $marginVM > $MTA1, it will be overall OUT
         // if the client is posting party of VM and collecting party of IM, then if $marginIM - $marginVM > $MTA2, it will be overall IN
-        eval(($dirVM=="IN" && $dirIM=="OUT" && ($marginIM - $marginVM > $MTA1))||($dirVM=="OUT" && $dirIM=="IN" && ($marginIM - $marginVM > $MTA2)));
+        eval(($dirVM=="IN" && $dirIM=="OUT" && ($marginIM - $marginVM >= $MTA1))||($dirVM=="OUT" && $dirIM=="IN" && ($marginIM - $marginVM >= $MTA2)));
     then
         $result.setMarginAmountIM($marginIM);
         $result.setMarginAmountVM($marginVM);
