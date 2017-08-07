@@ -9,5 +9,8 @@ class Counterpart {
     String entityLei
     String ultimateParentLei
     String ultimateParentName
+    String countryCode
+    boolean withCollateralFlipClause = false
     String fitchRating
+    String highestRatedNote
 }

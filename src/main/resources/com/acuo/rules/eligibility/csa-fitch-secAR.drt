@@ -6,7 +6,7 @@ AssetType
 maturityLb
 maturityUb
 clientRating
-ctpyRating
+highestRatedNote
 secAR
 print
 
@@ -21,7 +21,7 @@ rule "@{ruleName}"
         Issuer(countryCode in (@{countryCode}) && sector in (@{sector}) )
         $asset:LocalAsset(datascopeAssetType == "@{AssetType}" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && fitchRating in (@{clientRating}))
 
-        Counterpart(fitchRating in (@{ctpyRating}))
+        Counterpart(highestRatedNote in (@{highestRatedNote}))
         $eligible: Eligible()
 
     then

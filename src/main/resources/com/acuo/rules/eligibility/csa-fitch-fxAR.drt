@@ -1,6 +1,6 @@
 template header
 currencyList
-ctpyRating
+highestRatedNote
 fxAR
 
 package com.acuo.rules.eligibility;
@@ -14,7 +14,7 @@ rule "rule-fitch-fxAR-@{row.rowNumber}"
         $rulelist: RuleList(fitchFxStop == 0)
         $asset: LocalAsset(currency in (@{currencyList}))
         LocalAgreement(baseCurrency!=$asset.getCurrency())
-        Counterpart(fitchRating in (@{ctpyRating}))
+        Counterpart(highestRatedNote in (@{highestRatedNote}))
 
     then
         $eligible.setFXAR(@{fxAR});

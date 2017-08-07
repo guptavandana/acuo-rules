@@ -22,7 +22,7 @@ class function_rule2list_test extends Specification  {
         ksession.setGlobal("log", ruleLogger)
 
     }
-    def "regime and provider"() {
+    def "multiple regime and provider with UK high rating CTPY"() {
         when: "add an bond asset"
 
         def provider = new HaircutProvider(name: "Fitch,US,Moody,EEA")
@@ -55,6 +55,49 @@ class function_rule2list_test extends Specification  {
         rulelist.provider == "Fitch"
         eligible.isEligible == true
         Math.round(eligible.haircut*100000)/100000 == 1-0.99*0.86
+        eligible.fxHaircut == 0
+        //eligible.haircut ==0
+        //rulelist.listHaircut==0
+        //rulelist.listLength==0
+        //rulelist.listname==0
+        //rulelist.listIndex == 0
+        //rulelist.lengthRegime == 0
+        //rulelist.startSignal==0
+    }
+
+    def "multiple regime and provider with US low rating CTPY"() {
+        when: "add an bond asset"
+
+        def provider = new HaircutProvider(name: "Fitch,US,Moody,EEA")
+        def rulelist = new RuleList()
+        def asset = new LocalAsset(type:"bond", id: "c1", datascopeAssetType:"GOVT", CQS:1,currency:"EUR",maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
+        def issuer = new Issuer(countryCode: "AU", domCurrency:"GBP",sector:"SOVERGRN")
+        def eligible = new Eligible()
+        def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP", trigger: 1,marginType: "Initial",terminateCurrency: "USD")
+        def counterpart = new Counterpart(fitchRating: "BBB",countryCode: "US")
+
+
+
+        ksession.insert(asset)
+        ksession.insert(issuer)
+        ksession.insert(agreement)
+        ksession.insert(counterpart)
+        ksession.insert(provider)
+        ksession.insert(rulelist)
+        ksession.insert(eligible)
+
+
+
+        and: "we fire all rules"
+        ksession.fireAllRules()
+
+        then: "then we get rules regime and class"
+        //regime.name == "US"
+        //rulelist.listFXHaircut == 0
+        //provider.name == "Fitch"
+        rulelist.provider == "Fitch"
+        eligible.isEligible == true
+        Math.round(eligible.haircut*100000)/100000 == 1-0.99*0.905
         eligible.fxHaircut == 0
         //eligible.haircut ==0
         //rulelist.listHaircut==0

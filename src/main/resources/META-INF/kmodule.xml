@@ -53,6 +53,9 @@
         <ruleTemplate dtable="com/acuo/rules/eligibility/countryCurrency-map.xls"
                       template="com/acuo/rules/eligibility/countryCurrency-map.drt"
                       row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/csa-fitch-ctpyRating-highestRatedNote-map.xls"
+                      template="com/acuo/rules/eligibility/csa-fitch-ctpyRating-highestRatedNote-map.drt"
+                      row="2" col="1"/>
         <ksession name="EligibilityKS"/>
     </kbase>
 

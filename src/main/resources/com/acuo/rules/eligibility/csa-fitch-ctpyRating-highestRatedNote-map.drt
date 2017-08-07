@@ -1,0 +1,22 @@
+template header
+ruleName
+withCollateralFlipClause
+ctpyRating
+highestRatedNote
+
+package com.acuo.rules.eligibility;
+
+template "fitch-ctpyRating"
+
+rule "@{ruleName}"
+    when
+        HaircutProvider(name == "Fitch")
+        $counterpart: Counterpart((withCollateralFlipClause == @{withCollateralFlipClause}) && fitchRating in (@{ctpyRating}) )
+
+    then
+        $counterpart.setHighestRatedNote("@{highestRatedNote}");
+        update($counterpart);
+        log.info("Rule: '{}', counterpart: '{}'", drools.getRule().getName(), $counterpart );
+end
+end template
+

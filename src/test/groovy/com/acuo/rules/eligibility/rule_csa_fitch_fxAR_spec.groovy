@@ -25,7 +25,7 @@ class rule_csa_fitch_fxAR_spec extends Specification{
         def asset = new LocalAsset(type: "bond", id: "a1",currency:"AUD")
         def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP")
         def haircutProvider = new HaircutProvider(name: "Fitch")
-        def counterpart = new Counterpart(fitchRating: "AA")
+        def counterpart = new Counterpart(fitchRating: "AA",countryCode:"UK")
         def eligible = new Eligible()
         def rulelist = new RuleList()
         ksession.insert(rulelist)
