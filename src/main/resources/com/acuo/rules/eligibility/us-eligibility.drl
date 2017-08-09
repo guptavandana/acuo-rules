@@ -27,11 +27,6 @@ rule "rule-US-eli-1"
 		$asset : LocalAsset( )
 		$eligible: Eligible(classType == "US1")
 	then
-		log.info(
-                    "Rule: '{}', asset: '{}'",
-                    drools.getRule().getName(),
-                    $asset
-                );
 		$eligible.setIsEligible( true );
 		update($eligible);
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
@@ -98,12 +93,6 @@ rule "rule-us-eli-4"
 		$asset : LocalAsset( )
 		$eligible: Eligible(classType == "US4")
 	then
-		log.info(
-                    "Rule: '{}', asset: '{}', eligible:'{}'",
-                    drools.getRule().getName(),
-                    $asset,
-                    $eligible
-                );
 		$eligible.setIsEligible( true );
 		update($eligible);
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
@@ -136,14 +125,7 @@ rule "rule-us-class-10"
 		$asset : LocalAsset( type == "gold" )
 		$eligible: Eligible()
 		$provider: HaircutProvider(name == "US")
-
 	then
-	log.info(
-                "Rule: '{}', asset: '{}', issuer:'{}'",
-                drools.getRule().getName(),
-                $asset
-            );
-
 		$eligible.setClassType( "US10" );
 		update($eligible);
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
