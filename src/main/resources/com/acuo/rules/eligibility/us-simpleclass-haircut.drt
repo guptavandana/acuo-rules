@@ -9,7 +9,7 @@ template "us-simpleclass-haircut"
 
 rule "@{ruleName}"
     when
-        $eligible: Eligible(classType == "@{classType}")
+        $eligible: EligibleResult(classType == "@{classType}")
 
     then
         $eligible.setHaircut(@{haircut});

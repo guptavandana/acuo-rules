@@ -22,7 +22,7 @@ rule "@{ruleName}"
         $asset:LocalAsset(datascopeAssetType == "@{AssetType}" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && fitchRating in (@{clientRating}))
 
         Counterpart(highestRatedNote in (@{highestRatedNote}))
-        $eligible: Eligible()
+        $eligible: EligibleResult()
 
     then
         $eligible.setSecurityAR(@{secAR});

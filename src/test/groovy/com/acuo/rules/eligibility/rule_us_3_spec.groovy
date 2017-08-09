@@ -24,7 +24,7 @@ class rule_us_3_spec  extends Specification{
         when: "add a bond asset"
         def asset = new LocalAsset(type: "bond", id: "us3")
         def issuer = new Issuer(countryCode: "US" , sector:"AGENCY")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"US")
         def rulelist = new RuleList()
         ksession.insert(rulelist)

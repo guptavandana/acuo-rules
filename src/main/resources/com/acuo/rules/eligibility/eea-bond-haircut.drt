@@ -14,7 +14,7 @@ template "eea-bond-haircut"
 rule "@{ruleName}"
     when
         $asset:LocalAsset(type == "bond" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && CQS>= @{CQSLb} && CQS<= @{CQSUb})
-        $eligible: Eligible(classType in (@{classType}))
+        $eligible: EligibleResult(classType in (@{classType}))
 
     then
         $eligible.setHaircut(@{haircut});

@@ -10,7 +10,7 @@ template "fitch-fxAR"
 rule "rule-fitch-fxAR-@{row.rowNumber}"
     when
         HaircutProvider(name == "Fitch")
-        $eligible: Eligible()
+        $eligible: EligibleResult()
         $rulelist: RuleList(fitchFxStop == 0)
         $asset: LocalAsset(currency in (@{currencyList}))
         LocalAgreement(baseCurrency!=$asset.getCurrency())
@@ -29,7 +29,7 @@ end template
 rule "rule-fitch-fxAR-0"
     when
         HaircutProvider(name == "Fitch")
-        $eligible: Eligible()
+        $eligible: EligibleResult()
         $rulelist: RuleList(fitchFxStop == 0)
         $asset: LocalAsset()
         LocalAgreement(baseCurrency==$asset.getCurrency())

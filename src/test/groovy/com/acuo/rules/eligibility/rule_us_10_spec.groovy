@@ -23,7 +23,7 @@ class rule_us_10_spec  extends Specification{
     def "gold is in US class 10"() {
         when: "add a gold asset"
         def asset = new LocalAsset(type: "gold", id: "a1")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"US")
         def rulelist = new RuleList()
         ksession.insert(rulelist)

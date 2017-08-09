@@ -14,7 +14,7 @@ rule "rule-us-class-1"
 		$agreement: LocalAgreement($majorCurrency:majorCurrency,$settlementCurrency:settlementCurrency)
 		$methods: Methods()
 		eval($methods.substrInStr($currency,$majorCurrency)||$currency==$settlementCurrency)
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
 		$eligible.setClassType( "US1" );
@@ -25,7 +25,7 @@ end
 rule "rule-US-eli-1"
 	when
 		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "US1")
+		$eligible: EligibleResult(classType == "US1")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
@@ -36,7 +36,7 @@ rule "rule-us-class-2"
 	when
 		$asset : LocalAsset( type == "bond" )
 		$issuer : Issuer(countryCode=="US" && sector=="SOVERGRN")
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
 		$eligible.setClassType( "US2" );
@@ -47,7 +47,7 @@ end
 rule "rule-us-eli-2"
 	when
 		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "US2")
+		$eligible: EligibleResult(classType == "US2")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
@@ -58,7 +58,7 @@ rule "rule-us-class-3"
 	when
 		$asset : LocalAsset( type == "bond" )
 		$issuer : Issuer(countryCode == "US" && sector=="AGENCY")
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
 		$eligible.setClassType( "US3" );
@@ -69,7 +69,7 @@ end
 rule "rule-us-eli-3"
 	when
 		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "US3")
+		$eligible: EligibleResult(classType == "US3")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
@@ -80,7 +80,7 @@ rule "rule-us-class-4"
 	when
 		$asset : LocalAsset( type == "bond" )
 		$issuer : Issuer(sector=="SOVERGRN" && isMemberState)
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
 		$eligible.setClassType( "US4" );
@@ -91,7 +91,7 @@ end
 rule "rule-us-eli-4"
 	when
 		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "US4")
+		$eligible: EligibleResult(classType == "US4")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
@@ -102,7 +102,7 @@ rule "rule-us-class-6"
 	when
 		$asset : LocalAsset( type == "bond" )
 		$issuer : Issuer(sector=="SPRA")
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
 		$eligible.setClassType( "US6" );
@@ -113,7 +113,7 @@ end
 rule "rule-us-eli-6"
 	when
 		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "US6")
+		$eligible: EligibleResult(classType == "US6")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
@@ -123,7 +123,7 @@ end
 rule "rule-us-class-10"
 	when
 		$asset : LocalAsset( type == "gold" )
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
 		$eligible.setClassType( "US10" );
@@ -134,7 +134,7 @@ end
 rule "rule-us-eli-10"
 	when
 		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "US10")
+		$eligible: EligibleResult(classType == "US10")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);

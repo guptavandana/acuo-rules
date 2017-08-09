@@ -9,7 +9,7 @@ rule "rule-fitch-haircut-cmpt"
 //salience -10
 	when
 		$provider:HaircutProvider(name=="Fitch")
-		$eligible:Eligible($secAR: securityAR!=-1, $fxAR: FXAR!=-1)
+		$eligible:EligibleResult($secAR: securityAR!=-1, $fxAR: FXAR!=-1)
 	then
 		$eligible.setIsEligible(true);
 		$eligible.setFxHaircut(0);
@@ -28,7 +28,7 @@ rule "rule-fitch-cash-haircut"
 		$agree:LocalAgreement()
 		$methods:Methods()
 		eval($methods.substrInStr($asset.getCurrency(),$agree.getEligibleCurrency()))
-		$eligible:Eligible()
+		$eligible:EligibleResult()
 	then
 	    drools.getWorkingMemory().getAgenda().getAgendaGroup("FitchHaircut").clear();
 	    $eligible.setIsEligible(true);

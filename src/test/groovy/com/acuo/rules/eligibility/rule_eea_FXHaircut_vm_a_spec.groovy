@@ -24,7 +24,7 @@ class rule_eea_FXHaircut_vm_a_spec extends Specification {
         when: "add an asset"
         def asset = new LocalAsset(type: "bond", id: "vma", currency: "SGD")
         def agreement = new LocalAgreement(marginType: "Variation", eligibleCurrency: "USD")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"EEA")
         def rulelist = new RuleList()
         ksession.insert(rulelist)

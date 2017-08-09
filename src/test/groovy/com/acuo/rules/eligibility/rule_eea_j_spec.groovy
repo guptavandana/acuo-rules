@@ -23,7 +23,7 @@ class rule_eea_j_spec extends Specification {
     def "is cash in EEA class j"() {
         when: "add an bond asset"
         def asset = new LocalAsset(type: "bond", id: "j1", datascopeAssetType: "GOVT", CQS:1)
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def issuer = new Issuer(countryCode: "CNA")
         def provider = new HaircutProvider(name:"EEA")
         def rulelist = new RuleList()

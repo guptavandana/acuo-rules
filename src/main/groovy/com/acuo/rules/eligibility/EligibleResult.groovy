@@ -3,7 +3,7 @@ package com.acuo.rules.eligibility
 import groovy.transform.ToString
 
 @ToString(includePackage=false, includeNames=true)
-class Eligible {
+class EligibleResult {
     String classType = "Null"
     boolean isEligible = false
     double haircut = -1

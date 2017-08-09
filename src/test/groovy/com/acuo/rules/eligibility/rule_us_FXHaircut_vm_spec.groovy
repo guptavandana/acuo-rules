@@ -27,7 +27,7 @@ class rule_us_FXHaircut_vm_spec extends Specification {
         def agreement = new LocalAgreement(marginType:"Variation", id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
         def provider = new HaircutProvider(name:"US")
         ksession.insert(provider)
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def rulelist = new RuleList()
         ksession.insert(rulelist)
         ksession.insert(asset)

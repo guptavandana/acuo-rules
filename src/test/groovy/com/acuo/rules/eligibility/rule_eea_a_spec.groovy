@@ -23,7 +23,7 @@ class rule_eea_a_spec extends Specification {
     def "is cash in EEA class a"() {
         when: "add an cash asset"
         def asset = new LocalAsset(type: "cash", id: "a1")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"EEA")
         def rulelist = new RuleList()
         ksession.insert(rulelist)

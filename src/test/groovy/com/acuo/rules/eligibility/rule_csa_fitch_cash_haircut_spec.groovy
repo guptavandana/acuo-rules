@@ -27,7 +27,7 @@ class rule_csa_fitch_cash_haircut_spec extends Specification {
         def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", eligibleCurrency: "EUR,USD,GBP", majorCurrency: "EUR,USD,GBP")
         def haircutProvider = new HaircutProvider(name: "Fitch")
         def methods = new Methods()
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def rulelist = new RuleList()
         ksession.insert(rulelist)
         ksession.insert(asset)

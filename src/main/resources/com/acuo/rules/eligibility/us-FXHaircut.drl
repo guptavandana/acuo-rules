@@ -11,7 +11,7 @@ rule "us-FXHaircut-im"
 		$ag: LocalAgreement(marginType == "Initial")
 		$asset: LocalAsset(currency== $ag.terminateCurrency || currency == $ag.settlementCurrency)
 		$provider: HaircutProvider(name == "US")
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 	then
 		$eligible.setFxHaircut( 0 );
 		update($eligible);
@@ -23,7 +23,7 @@ rule "us-FXHaircut-im-a"
 		$ag: LocalAgreement(marginType == "Initial")
 		$asset: LocalAsset(currency!= $ag.terminateCurrency && currency != $ag.settlementCurrency)
 		$provider: HaircutProvider(name == "US")
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 	then
 		$eligible.setFxHaircut( 0.08 );
 		update($eligible);
@@ -36,7 +36,7 @@ rule "us-FXHaircut-vm"
 		$asset: LocalAsset(type!= "cash")
 		$agreement: LocalAgreement(marginType == "Variation", (substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency) )
 		$provider: HaircutProvider(name == "US")
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 	then
 		$eligible.setFxHaircut( 0 );
 		update($eligible);
@@ -49,7 +49,7 @@ rule "us-FXHaircut-vm-a"
 		$asset: LocalAsset(type!= "cash")
 		$agreement: LocalAgreement(marginType == "Variation", !(substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency) )
 		$provider: HaircutProvider(name == "US")
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 	then
 		$eligible.setFxHaircut( 0.08 );
 		update($eligible);

@@ -1,6 +1,6 @@
 package com.acuo.rules.services
 
-import com.acuo.rules.eligibility.Eligible
+import com.acuo.rules.eligibility.EligibleResult
 import com.acuo.rules.eligibility.HaircutProvider
 import com.acuo.rules.eligibility.LocalAsset
 import com.acuo.rules.eligibility.RuleList
@@ -23,7 +23,7 @@ class EligibilityServiceSpec extends Specification {
         LocalAsset asset = new LocalAsset()
         asset.setType("cash")
         asset.setId("a1")
-        Eligible eligible = new Eligible()
+        EligibleResult eligible = new EligibleResult()
         HaircutProvider provider = new HaircutProvider()
         provider.setName("EEA")
         RuleList ruleList = new RuleList()

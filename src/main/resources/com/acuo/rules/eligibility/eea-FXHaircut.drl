@@ -10,7 +10,7 @@ rule "eea-FXHaircut-im"
 	when
 		$ag: LocalAgreement(marginType == "Initial")
 		$asset: LocalAsset(currency == $ag.terminateCurrency)
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 
 		$provider: HaircutProvider(name == "EEA")
 	then
@@ -25,7 +25,7 @@ rule "eea-FXHaircut-im-a"
 		$ag: LocalAgreement(marginType == "Initial")
 		$asset: LocalAsset(currency!= $ag.terminateCurrency)
 		$provider: HaircutProvider(name == "EEA")
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 	then
 		$eligible.setFxHaircut( 0.08 );
 		update($eligible);
@@ -38,7 +38,7 @@ rule "eea-FXHaircut-vm-a"
 		$asset: LocalAsset(type!= "cash")
 		$ag: LocalAgreement(marginType == "Variation", eligibleCurrency != $asset.currency)
 		$provider: HaircutProvider(name == "EEA")
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 	then
 		$eligible.setFxHaircut( 0.08 );
 		update($eligible);
@@ -51,7 +51,7 @@ rule "eea-FXHaircut-vm-cash"
 		$asset: LocalAsset(type== "cash")
 		$ag: LocalAgreement(marginType == "Variation")
 		$provider: HaircutProvider(name == "EEA")
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 	then
 		$eligible.setFxHaircut( 0 );
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
@@ -63,7 +63,7 @@ rule "eea-FXHaircut-vm-noncash"
 		$asset: LocalAsset(type!= "cash")
 		$ag: LocalAgreement(marginType == "Variation", eligibleCurrency == $asset.currency)
 		$provider: HaircutProvider(name == "EEA")
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 	then
 		$eligible.setFxHaircut( 0 );
 		update($eligible);

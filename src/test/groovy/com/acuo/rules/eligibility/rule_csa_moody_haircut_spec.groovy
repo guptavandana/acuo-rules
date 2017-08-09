@@ -26,7 +26,7 @@ class rule_csa_moody_haircut_spec  extends Specification {
         when: "add a cash asset"
         def asset = new LocalAsset(currency: "GBP", id: "csa_moody_cash",type: "cash")
         def issuer = new Issuer()
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def haircutProvider = new HaircutProvider(name: "Moody")
         def agreement = new LocalAgreement(trigger: 1)
         ksession.insert(asset)
@@ -47,7 +47,7 @@ class rule_csa_moody_haircut_spec  extends Specification {
         when: "add a bond asset"
         def asset = new LocalAsset(currency: "USD", id: "csa_moody_govt",type: "bond",maturityYears: 0.5, fitchRating:"F1+", rateType: "fix")
         def issuer = new Issuer(countryCode: "US",sector: "SOVERGRN")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def haircutProvider = new HaircutProvider(name: "Moody")
         def agreement = new LocalAgreement(trigger: 1)
         ksession.insert(asset)
@@ -68,7 +68,7 @@ class rule_csa_moody_haircut_spec  extends Specification {
         when: "add a bond asset"
         def asset = new LocalAsset(currency: "USD", id: "csa_moody_govt",type: "bond",maturityYears: 0.5, rateType: "fix")
         def issuer = new Issuer(countryCode: "US",sector: "AGENCY")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def haircutProvider = new HaircutProvider(name: "Moody")
         def agreement = new LocalAgreement(trigger: 1)
         ksession.insert(asset)
@@ -89,7 +89,7 @@ class rule_csa_moody_haircut_spec  extends Specification {
         when: "add a bond asset"
         def asset = new LocalAsset(datascopeAssetType: "GOVT", currency: "EUR", id: "csa_moody_govt",type: "bond",maturityYears: 0.5, rateType: "fix", moodyRating: "Aa1")
         def issuer = new Issuer()
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def haircutProvider = new HaircutProvider(name: "Moody")
         def agreement = new LocalAgreement(trigger: 1)
         ksession.insert(asset)
@@ -110,7 +110,7 @@ class rule_csa_moody_haircut_spec  extends Specification {
         when: "add a bond asset"
         def asset = new LocalAsset(datascopeAssetType: "GOVT", currency: "GBP", id: "csa_moody_govt",type: "bond",maturityYears: 0.5, rateType: "fix")
         def issuer = new Issuer(countryCode: "UK")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def haircutProvider = new HaircutProvider(name: "Moody")
         def agreement = new LocalAgreement(trigger: 1)
         ksession.insert(asset)

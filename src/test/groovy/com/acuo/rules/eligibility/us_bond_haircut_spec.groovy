@@ -25,7 +25,7 @@ class us_bond_haircut_spec  extends Specification{
         when: "add a bond asset"
         def asset = new LocalAsset(id: "a1",type: "bond",maturityYears: 3)
         def issuer = new Issuer(countryCode: "US",sector:"SOVERGRN")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"US")
         def rulelist = new RuleList()
         ksession.insert(rulelist)

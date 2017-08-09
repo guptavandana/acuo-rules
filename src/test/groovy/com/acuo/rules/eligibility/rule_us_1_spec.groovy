@@ -24,7 +24,7 @@ class rule_us_1_spec  extends Specification{
         when: "add a cash asset"
         def asset = new LocalAsset(type: "cash", id: "a1",currency:"USD")
         def agreement = new LocalAgreement(id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def methods = new Methods()
         def provider = new HaircutProvider(name:"US")
         def rulelist = new RuleList()

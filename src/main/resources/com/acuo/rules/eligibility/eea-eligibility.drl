@@ -7,7 +7,7 @@ global Logger log;
 rule "rule-eea-class-a"
 	when
 		$asset : LocalAsset( type == "cash" )
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "EEA")
 
 	then
@@ -20,7 +20,7 @@ end
 rule "rule-eea-eli-a"
 	when
 		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "EEAa")
+		$eligible: EligibleResult(classType == "EEAa")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
@@ -30,7 +30,7 @@ end
 rule "rule-eea-class-b"
 	when
 		$asset : LocalAsset( type == "gold" )
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "EEA")
 
 	then
@@ -43,7 +43,7 @@ end
 rule "rule-eea-eli-b"
 	when
 		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "EEAb")
+		$eligible: EligibleResult(classType == "EEAb")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
@@ -57,7 +57,7 @@ rule "rule-eea-class-c"
 
 		$issuer: Issuer(isMemberState == true)
 		$provider: HaircutProvider(name == "EEA")
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 	then
 
 		$eligible.setClassType( "EEAc" );
@@ -68,7 +68,7 @@ end
 rule "rule-eea-eli-c"
 	when
 		$issuer: Issuer()
-		$eligible: Eligible(classType == "EEAc")
+		$eligible: EligibleResult(classType == "EEAc")
 		//$asset : LocalAsset( (currency!=$issuer.domCurrency && $issuer.domCurrency!=null) || ((currency==$issuer.domCurrency) && CQS in ( 1, 2, 3, 4 )) )
 		$asset : LocalAsset( CQS in ( 1, 2, 3, 4 ))
 	then
@@ -83,7 +83,7 @@ rule "rule-eea-class-hi"
 		$asset : LocalAsset(type == "bond")
 		$issuer: Issuer(sector == "SPRA")
 		$provider: HaircutProvider(name == "EEA")
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 	then
 		$eligible.setClassType( "EEAhi" );
 		update($eligible)
@@ -93,7 +93,7 @@ end
 rule "rule-eea-eli-hi"
 	when
 		$asset : LocalAsset( )
-		$eligible: Eligible(classType == "EEAhi")
+		$eligible: EligibleResult(classType == "EEAhi")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
@@ -103,7 +103,7 @@ end
 rule "rule-eea-class-j"
 	when
 		$asset : LocalAsset( type == "bond", datascopeAssetType == "GOVT" )
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 		$issuer: Issuer(isMemberState == false)
 		$provider: HaircutProvider(name == "EEA")
 
@@ -117,7 +117,7 @@ end
 rule "rule-eea-eli-j"
 	when
 		$asset : LocalAsset(CQS in ( 1, 2, 3 ))
-		$eligible: Eligible(classType == "EEAj")
+		$eligible: EligibleResult(classType == "EEAj")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);
@@ -127,7 +127,7 @@ end
 rule "rule-eea-class-n"
 	when
 		$asset : LocalAsset( type == "bond", datascopeAssetType == "CORP" )
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "EEA")
 
 	then
@@ -139,7 +139,7 @@ end
 rule "rule-eea-eli-n"
 	when
 	    $asset: LocalAsset(CQS in ( 1, 2, 3 ))
-		$eligible: Eligible(classType == "EEAn")
+		$eligible: EligibleResult(classType == "EEAn")
 	then
 		$eligible.setIsEligible( true );
 		update($eligible);

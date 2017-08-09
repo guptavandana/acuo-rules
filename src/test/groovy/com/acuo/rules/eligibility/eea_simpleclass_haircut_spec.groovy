@@ -24,7 +24,7 @@ class eea_simpleclass_haircut_spec extends Specification  {
     def "cash has haircut 0 in EEA  regime"() {
         when: "add an cash asset"
         def asset = new LocalAsset(type: "cash", id: "a1")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"EEA")
         def rulelist = new RuleList()
         ksession.insert(rulelist)

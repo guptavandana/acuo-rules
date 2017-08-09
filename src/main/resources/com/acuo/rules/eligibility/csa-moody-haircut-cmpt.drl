@@ -7,7 +7,7 @@ global Logger log;
 rule "rule-moody-haircut-cmpt"
 	when
 		$provider:HaircutProvider(name=="Moody")
-		$eligible:Eligible($vp: valuationPercentage!=-1)
+		$eligible:EligibleResult($vp: valuationPercentage!=-1)
 	then
 		$eligible.setIsEligible(true);
 		$eligible.setFxHaircut(0);

@@ -23,7 +23,7 @@ class rule_eea_hi_spec extends Specification {
     def "is a bond in EEA class hi"() {
         when: "add an bond asset"
         def asset = new LocalAsset(type: "bond", id: "h1")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def issuer = new Issuer(sector:"SPRA")
         def provider = new HaircutProvider(name:"EEA")
         def rulelist = new RuleList()

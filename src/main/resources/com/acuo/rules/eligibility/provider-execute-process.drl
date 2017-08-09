@@ -112,7 +112,7 @@ salience 100
 	when
 		$provider: HaircutProvider($providername: name != "Null")
 		$rulelist: RuleList(startSignal == 0)
-		$eligible: Eligible()
+		$eligible: EligibleResult()
 	then
         $rulelist.setListname(rule2list($providername));
         $rulelist.setStartSignal(1);
@@ -147,7 +147,7 @@ end
 rule "rules-to-list-provider"
 
 	when
-	    $eligible: Eligible($hc: haircut!=-1, $fc: fxHaircut, $el:isEligible)
+	    $eligible: EligibleResult($hc: haircut!=-1, $fc: fxHaircut, $el:isEligible)
 	    $rulelist: RuleList(endSignal == 0, startSignal == 1, $lindex: listIndex < listLength, $llength: listLength, $lname: listname, $lhaircut: listHaircut, $lfhaircut:listFXHaircut,$leligible:listEligible)
 	    $provider: HaircutProvider()
 	then
@@ -176,7 +176,7 @@ rule "rules-to-list-final-haircut"
     when
         $rulelist: RuleList($leligible:listEligible, listIndex == listLength-1, $lhaircut: listHaircut,endSignal!=1)
         eval(findEligibility($leligible))
-        $eligible: Eligible()
+        $eligible: EligibleResult()
     then
         $eligible.setIsEligible(true);
         $rulelist.setEndSignal(1);
@@ -190,7 +190,7 @@ rule "rules-to-list-final-provider"
     when
         $rulelist: RuleList(endSignal == 1, $lhaircut: listHaircut, $lname: listname, $lfhaircut:listFXHaircut,$leligible:listEligible)
         $provider: HaircutProvider()
-        $eligible: Eligible()
+        $eligible: EligibleResult()
     then
         $provider.setName("");
         $rulelist.setProvider($lname[findMAXindex($lhaircut, $lfhaircut)]);

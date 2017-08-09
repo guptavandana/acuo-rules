@@ -25,7 +25,7 @@ class eea_bond_haircut_spec  extends Specification {
         when: "add a bond asset"
         def asset = new LocalAsset(id: "a1",type: "bond",maturityYears: 3,CQS: 3)
         def issuer = new Issuer(countryCode: "FR" , sector:"SPRA")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"EEA")
         ksession.insert(asset)
         ksession.insert(issuer)

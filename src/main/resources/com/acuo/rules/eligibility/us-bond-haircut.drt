@@ -12,7 +12,7 @@ template "us-bond-haircut"
 rule "@{ruleName}"
     when
         LocalAsset(type == "bond" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb})
-        $eligible: Eligible(classType in (@{classType}))
+        $eligible: EligibleResult(classType in (@{classType}))
 
     then
         $eligible.setHaircut(@{haircut});

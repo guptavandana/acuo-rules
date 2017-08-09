@@ -25,7 +25,7 @@ class us_simpleclass_haircut_spec  extends Specification  {
         when: "add an cash asset"
         def asset = new LocalAsset(type: "cash", id: "a1",currency: "GBP")
         def agreement = new LocalAgreement(id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def methods = new Methods()
         def provider = new HaircutProvider(name:"US")
         def rulelist = new RuleList()
@@ -47,7 +47,7 @@ class us_simpleclass_haircut_spec  extends Specification  {
     def "gold has haircut 0.15 in US regime"() {
         when: "add an gold asset"
         def asset = new LocalAsset(type: "gold", id: "a1")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"US")
         def rulelist = new RuleList()
         ksession.insert(rulelist)

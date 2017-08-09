@@ -29,7 +29,7 @@ class function_rule2list_test extends Specification  {
         def rulelist = new RuleList()
         def asset = new LocalAsset(type:"bond", id: "c1", datascopeAssetType:"GOVT", CQS:1,currency:"EUR",maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
         def issuer = new Issuer(countryCode: "AU", domCurrency:"GBP",sector:"SOVERGRN")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP", trigger: 1,marginType: "Initial",terminateCurrency: "USD")
         def counterpart = new Counterpart(fitchRating: "AA")
 
@@ -72,7 +72,7 @@ class function_rule2list_test extends Specification  {
         def rulelist = new RuleList()
         def asset = new LocalAsset(type:"bond", id: "c1", datascopeAssetType:"GOVT", CQS:1,currency:"EUR",maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
         def issuer = new Issuer(countryCode: "AU", domCurrency:"GBP",sector:"SOVERGRN")
-        def eligible = new Eligible()
+        def eligible = new EligibleResult()
         def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP", trigger: 1,marginType: "Initial",terminateCurrency: "USD")
         def counterpart = new Counterpart(fitchRating: "BBB",countryCode: "US")
 
