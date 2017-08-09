@@ -13,6 +13,10 @@
         <ksession name="AssetsKS"/>
     </kbase>
 
+    <kbase name="MarginRulesKB" packages="com.acuo.rules.marginrules">
+        <ksession name="MarginRulesKS"/>
+    </kbase>
+
     <kbase name="EligibilityKB" packages="com.acuo.rules.eligibility">
         <ruleTemplate dtable="com/acuo/rules/eligibility/us-simpleclass-haircut-template.xls"
                       template="com/acuo/rules/eligibility/us-simpleclass-haircut.drt"
@@ -59,7 +63,5 @@
         <ksession name="EligibilityKS"/>
     </kbase>
 
-    <kbase name="MarginRulesKB" packages="com.acuo.rules.marginRules">
-        <ksession name="MarginRulesKS"/>
-    </kbase>
+
 </kmodule>

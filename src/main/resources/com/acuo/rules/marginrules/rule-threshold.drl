@@ -1,0 +1,29 @@
+package com.acuo.rules.marginrules
+
+import org.slf4j.Logger
+
+global Logger log;
+
+rule "rule-threshold-secured"
+    when
+        $call: MarginCall($exposure:exposure)
+        $agreement: LocalAgreement(type in ("bilateral","legacy"),$exposure > $threshold: thresholdAmount, thresholdTreatment=="Secured")
+        $result: ThresholdResult();
+    then
+        $result.setExposure($exposure);
+        $result.setAboveThreshold(true);
+        update($result);
+        log.info("Rule: '{}', threshold result: '{}'", drools.getRule().getName(), $result );
+end
+
+rule "rule-threshold-unsecured"
+    when
+        $call: MarginCall($exposure:exposure)
+        $agreement: LocalAgreement(type in ("bilateral","legacy"),$exposure > $threshold: thresholdAmount, thresholdTreatment=="Unsecured")
+        $result: ThresholdResult();
+    then
+        $result.setExposure($exposure - $threshold);
+        $result.setAboveThreshold(true);
+        update($result);
+        log.info("Rule: '{}', threshold result: '{}'", drools.getRule().getName(), $result );
+end

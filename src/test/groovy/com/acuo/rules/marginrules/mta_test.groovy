@@ -1,4 +1,4 @@
-package com.acuo.rules.marginRules
+package com.acuo.rules.marginrules
 
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession

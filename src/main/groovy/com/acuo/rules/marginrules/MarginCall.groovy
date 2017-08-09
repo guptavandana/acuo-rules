@@ -1,4 +1,4 @@
-package com.acuo.rules.marginRules
+package com.acuo.rules.marginrules
 
 import groovy.transform.ToString
 
@@ -6,6 +6,7 @@ import groovy.transform.ToString
 class MarginCall {
     String marginType;
     String direction;
+    double exposure;
     double deliverAmount;
     double returnAmount;
 }

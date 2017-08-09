@@ -1,4 +1,4 @@
-package com.acuo.rules.marginRules
+package com.acuo.rules.marginrules
 
 import groovy.transform.ToString
 
