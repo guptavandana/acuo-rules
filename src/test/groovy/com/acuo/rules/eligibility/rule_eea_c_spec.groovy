@@ -24,7 +24,7 @@ class rule_eea_c_spec extends Specification {
         when: "add an bond asset"
         def asset = new LocalAsset(type:"bond", id: "c1", datascopeAssetType:"GOVT", CQS:1,currency:"AUD",maturityYears: 2)
         def eligible = new EligibleResult()
-        def issuer = new Issuer(countryCode: "AU",sector:"SOVERGRN")
+        def issuer = new Issuer(countryCode: "AT")
         def provider = new HaircutProvider(name:"EEA")
         def rulelist = new RuleList()
         ksession.insert(rulelist)

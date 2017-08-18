@@ -45,8 +45,8 @@ class rule_csa_moody_haircut_spec  extends Specification {
     }
     def "a bond has haircut 0.02 in CSA moody rules with ccy USD"() {
         when: "add a bond asset"
-        def asset = new LocalAsset(currency: "USD", id: "csa_moody_govt",type: "bond",maturityYears: 0.5, fitchRating:"F1+", rateType: "fix")
-        def issuer = new Issuer(countryCode: "US",sector: "SOVERGRN")
+        def asset = new LocalAsset(currency: "USD", id: "csa_moody_govt",datascopeAssetType: "GOVT",type: "bond",maturityYears: 0.5, fitchRating:"F1+", rateType: "fix")
+        def issuer = new Issuer(countryCode: "US")
         def eligible = new EligibleResult()
         def haircutProvider = new HaircutProvider(name: "Moody")
         def agreement = new LocalAgreement(trigger: 1)
@@ -66,8 +66,8 @@ class rule_csa_moody_haircut_spec  extends Specification {
     }
     def "a bond has haircut 0.02 in CSA moody rules with government agency"() {
         when: "add a bond asset"
-        def asset = new LocalAsset(currency: "USD", id: "csa_moody_govt",type: "bond",maturityYears: 0.5, rateType: "fix")
-        def issuer = new Issuer(countryCode: "US",sector: "AGENCY")
+        def asset = new LocalAsset(currency: "USD", id: "csa_moody_govt",datascopeAssetType: "AGNC",type: "bond",maturityYears: 0.5, rateType: "fix")
+        def issuer = new Issuer(countryCode: "US")
         def eligible = new EligibleResult()
         def haircutProvider = new HaircutProvider(name: "Moody")
         def agreement = new LocalAgreement(trigger: 1)

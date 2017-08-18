@@ -18,7 +18,7 @@ rule "@{ruleName}"
     when
         HaircutProvider(name == "Fitch")
         $rulelist: RuleList(fitchSecStop == 0)
-        Issuer(countryCode in (@{countryCode}) && sector in (@{sector}) )
+        Issuer(countryCode in (@{countryCode}) )
         $asset:LocalAsset(datascopeAssetType == "@{AssetType}" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && fitchRating in (@{clientRating}))
 
         Counterpart(highestRatedNote in (@{highestRatedNote}))

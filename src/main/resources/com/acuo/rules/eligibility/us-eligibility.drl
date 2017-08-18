@@ -34,8 +34,8 @@ end
 
 rule "rule-us-class-2"
 	when
-		$asset : LocalAsset( type == "bond" )
-		$issuer : Issuer(countryCode=="US" && sector=="SOVERGRN")
+		$asset : LocalAsset( datascopeAssetType == "GOVT" )
+		$issuer : Issuer(countryCode=="US")
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
@@ -56,8 +56,8 @@ end
 
 rule "rule-us-class-3"
 	when
-		$asset : LocalAsset( type == "bond" )
-		$issuer : Issuer(countryCode == "US" && sector=="AGENCY")
+		$asset : LocalAsset( datascopeAssetType=="AGNC" )
+		$issuer : Issuer(countryCode == "US")
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
@@ -78,8 +78,8 @@ end
 
 rule "rule-us-class-4"
 	when
-		$asset : LocalAsset( type == "bond" )
-		$issuer : Issuer(sector=="SOVERGRN" && isMemberState)
+		$asset : LocalAsset( datascopeAssetType=="GOVT" )
+		$issuer : Issuer(isMemberState)
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then

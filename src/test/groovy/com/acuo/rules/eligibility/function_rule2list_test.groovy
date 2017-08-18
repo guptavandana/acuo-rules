@@ -28,7 +28,7 @@ class function_rule2list_test extends Specification  {
         def provider = new HaircutProvider(name: "Fitch,US,Moody,EEA")
         def rulelist = new RuleList()
         def asset = new LocalAsset(type:"bond", id: "c1", datascopeAssetType:"GOVT", CQS:1,currency:"EUR",maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
-        def issuer = new Issuer(countryCode: "AU", domCurrency:"GBP",sector:"SOVERGRN")
+        def issuer = new Issuer(countryCode: "AT")
         def eligible = new EligibleResult()
         def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP", trigger: 1,marginType: "Initial",terminateCurrency: "USD")
         def counterpart = new Counterpart(fitchRating: "AA")
@@ -71,7 +71,7 @@ class function_rule2list_test extends Specification  {
         def provider = new HaircutProvider(name: "Fitch,US,Moody,EEA")
         def rulelist = new RuleList()
         def asset = new LocalAsset(type:"bond", id: "c1", datascopeAssetType:"GOVT", CQS:1,currency:"EUR",maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
-        def issuer = new Issuer(countryCode: "AU", domCurrency:"GBP",sector:"SOVERGRN")
+        def issuer = new Issuer(countryCode: "US")
         def eligible = new EligibleResult()
         def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP", trigger: 1,marginType: "Initial",terminateCurrency: "USD")
         def counterpart = new Counterpart(fitchRating: "BBB",countryCode: "US")
@@ -97,7 +97,7 @@ class function_rule2list_test extends Specification  {
         //provider.name == "Fitch"
         rulelist.provider == "Fitch"
         eligible.isEligible == true
-        Math.round(eligible.haircut*100000)/100000 == 1-0.99*0.905
+        Math.round(eligible.haircut*100000)/100000 == 1-0.98*0.905
         eligible.fxHaircut == 0
         //eligible.haircut ==0
         //rulelist.listHaircut==0
