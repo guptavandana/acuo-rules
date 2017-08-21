@@ -100,7 +100,7 @@ end
 
 rule "rule-us-class-6"
 	when
-		$asset : LocalAsset( type == "bond" )
+		$asset : LocalAsset( )
 		$issuer : Issuer(sector=="SPRA")
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
