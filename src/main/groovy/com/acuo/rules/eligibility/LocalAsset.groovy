@@ -7,7 +7,7 @@ class LocalAsset {
     String id
     String type
     Integer CQS
-    String datascopeAssetType
+    String assetType
     String currency
     String idType;
     String name;

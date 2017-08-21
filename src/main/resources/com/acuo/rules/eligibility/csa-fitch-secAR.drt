@@ -19,7 +19,7 @@ rule "@{ruleName}"
         HaircutProvider(name == "Fitch")
         $rulelist: RuleList(fitchSecStop == 0)
         Issuer(countryCode in (@{countryCode}) )
-        $asset:LocalAsset(datascopeAssetType == "@{AssetType}" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && fitchRating in (@{clientRating}))
+        $asset:LocalAsset(assetType == "@{AssetType}" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && fitchRating in (@{clientRating}))
 
         Counterpart(highestRatedNote in (@{highestRatedNote}))
         $eligible: EligibleResult()

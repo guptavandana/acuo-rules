@@ -23,7 +23,7 @@ class rule_csa_fitch_bond_hc_spec extends Specification {
 
     def "An Australian Bond will be applied 1-0.795 haircut."() {
         when: "add a bond asset"
-        def asset = new LocalAsset(type: "bond", id: "a1",currency:"AUD",maturityYears: 0.5,fitchRating: "AAA",datascopeAssetType: "GOVT")
+        def asset = new LocalAsset(type: "bond", id: "a1",currency:"AUD",maturityYears: 0.5,fitchRating: "AAA",assetType: "GOVT")
         def issuer = new Issuer(countryCode: "AU",sector: "SOVERGRN")
         def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP")
         def haircutProvider = new HaircutProvider(name: "Fitch")

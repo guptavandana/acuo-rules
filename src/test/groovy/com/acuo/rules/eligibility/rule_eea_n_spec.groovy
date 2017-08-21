@@ -22,7 +22,7 @@ class rule_eea_n_spec extends Specification {
     }
     def "is a bond in EEA class n"() {
         when: "add a bond asset"
-        def asset = new LocalAsset(type: "bond", id: "n1", datascopeAssetType: "CORP",CQS:1)
+        def asset = new LocalAsset(type: "bond", id: "n1", assetType: "CORP",CQS:1)
         def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"EEA")
         def rulelist = new RuleList()

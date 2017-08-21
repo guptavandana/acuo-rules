@@ -53,7 +53,7 @@ end
 rule "rule-eea-class-c"
 
 	when
-		$asset : LocalAsset(type == "bond" , datascopeAssetType == "GOVT")
+		$asset : LocalAsset(type == "bond" , assetType == "GOVT")
 
 		$issuer: Issuer(isMemberState == true)
 		$provider: HaircutProvider(name == "EEA")
@@ -102,7 +102,7 @@ end
 
 rule "rule-eea-class-j"
 	when
-		$asset : LocalAsset( type == "bond", datascopeAssetType == "GOVT" )
+		$asset : LocalAsset( type == "bond", assetType == "GOVT" )
 		$eligible: EligibleResult()
 		$issuer: Issuer(isMemberState == false)
 		$provider: HaircutProvider(name == "EEA")
@@ -126,7 +126,7 @@ end
 
 rule "rule-eea-class-n"
 	when
-		$asset : LocalAsset( type == "bond", datascopeAssetType == "CORP" )
+		$asset : LocalAsset( type == "bond", assetType == "CORP" )
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "EEA")
 

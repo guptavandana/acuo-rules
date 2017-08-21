@@ -27,7 +27,7 @@ class function_rule2list_test extends Specification  {
 
         def provider = new HaircutProvider(name: "Fitch,US,Moody,EEA")
         def rulelist = new RuleList()
-        def asset = new LocalAsset(type:"bond", id: "c1", datascopeAssetType:"GOVT", CQS:1,currency:"EUR",maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
+        def asset = new LocalAsset(type:"bond", id: "c1", assetType:"GOVT", CQS:1,currency:"EUR",maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
         def issuer = new Issuer(countryCode: "AT")
         def eligible = new EligibleResult()
         def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP", trigger: 1,marginType: "Initial",terminateCurrency: "USD")
@@ -70,7 +70,7 @@ class function_rule2list_test extends Specification  {
 
         def provider = new HaircutProvider(name: "Fitch,US,Moody,EEA")
         def rulelist = new RuleList()
-        def asset = new LocalAsset(type:"bond", id: "c1", datascopeAssetType:"GOVT", CQS:1,currency:"EUR",maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
+        def asset = new LocalAsset(type:"bond", id: "c1", assetType:"GOVT", CQS:1,currency:"EUR",maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
         def issuer = new Issuer(countryCode: "US")
         def eligible = new EligibleResult()
         def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP", trigger: 1,marginType: "Initial",terminateCurrency: "USD")

@@ -34,7 +34,7 @@ end
 
 rule "rule-us-class-2"
 	when
-		$asset : LocalAsset( datascopeAssetType == "GOVT" )
+		$asset : LocalAsset( assetType == "GOVT" )
 		$issuer : Issuer(countryCode=="US")
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
@@ -56,7 +56,7 @@ end
 
 rule "rule-us-class-3"
 	when
-		$asset : LocalAsset( datascopeAssetType=="AGNC" )
+		$asset : LocalAsset( assetType=="AGNC" )
 		$issuer : Issuer(countryCode == "US")
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
@@ -78,7 +78,7 @@ end
 
 rule "rule-us-class-4"
 	when
-		$asset : LocalAsset( datascopeAssetType=="GOVT" )
+		$asset : LocalAsset( assetType=="GOVT" )
 		$issuer : Issuer(isMemberState)
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
