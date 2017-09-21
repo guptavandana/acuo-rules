@@ -1,0 +1,59 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+import com.acuo.common.model.assets.*
+import java.lang.Number
+
+global Logger log;
+
+rule "us-FXHaircut-im"
+	when
+		$ag: LocalAgreement(marginType == "Initial")
+		$asset: LocalAsset(currency== $ag.terminateCurrency || currency == $ag.settlementCurrency)
+		$provider: HaircutProvider(name == "US")
+		$eligible: EligibleResult()
+	then
+		$eligible.setFxHaircut( 0 );
+		update($eligible);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+
+rule "us-FXHaircut-im-a"
+	when
+		$ag: LocalAgreement(marginType == "Initial")
+		$asset: LocalAsset(currency!= $ag.terminateCurrency && currency != $ag.settlementCurrency)
+		$provider: HaircutProvider(name == "US")
+		$eligible: EligibleResult()
+	then
+		$eligible.setFxHaircut( 0.08 );
+		update($eligible);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+
+
+rule "us-FXHaircut-vm"
+	when
+		$asset: LocalAsset(type!= "cash")
+		$agreement: LocalAgreement(marginType == "Variation", (substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency) )
+		$provider: HaircutProvider(name == "US")
+		$eligible: EligibleResult()
+	then
+		$eligible.setFxHaircut( 0 );
+		update($eligible);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+
+
+rule "us-FXHaircut-vm-a"
+	when
+		$asset: LocalAsset(type!= "cash")
+		$agreement: LocalAgreement(marginType == "Variation", !(substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency) )
+		$provider: HaircutProvider(name == "US")
+		$eligible: EligibleResult()
+	then
+		$eligible.setFxHaircut( 0.08 );
+		update($eligible);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+
+

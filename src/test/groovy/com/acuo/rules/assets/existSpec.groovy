@@ -1,6 +1,5 @@
 package com.acuo.rules.assets
 
-import com.acuo.common.model.agreements.Agreement
 import com.acuo.common.model.assets.Assets
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
@@ -8,7 +7,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import spock.lang.Specification
 
-class AssetSpec extends Specification {
+class existSpec extends Specification {
 
     String ksessionName = "AssetsKS"
 
@@ -24,33 +23,34 @@ class AssetSpec extends Specification {
         ksession.setGlobal("log", ruleLogger)
     }
 
-    def "should AA assets be eligible"() {
-        when: "add an AA asset"
-        def asset = new Assets(fitchRating: "AA", assetId: "a1")
-        def agreement = new Agreement(id: "a1")
-        def eligible = new Eligible()
-        ksession.insert(asset)
-        ksession.insert(agreement)
-        ksession.insert(eligible)
+    def "One of the two assets is in type cash or equity"() {
+        when: "add an asset"
+        def asset1 = new Assets(assetId: "a1",type:"cash")
+        def asset2 = new Assets(assetId: "a1",type:"bond")
+        def exist = new com.acuo.rules.assets.Exist()
+        ksession.insert(asset1)
+        ksession.insert(asset2)
+        ksession.insert(exist)
 
         and: "we fire all rules"
         ksession.fireAllRules()
 
         then: "we get eligibility set to true"
-        eligible.isEligible
+        exist.doesExist
     }
-
-    def "should none AA assets not be eligible"() {
-        when: "add a none AA asset"
-        def asset = new Assets(fitchRating: "AB", assetId: "a2")
-        def eligible = new Eligible()
-        ksession.insert(asset)
-        ksession.insert(eligible)
+    def "Neither of the two assets are in type cash or equity"() {
+        when: "add an asset"
+        def asset1 = new Assets(assetId: "a1",type:"bond")
+        def asset2 = new Assets(assetId: "a1",type:"bond")
+        def exist = new com.acuo.rules.assets.Exist()
+        ksession.insert(asset1)
+        ksession.insert(asset2)
+        ksession.insert(exist)
 
         and: "we fire all rules"
         ksession.fireAllRules()
 
         then: "we get eligibility set to true"
-        !eligible.isEligible
+        !exist.doesExist
     }
 }

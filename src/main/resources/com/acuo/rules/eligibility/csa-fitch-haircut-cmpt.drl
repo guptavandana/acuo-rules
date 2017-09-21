@@ -1,0 +1,39 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+
+global Logger log;
+
+rule "rule-fitch-haircut-cmpt"
+//agenda-group "FitchHaircut"
+//salience -10
+	when
+		$provider:HaircutProvider(name=="Fitch")
+		$eligible:EligibleResult($secAR: securityAR!=-1, $fxAR: FXAR!=-1)
+	then
+		$eligible.setIsEligible(true);
+		$eligible.setFxHaircut(0);
+		$eligible.setValuationPercentage($secAR * $fxAR);
+		$eligible.setHaircut(1- $secAR * $fxAR);
+		update($eligible);
+        log.info("Rule: '{}'", drools.getRule().getName() );
+end
+
+rule "rule-fitch-cash-haircut"
+//agenda-group "FitchHaircut"
+//salience 200
+	when
+		$provider:HaircutProvider(name=="Fitch")
+		$asset:LocalAsset(type=="cash")
+		$agree:LocalAgreement()
+		$methods:Methods()
+		eval($methods.substrInStr($asset.getCurrency(),$agree.getEligibleCurrency()))
+		$eligible:EligibleResult()
+	then
+	    drools.getWorkingMemory().getAgenda().getAgendaGroup("FitchHaircut").clear();
+	    $eligible.setIsEligible(true);
+		$eligible.setFxHaircut(0);
+		$eligible.setHaircut(0);
+		update($eligible);
+        log.info("Rule: '{}'", drools.getRule().getName() );
+end

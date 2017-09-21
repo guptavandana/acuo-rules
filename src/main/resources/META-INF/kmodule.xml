@@ -3,11 +3,65 @@
          xmlns="http://jboss.org/kie/6.0.0/kmodule">
 
     <kbase name="HelloWorldKB" packages="com.acuo.rules.helloworld">
+        <ruleTemplate dtable="com/acuo/rules/helloworld/ExampleCheese.xls"
+                      template="com/acuo/rules/helloworld/Cheese.drt"
+                      row="2" col="2"/>
         <ksession name="HelloWorldKS"/>
     </kbase>
 
     <kbase name="AssetsKB" packages="com.acuo.rules.assets">
         <ksession name="AssetsKS"/>
     </kbase>
+
+    <kbase name="MarginRulesKB" packages="com.acuo.rules.marginrules">
+        <ksession name="MarginRulesKS"/>
+    </kbase>
+
+    <kbase name="EligibilityKB" packages="com.acuo.rules.eligibility">
+        <ruleTemplate dtable="com/acuo/rules/eligibility/us-simpleclass-haircut-template.xls"
+                      template="com/acuo/rules/eligibility/us-simpleclass-haircut.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/eea-simpleclass-haircut-template.xls"
+                      template="com/acuo/rules/eligibility/eea-simpleclass-haircut.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/us-bond-haircut-template.xls"
+                      template="com/acuo/rules/eligibility/us-bond-haircut.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/eea-bond-haircut-template.xls"
+                      template="com/acuo/rules/eligibility/eea-bond-haircut.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/csa-moodys-haircut-template.xls"
+                      template="com/acuo/rules/eligibility/csa-moodys-haircut.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/csa-moodys-haircut-template-test.xls"
+                      template="com/acuo/rules/eligibility/csa-moodys-haircut-test.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/csa-fitch-secAR-template.xls"
+                      template="com/acuo/rules/eligibility/csa-fitch-secAR.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/csa-fitch-fxAR-template.xls"
+                      template="com/acuo/rules/eligibility/csa-fitch-fxAR.drt"
+                      row="2" col="2"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/CQS-LT-Stan-mapping.xls"
+                      template="com/acuo/rules/eligibility/CQS-LT-Stan-mapping.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/CQS-ST-Stan-mapping.xls"
+                      template="com/acuo/rules/eligibility/CQS-ST-Stan-mapping.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/CQS-LT-IRB-mapping.xls"
+                      template="com/acuo/rules/eligibility/CQS-LT-IRB-mapping.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/CQS-ST-IRB-mapping.xls"
+                      template="com/acuo/rules/eligibility/CQS-ST-IRB-mapping.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/countryCurrency-map.xls"
+                      template="com/acuo/rules/eligibility/countryCurrency-map.drt"
+                      row="2" col="1"/>
+        <ruleTemplate dtable="com/acuo/rules/eligibility/csa-fitch-ctpyRating-highestRatedNote-map.xls"
+                      template="com/acuo/rules/eligibility/csa-fitch-ctpyRating-highestRatedNote-map.drt"
+                      row="2" col="1"/>
+        <ksession name="EligibilityKS"/>
+    </kbase>
+
 
 </kmodule>

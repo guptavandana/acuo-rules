@@ -1,0 +1,19 @@
+template header
+ruleName
+classType
+haircut
+
+package com.acuo.rules.eligibility;
+
+template "us-simpleclass-haircut"
+
+rule "@{ruleName}"
+    when
+        $eligible: EligibleResult(classType == "@{classType}")
+
+    then
+        $eligible.setHaircut(@{haircut});
+        update($eligible);
+        log.info("Rule: '{}'", drools.getRule().getName());
+end
+end template

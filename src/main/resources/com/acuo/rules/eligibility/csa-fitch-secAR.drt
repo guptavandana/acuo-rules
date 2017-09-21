@@ -1,0 +1,35 @@
+template header
+ruleName
+countryCode
+sector
+AssetType
+maturityLb
+maturityUb
+clientRating
+highestRatedNote
+secAR
+print
+
+package com.acuo.rules.eligibility;
+
+template "fitch-secAR"
+
+rule "@{ruleName}"
+    when
+        HaircutProvider(name == "Fitch")
+        $rulelist: RuleList(fitchSecStop == 0)
+        Issuer(countryCode in (@{countryCode}) )
+        $asset:LocalAsset(assetType == "@{AssetType}" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && fitchRating in (@{clientRating}))
+
+        Counterpart(highestRatedNote in (@{highestRatedNote}))
+        $eligible: EligibleResult()
+
+    then
+        $eligible.setSecurityAR(@{secAR});
+        $rulelist.setFitchSecStop(1);
+        update($eligible);
+        update($rulelist);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+end template
+

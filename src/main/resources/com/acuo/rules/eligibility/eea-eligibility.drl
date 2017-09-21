@@ -1,0 +1,147 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+
+global Logger log;
+
+rule "rule-eea-class-a"
+	when
+		$asset : LocalAsset( type == "cash" )
+		$eligible: EligibleResult()
+		$provider: HaircutProvider(name == "EEA")
+
+	then
+		$eligible.setClassType( "EEAa" );
+		update($eligible)
+		log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+
+end
+
+rule "rule-eea-eli-a"
+	when
+		$asset : LocalAsset( )
+		$eligible: EligibleResult(classType == "EEAa")
+	then
+		$eligible.setIsEligible( true );
+		update($eligible);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+
+rule "rule-eea-class-b"
+	when
+		$asset : LocalAsset( type == "gold" )
+		$eligible: EligibleResult()
+		$provider: HaircutProvider(name == "EEA")
+
+	then
+        $eligible.setClassType( "EEAb" );
+        update($eligible)
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+
+end
+
+rule "rule-eea-eli-b"
+	when
+		$asset : LocalAsset( )
+		$eligible: EligibleResult(classType == "EEAb")
+	then
+		$eligible.setIsEligible( true );
+		update($eligible);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+
+rule "rule-eea-class-c"
+
+	when
+		$asset : LocalAsset(type == "bond" , assetType == "GOVT")
+
+		$issuer: Issuer(isMemberState == true)
+		$provider: HaircutProvider(name == "EEA")
+		$eligible: EligibleResult()
+	then
+
+		$eligible.setClassType( "EEAc" );
+		update($eligible)
+		log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+
+rule "rule-eea-eli-c"
+	when
+		$issuer: Issuer()
+		$eligible: EligibleResult(classType == "EEAc")
+		//$asset : LocalAsset( (currency!=$issuer.domCurrency && $issuer.domCurrency!=null) || ((currency==$issuer.domCurrency) && CQS in ( 1, 2, 3, 4 )) )
+		$asset : LocalAsset( CQS in ( 1, 2, 3, 4 ))
+	then
+		$eligible.setIsEligible( true );
+		update($eligible);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+
+rule "rule-eea-class-hi"
+
+	when
+		$asset : LocalAsset(type == "bond")
+		$issuer: Issuer(sector == "SPRA")
+		$provider: HaircutProvider(name == "EEA")
+		$eligible: EligibleResult()
+	then
+		$eligible.setClassType( "EEAhi" );
+		update($eligible)
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+
+rule "rule-eea-eli-hi"
+	when
+		$asset : LocalAsset( )
+		$eligible: EligibleResult(classType == "EEAhi")
+	then
+		$eligible.setIsEligible( true );
+		update($eligible);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+
+rule "rule-eea-class-j"
+	when
+		$asset : LocalAsset( type == "bond", assetType == "GOVT" )
+		$eligible: EligibleResult()
+		$issuer: Issuer(isMemberState == false)
+		$provider: HaircutProvider(name == "EEA")
+
+	then
+
+		$eligible.setClassType( "EEAj" );
+		update($eligible)
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+
+rule "rule-eea-eli-j"
+	when
+		$asset : LocalAsset(CQS in ( 1, 2, 3 ))
+		$eligible: EligibleResult(classType == "EEAj")
+	then
+		$eligible.setIsEligible( true );
+		update($eligible);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+
+rule "rule-eea-class-n"
+	when
+		$asset : LocalAsset( type == "bond", assetType == "CORP" )
+		$eligible: EligibleResult()
+		$provider: HaircutProvider(name == "EEA")
+
+	then
+		$eligible.setClassType( "EEAn" );
+		update($eligible)
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+
+rule "rule-eea-eli-n"
+	when
+	    $asset: LocalAsset(CQS in ( 1, 2, 3 ))
+		$eligible: EligibleResult(classType == "EEAn")
+	then
+		$eligible.setIsEligible( true );
+		update($eligible);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end

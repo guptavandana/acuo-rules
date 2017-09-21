@@ -1,0 +1,24 @@
+template header
+ruleName
+maturityLb
+maturityUb
+CQSLb
+CQSUb
+classType
+haircut
+
+package com.acuo.rules.eligibility;
+
+template "eea-bond-haircut"
+
+rule "@{ruleName}"
+    when
+        $asset:LocalAsset(type == "bond" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && CQS>= @{CQSLb} && CQS<= @{CQSUb})
+        $eligible: EligibleResult(classType in (@{classType}))
+
+    then
+        $eligible.setHaircut(@{haircut});
+        update($eligible);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
+end
+end template

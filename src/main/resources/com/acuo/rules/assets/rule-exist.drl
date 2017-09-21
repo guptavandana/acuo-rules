@@ -1,0 +1,19 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+import com.acuo.common.model.assets.*
+import com.acuo.rules.assets.*
+global Logger log;
+
+rule "Exists"
+    when
+        exists Assets( type in ("cash","equity") )
+        $exist: Exist()
+    then
+            log.info(
+                "Rule: '{}'",
+                drools.getRule().getName()
+            );
+        System.out.println("Assets exists");
+        $exist.setDoesExist(true);
+end
