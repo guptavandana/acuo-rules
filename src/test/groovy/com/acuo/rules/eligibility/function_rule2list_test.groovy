@@ -30,7 +30,7 @@ class function_rule2list_test extends Specification  {
         def asset = new LocalAsset(type:"bond", id: "c1", assetType:"GOVT", CQS:1,currency:"EUR",maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
         def issuer = new Issuer(countryCode: "AT")
         def eligible = new EligibleResult()
-        def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP", trigger: 1,marginType: "Initial",terminateCurrency: "USD")
+        def agreement = new Agreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP", trigger: 1,marginType: "Initial",terminateCurrency: "USD")
         def counterpart = new Counterpart(fitchRating: "AA")
 
 
@@ -73,7 +73,7 @@ class function_rule2list_test extends Specification  {
         def asset = new LocalAsset(type:"bond", id: "c1", assetType:"GOVT", CQS:1,currency:"EUR",maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
         def issuer = new Issuer(countryCode: "US")
         def eligible = new EligibleResult()
-        def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP", trigger: 1,marginType: "Initial",terminateCurrency: "USD")
+        def agreement = new Agreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP", trigger: 1,marginType: "Initial",terminateCurrency: "USD")
         def counterpart = new Counterpart(fitchRating: "BBB",countryCode: "US")
 
 

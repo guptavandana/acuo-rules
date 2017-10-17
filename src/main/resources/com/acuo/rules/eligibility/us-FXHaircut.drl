@@ -8,7 +8,7 @@ global Logger log;
 
 rule "us-FXHaircut-im"
 	when
-		$ag: LocalAgreement(marginType == "Initial")
+		$ag: Agreement(marginType == "Initial")
 		$asset: LocalAsset(currency== $ag.terminateCurrency || currency == $ag.settlementCurrency)
 		$provider: HaircutProvider(name == "US")
 		$eligible: EligibleResult()
@@ -20,7 +20,7 @@ end
 
 rule "us-FXHaircut-im-a"
 	when
-		$ag: LocalAgreement(marginType == "Initial")
+		$ag: Agreement(marginType == "Initial")
 		$asset: LocalAsset(currency!= $ag.terminateCurrency && currency != $ag.settlementCurrency)
 		$provider: HaircutProvider(name == "US")
 		$eligible: EligibleResult()
@@ -34,7 +34,7 @@ end
 rule "us-FXHaircut-vm"
 	when
 		$asset: LocalAsset(type!= "cash")
-		$agreement: LocalAgreement(marginType == "Variation", (substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency) )
+		$agreement: Agreement(marginType == "Variation", (substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency) )
 		$provider: HaircutProvider(name == "US")
 		$eligible: EligibleResult()
 	then
@@ -47,7 +47,7 @@ end
 rule "us-FXHaircut-vm-a"
 	when
 		$asset: LocalAsset(type!= "cash")
-		$agreement: LocalAgreement(marginType == "Variation", !(substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency) )
+		$agreement: Agreement(marginType == "Variation", !(substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency) )
 		$provider: HaircutProvider(name == "US")
 		$eligible: EligibleResult()
 	then

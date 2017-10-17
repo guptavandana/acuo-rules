@@ -13,7 +13,7 @@ rule "rule-fitch-fxAR-@{row.rowNumber}"
         $eligible: EligibleResult()
         $rulelist: RuleList(fitchFxStop == 0)
         $asset: LocalAsset(currency in (@{currencyList}))
-        LocalAgreement(baseCurrency!=$asset.getCurrency())
+        Agreement(baseCurrency!=$asset.getCurrency())
         Counterpart(highestRatedNote in (@{highestRatedNote}))
 
     then
@@ -32,7 +32,7 @@ rule "rule-fitch-fxAR-0"
         $eligible: EligibleResult()
         $rulelist: RuleList(fitchFxStop == 0)
         $asset: LocalAsset()
-        LocalAgreement(baseCurrency==$asset.getCurrency())
+        Agreement(baseCurrency==$asset.getCurrency())
 
     then
         $eligible.setFXAR(1);

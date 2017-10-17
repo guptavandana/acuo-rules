@@ -8,7 +8,7 @@ global Logger log;
 
 rule "eea-FXHaircut-im"
 	when
-		$ag: LocalAgreement(marginType == "Initial")
+		$ag: Agreement(marginType == "Initial")
 		$asset: LocalAsset(currency == $ag.terminateCurrency)
 		$eligible: EligibleResult()
 
@@ -22,7 +22,7 @@ end
 
 rule "eea-FXHaircut-im-a"
 	when
-		$ag: LocalAgreement(marginType == "Initial")
+		$ag: Agreement(marginType == "Initial")
 		$asset: LocalAsset(currency!= $ag.terminateCurrency)
 		$provider: HaircutProvider(name == "EEA")
 		$eligible: EligibleResult()
@@ -36,7 +36,7 @@ end
 rule "eea-FXHaircut-vm-a"
 	when
 		$asset: LocalAsset(type!= "cash")
-		$ag: LocalAgreement(marginType == "Variation", eligibleCurrency != $asset.currency)
+		$ag: Agreement(marginType == "Variation", eligibleCurrency != $asset.currency)
 		$provider: HaircutProvider(name == "EEA")
 		$eligible: EligibleResult()
 	then
@@ -49,7 +49,7 @@ end
 rule "eea-FXHaircut-vm-cash"
 	when
 		$asset: LocalAsset(type== "cash")
-		$ag: LocalAgreement(marginType == "Variation")
+		$ag: Agreement(marginType == "Variation")
 		$provider: HaircutProvider(name == "EEA")
 		$eligible: EligibleResult()
 	then
@@ -61,7 +61,7 @@ end
 rule "eea-FXHaircut-vm-noncash"
 	when
 		$asset: LocalAsset(type!= "cash")
-		$ag: LocalAgreement(marginType == "Variation", eligibleCurrency == $asset.currency)
+		$ag: Agreement(marginType == "Variation", eligibleCurrency == $asset.currency)
 		$provider: HaircutProvider(name == "EEA")
 		$eligible: EligibleResult()
 	then

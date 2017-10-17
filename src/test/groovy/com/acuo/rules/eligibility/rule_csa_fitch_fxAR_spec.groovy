@@ -23,7 +23,7 @@ class rule_csa_fitch_fxAR_spec extends Specification{
     def "An Australian Bond will be applied 0.86 fx AR."() {
         when: "add a bond asset"
         def asset = new LocalAsset(type: "bond", id: "a1",currency:"AUD")
-        def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP")
+        def agreement = new Agreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP")
         def haircutProvider = new HaircutProvider(name: "Fitch")
         def counterpart = new Counterpart(fitchRating: "AA",countryCode:"UK")
         def eligible = new EligibleResult()
@@ -46,7 +46,7 @@ class rule_csa_fitch_fxAR_spec extends Specification{
     def "A UK Bond will not be applied fx AR."() {
         when: "add a bond asset"
         def asset = new LocalAsset(type: "bond", id: "a1",currency:"GBP")
-        def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP")
+        def agreement = new Agreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP")
         def haircutProvider = new HaircutProvider(name: "Fitch")
         def eligible = new EligibleResult()
         def rulelist = new RuleList()

@@ -24,7 +24,7 @@ class rule_csa_fitch_cash_haircut_spec extends Specification {
     def "A cash asset will be applied 0 haircut."() {
         when: "add a bond asset"
         def asset = new LocalAsset(type: "cash", id: "a1",currency:"EUR")
-        def agreement = new LocalAgreement(id: "ag1", baseCurrency: "GBP", eligibleCurrency: "EUR,USD,GBP", majorCurrency: "EUR,USD,GBP")
+        def agreement = new Agreement(id: "ag1", baseCurrency: "GBP", eligibleCurrency: "EUR,USD,GBP", majorCurrency: "EUR,USD,GBP")
         def haircutProvider = new HaircutProvider(name: "Fitch")
         def methods = new Methods()
         def eligible = new EligibleResult()
