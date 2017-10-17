@@ -40,7 +40,6 @@ rule "add unique issuers ids"
             getIdsUnique().add( $id ),
             setIdsLength($idsUnique.size())
         }
-        log.info("Rule: '{}', issuer result: '{}'", drools.getRule().getName(), $issuers );
 end
 
 rule "add unique issuers groupIds"
@@ -54,7 +53,6 @@ rule "add unique issuers groupIds"
             getGroupIdsUnique().add( $group ),
             setGroupIdsLength($groupIdsUnique.size())
         }
-        log.info("Rule: '{}', issuer result: '{}'", drools.getRule().getName(), $issuers );
 end
 
 rule "add unique issuer countries"
@@ -68,9 +66,7 @@ rule "add unique issuer countries"
             getCountriesUnique().add( $country ),
             setCountriesLength($countriesUnique.size())
         }
-        log.info("Rule: '{}', issuer result: '{}'", drools.getRule().getName(), $issuers );
 end
-
 
 
 rule "eea-cl-1a-start"
