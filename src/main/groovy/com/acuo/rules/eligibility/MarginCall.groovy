@@ -3,11 +3,10 @@ package com.acuo.rules.eligibility
 import groovy.transform.ToString
 
 @ToString(includePackage=false, includeNames=true)
-class Issuer {
-    String countryCode
-    String domCurrency
-    String sector
-    Boolean isMemberState = false
+class MarginCall {
+    String callType;
+    double amount;
     String id;
-    String groupId;
+    double fxRate;
+    String currency;
 }

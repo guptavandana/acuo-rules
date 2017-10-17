@@ -1,0 +1,161 @@
+package com.acuo.rules.eligibility
+
+import org.slf4j.Logger
+
+global Logger log;
+
+function double findMax(double a, double b){
+    if(a>b){
+        return a;
+    }
+    return b;
+}
+
+rule "set global issuers list"
+    when
+        $issuers: Issuers(!initiate,$groupIdsUnique:groupIdsUnique,$idsUnique:idsUnique,$countriesUnique:countriesUnique)
+        accumulate($asset:LocalAsset(  //eeaClass in ("EEAb","EEAf","EEAg","EEAl","EEAm","EEAn","EEAo","EEAp","EEAq","EEAr"),
+                $issuerGroupId:issuerGroupId,$issuerId:issuerId,$issuerCountryCode:issuerCountryCode),
+                   $issuerGroup: collectList($issuerGroupId),
+                   $issuer: collectList($issuerId),
+                   $issuerCountry: collectList($issuerCountryCode))
+    then
+        $issuers.setGroupIds($issuerGroup);
+        $issuers.setIds($issuer);
+        $issuers.setCountries($issuerCountry);
+        $issuers.setIndex(0);
+        $issuers.setInitiate(true);
+        update($issuers);
+        log.info("Rule: '{}', issuer result: '{}'", drools.getRule().getName(), $issuers );
+end
+
+rule "add unique issuers ids"
+    when
+        $issuers: Issuers(!end_1a,$index:index,index==0,$ids:ids,$idsUnique:idsUnique)
+        $clResult:CLResult(index==$index-1)
+        $id: String() from $ids
+        eval(!$idsUnique.contains($id))
+    then
+        modify( $issuers ){
+            getIdsUnique().add( $id ),
+            setIdsLength($idsUnique.size())
+        }
+        log.info("Rule: '{}', issuer result: '{}'", drools.getRule().getName(), $issuers );
+end
+
+rule "add unique issuers groupIds"
+    when
+        $issuers: Issuers(!end_1a,$index:index,index==0,$groupIdsUnique:groupIdsUnique,$groupIds:groupIds)
+        $clResult:CLResult(index==$index-1)
+        $group: String() from $groupIds
+        eval(!$groupIdsUnique.contains($group))
+    then
+        modify( $issuers ){
+            getGroupIdsUnique().add( $group ),
+            setGroupIdsLength($groupIdsUnique.size())
+        }
+        log.info("Rule: '{}', issuer result: '{}'", drools.getRule().getName(), $issuers );
+end
+
+rule "add unique issuer countries"
+    when
+        $issuers: Issuers(!end_1a,$index:index,index==0,$countriesUnique:countriesUnique,$countries:Countries)
+        $clResult:CLResult(index==$index-1)
+        $country: String() from $countries
+        eval(!$countriesUnique.contains($country))
+    then
+        modify( $issuers ){
+            getCountriesUnique().add( $country ),
+            setCountriesLength($countriesUnique.size())
+        }
+        log.info("Rule: '{}', issuer result: '{}'", drools.getRule().getName(), $issuers );
+end
+
+
+
+rule "eea-cl-1a-start"
+	when
+        $issuers: Issuers(!end_1a,$index:index,$issuerGroupUnique:groupIdsUnique,index<groupIdsLength)
+        $clResult:CLResult(index==$index-1)
+		$assetList : List()
+		   from accumulate($asset:LocalAsset(eeaClass in ("EEAc","EEAd","EEAe","EEAf","EEAg","EEAh","EEAi","EEAj","EEAk","EEAl"),
+		        issuerGroupId==$issuerGroupUnique[$index]),
+		        collectList($asset.getId()))
+		eval($assetList.size()>0)
+		$IM: MarginCall(callType:"Initial",$callAmount:amount)
+     then
+         CLConstraint $clConstraint = new CLConstraint();
+         $clConstraint.setAssetIds($assetList);
+         $clConstraint.setCallId($IM.getId());
+         $clConstraint.setLimitDollar(10000000.0);
+         $clConstraint.setLimitPercent(15);
+         $clConstraint.setSelect("max");
+         //$clConstraint.setLimit(findMax(10000000.0,$callAmount*0.15));
+         $clConstraint.setIndex($index);
+         insert($clConstraint);
+         $issuers.setIndex($index+1);
+
+         update($issuers);
+         log.info("Rule: '{}', issuer index: '{}'", drools.getRule().getName(), $issuers.getIndex() );
+         log.info("Rule: '{}', concentration constraint: '{}'", drools.getRule().getName(), $clConstraint );
+         log.info("Rule: '{}', issuers result: '{}'", drools.getRule().getName(), $issuers );
+end
+
+rule "eea-cl-1a-end"
+	when
+        $issuers: Issuers(!end_1a,$index:index==groupIdsLength)
+        $clResult:CLResult(index==$index-1)
+    then
+        $issuers.setEnd_1a(true);
+        $issuers.setIndex(0);
+        update($issuers);
+        $clResult.setIndex(-1);
+        update($clResult);
+        log.info("Rule: '{}', issuers: '{}'", drools.getRule().getName(), $issuers );
+end
+
+rule "eea-cl-2a-start"
+    when
+        $issuers: Issuers(!end_2a,$index:index,$countriesUnique:countriesUnique,index<countriesLength)
+        $clResult:CLResult(index==$index-1)
+        $assetList : List()
+           from accumulate($asset:LocalAsset(eeaClass in ("EEAc","EEAd","EEAl"),issuerCountryCode==$countriesUnique[$index]),
+                collectList($asset.getId()))
+        $IM: MarginCall(callType:"Initial",$callAmount:amount>1000000000)
+        eval($assetList.size()>0)
+    then
+         CLConstraint $clConstraint = new CLConstraint();
+         $clConstraint.setAssetIds($assetList);
+         $clConstraint.setCallId($IM.getId());
+         $clConstraint.setLimitPercent(50);
+         $clConstraint.setSelect("percentage");
+         $clConstraint.setIndex($index);
+         insert($clConstraint);
+         $issuers.setIndex($index+1);
+         update($issuers);
+         log.info("Rule: '{}', issuer index: '{}'", drools.getRule().getName(), $issuers.getIndex() );
+         log.info("Rule: '{}', concentration constraint: '{}'", drools.getRule().getName(), $clConstraint );
+end
+
+rule "eea-cl-2a-end"
+	when
+        $issuers: Issuers(end_1a,!end_2a,index==countriesLength)
+    then
+        log.info("Rule: '{}', issuers: '{}'", drools.getRule().getName(), $issuers );
+        $issuers.setEnd_2a(true);
+        $issuers.setIndex(0);
+        update($issuers);
+end
+
+rule "add constrains to CLResult"
+    when
+        $clResult:CLResult($index:index)
+        $constraints: List()
+            from accumulate($clConstraint:CLConstraint(index==$index+1),
+                collectList($clConstraint))
+    then
+         $clResult.setConstraints($constraints);
+         $clResult.setIndex($index+1);
+         update($clResult);
+         log.info("Rule: '{}', concentration result: '{}'", drools.getRule().getName(), $clResult );
+end

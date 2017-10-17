@@ -8,6 +8,7 @@ class LocalAsset {
     String type
     Integer CQS
     String assetType
+    String eeaClass;
     String currency
     String idType;
     String name;
@@ -19,7 +20,11 @@ class LocalAsset {
     String ratingMethod;
     String creditPrincipalCode;
     String convertibleTypeCode;
-    String issuer;
+    String issuerId;
+    String issuerGroupId;
+    String issuerCountryCode;
+    String issuerSector;
+    boolean issuerIsMemeberState;
     String index;
     String exchange;
     String rateType;
