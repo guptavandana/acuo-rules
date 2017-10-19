@@ -1,19 +1,15 @@
-package com.acuo.rules.eligibility
+package com.acuo.rules.concentrationlimit
 
 import com.acuo.common.model.assets.Assets
-import com.acuo.common.model.agreements.Agreement
-import com.acuo.common.model.margin.Types
 import com.acuo.common.model.margin.MarginCall
-import com.opengamma.strata.basics.currency.Currency
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import spock.lang.Specification
-import java.util.List
 
 class eea_CL_test extends Specification {
-    String ksessionName = "EligibilityKS"
+    String ksessionName = "ConcentrationLimitKS"
 
     KieSession ksession
     Logger ruleLogger
@@ -32,7 +28,7 @@ class eea_CL_test extends Specification {
         def asset3 = new Assets(assetId: "a3", eeaClass:"EEAl",issuerGroupId: "group2",issuerId:"i3",issuerCountryCode: "CA")
         def issuers = new Issuers()
         def marginCall = new MarginCall(id:"mc1",callType: "Initial",totalCallAmount:2000000000)
-        def clResult = new CLResult(index:-1)
+        def clResult = new com.acuo.rules.eligibility.CLResult(index:-1)
         ksession.insert(asset1)
         ksession.insert(asset2)
         ksession.insert(asset3)

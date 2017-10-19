@@ -1,10 +1,10 @@
-package com.acuo.rules.eligibility
+package com.acuo.rules.concentrationlimit
 
 import com.acuo.common.model.assets.Assets
 import com.acuo.common.model.agreements.Agreement
 import com.acuo.common.model.margin.Types
 import com.acuo.common.model.margin.MarginCall
-
+import java.util.List
 import org.slf4j.Logger
 global Logger log;
 

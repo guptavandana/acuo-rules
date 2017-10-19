@@ -1,7 +1,6 @@
-package com.acuo.rules.eligibility
+package com.acuo.rules.concentrationlimit
 
 import groovy.transform.ToString
-import java.util.*
 
 @ToString(includePackage=false, includeNames=true)
 class Issuers {
