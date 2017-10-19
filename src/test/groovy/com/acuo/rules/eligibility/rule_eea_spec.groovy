@@ -64,58 +64,51 @@ class rule_eea_spec extends Specification {
     }
     def "is bond in EEA class c"() {
         when: "add an bond asset"
-        def asset = new Assets(type:"bond", assetId: "c1", assetType:"GOVT", CQS:1,currency:Currency.AUD,maturityYears: 2)
+        def asset = new Assets(type:"bond", assetId: "c1", assetType:"GOVT", CQS:1,currency:Currency.AUD,maturityYears: 2,issuerCountryCode: "AT")
         def eligible = new EligibleResult()
-        def issuer = new Issuer(countryCode: "AT")
         def provider = new HaircutProvider(name:"EEA")
         def rulelist = new RuleList()
         ksession.insert(rulelist)
         ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(eligible)
-        ksession.insert(issuer)
 
         and: "we fire all rules"
         ksession.fireAllRules()
 
         then: "then we get rules regime and class"
-        issuer.isMemberState
+        asset.issuerIsMemberState
         eligible.classType == "EEAc"
         eligible.isEligible
     }
     def "An AU bond with fitch rating B is not in EEA class c"() {
         when: "add an bond asset"
-        def asset = new Assets(type:"bond", assetId: "c1", assetType:"GOVT", fitchRating: "B",ratingMethod: "Standard",currency:Currency.AUD,maturityYears: 2)
+        def asset = new Assets(type:"bond", assetId: "c1", assetType:"GOVT", fitchRating: "B",ratingMethod: "Standard",currency:Currency.AUD,maturityYears: 2,issuerCountryCode: "AU",issuerSector: "SOVERGRN")
         def eligible = new EligibleResult()
-        def issuer = new Issuer(countryCode: "AU",sector:"SOVERGRN")
         def provider = new HaircutProvider(name:"EEA")
         def rulelist = new RuleList()
         ksession.insert(rulelist)
         ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(eligible)
-        ksession.insert(issuer)
 
         and: "we fire all rules"
         ksession.fireAllRules()
 
         then: "then we get rules regime and class"
-        //issuer.isMemberState
         //eligible.classType == "EEAc"
         !eligible.isEligible
     }
     def "is a bond in EEA class hi"() {
         when: "add an bond asset"
-        def asset = new Assets(type: "bond", assetId: "h1")
+        def asset = new Assets(type: "bond", assetId: "h1",issuerSector: "SPRA")
         def eligible = new EligibleResult()
-        def issuer = new Issuer(sector:"SPRA")
         def provider = new HaircutProvider(name:"EEA")
         def rulelist = new RuleList()
         ksession.insert(rulelist)
         ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(eligible)
-        ksession.insert(issuer)
 
         and: "we fire all rules"
         ksession.fireAllRules()
@@ -126,16 +119,14 @@ class rule_eea_spec extends Specification {
     }
     def "is cash in EEA class j"() {
         when: "add an bond asset"
-        def asset = new Assets(type: "bond", assetId: "j1", assetType: "GOVT", CQS:1)
+        def asset = new Assets(type: "bond", assetId: "j1", assetType: "GOVT", CQS:1,issuerCountryCode: "CN")
         def eligible = new EligibleResult()
-        def issuer = new Issuer(countryCode: "CNA")
         def provider = new HaircutProvider(name:"EEA")
         def rulelist = new RuleList()
         ksession.insert(rulelist)
         ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(eligible)
-        ksession.insert(issuer)
 
         and: "we fire all rules"
         ksession.fireAllRules()

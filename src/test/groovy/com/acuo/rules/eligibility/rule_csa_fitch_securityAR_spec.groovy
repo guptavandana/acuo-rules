@@ -26,8 +26,7 @@ class rule_csa_fitch_securityAR_spec extends Specification{
     }
     def "An Australian Bond will be applied 0.99 security AR."() {
         when: "add a bond asset"
-        def asset = new Assets(type: "bond", assetId: "a1",currency:Currency.AUD,maturityYears: 0.5,fitchRating: "AAA",assetType: "GOVT")
-        def issuer = new Issuer(countryCode: "AU",sector: "SOVERGRN")
+        def asset = new Assets(type: "bond", assetId: "a1",currency:Currency.AUD,maturityYears: 0.5,fitchRating: "AAA",assetType: "GOVT",issuerCountryCode: "AU",issuerSector: "SOVERGRN")
         def agreement = new Agreement(id: "ag1", baseCurrency: Currency.GBP,majorCurrency: [Currency.EUR,Currency.USD,Currency.GBP])
         def haircutProvider = new HaircutProvider(name: "Fitch")
         def counterpart = new Counterpart(fitchRating: "AA",countryCode:"UK")
@@ -35,7 +34,6 @@ class rule_csa_fitch_securityAR_spec extends Specification{
         def rulelist = new RuleList()
         ksession.insert(rulelist)
         ksession.insert(asset)
-        ksession.insert(issuer)
         ksession.insert(agreement)
         ksession.insert(eligible)
         ksession.insert(haircutProvider)
@@ -50,8 +48,7 @@ class rule_csa_fitch_securityAR_spec extends Specification{
     }
     def "A US Bond will be applied 0.98 security AR."() {
         when: "add a bond asset"
-        def asset = new Assets(type: "bond", assetId: "a1",currency: Currency.USD,maturityYears: 0.5,fitchRating: "AAA",assetType: "GOVT")
-        def issuer = new Issuer(countryCode: "US",sector: "SOVERGRN")
+        def asset = new Assets(type: "bond", assetId: "a1",currency: Currency.USD,maturityYears: 0.5,fitchRating: "AAA",assetType: "GOVT",issuerCountryCode: "US",issuerSector: "SOVERGRN")
         def agreement = new Agreement(id: "ag1", baseCurrency: Currency.GBP,majorCurrency: [Currency.EUR,Currency.USD,Currency.GBP])
         def haircutProvider = new HaircutProvider(name: "Fitch")
         def counterpart = new Counterpart(fitchRating: "BB",countryCode:"US")
@@ -59,7 +56,6 @@ class rule_csa_fitch_securityAR_spec extends Specification{
         def rulelist = new RuleList()
         ksession.insert(rulelist)
         ksession.insert(asset)
-        ksession.insert(issuer)
         ksession.insert(agreement)
         ksession.insert(eligible)
         ksession.insert(haircutProvider)

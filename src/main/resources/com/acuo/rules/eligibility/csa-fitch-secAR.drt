@@ -1,7 +1,7 @@
 template header
 ruleName
-countryCode
-sector
+issuerCountryCode
+issuerSector
 AssetType
 maturityLb
 maturityUb
@@ -24,9 +24,9 @@ rule "@{ruleName}"
     when
         HaircutProvider(name == "Fitch")
         $rulelist: RuleList(fitchSecStop == 0)
-        Issuer(countryCode in (@{countryCode}) )
-        $asset:Assets(assetType == "@{AssetType}" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && fitchRating in (@{clientRating}))
-
+        //Issuer(countryCode in (@{countryCode}) )
+        $asset:Assets(assetType == "@{AssetType}" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && fitchRating in (@{clientRating}),
+                    issuerCountryCode in (@{issuerCountryCode}),issuerSector in (@{issuerSector}))
         Counterpart(highestRatedNote in (@{highestRatedNote}))
         $eligible: EligibleResult()
 

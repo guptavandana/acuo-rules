@@ -31,33 +31,24 @@ class function_rule2list_test extends Specification  {
 
         def provider = new HaircutProvider(name: "Fitch,US,Moody,EEA")
         def rulelist = new RuleList()
-        def asset = new Assets(type:"bond", assetId: "c1", assetType:"GOVT", CQS:1,currency:Currency.EUR,maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
-        def issuer = new Issuer(countryCode: "AT")
+        def asset = new Assets(type:"bond", assetId: "c1", assetType:"GOVT", CQS:1,currency:Currency.EUR,maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1",issuerCountryCode: "AT",issuerSector: "SPRA")
         def eligible = new EligibleResult()
         def agreement = new Agreement(id: "ag1", baseCurrency: Currency.GBP, majorCurrency: [Currency.EUR,Currency.USD,Currency.GBP], trigger: 1,marginType: "Initial",terminateCurrency: Currency.USD)
         def counterpart = new Counterpart(fitchRating: "AA")
 
-
-
         ksession.insert(asset)
-        ksession.insert(issuer)
         ksession.insert(agreement)
         ksession.insert(counterpart)
         ksession.insert(provider)
         ksession.insert(rulelist)
         ksession.insert(eligible)
 
-
-
         and: "we fire all rules"
         ksession.fireAllRules()
 
         then: "then we get rules regime and class"
-        //regime.name == "US"
-        //rulelist.listFXHaircut == 0
-        //provider.name == "Fitch"
         rulelist.provider == "Fitch"
-        eligible.isEligible == true
+        eligible.isEligible
         Math.round(eligible.haircut*100000)/100000 == 1-0.99*0.86
         eligible.fxHaircut == 0
         //eligible.haircut ==0
@@ -74,23 +65,17 @@ class function_rule2list_test extends Specification  {
 
         def provider = new HaircutProvider(name: "Fitch,US,Moody,EEA")
         def rulelist = new RuleList()
-        def asset = new Assets(type:"bond", assetId: "c1", assetType:"GOVT", CQS:1,currency:Currency.EUR,maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
-        def issuer = new Issuer(countryCode: "US")
+        def asset = new Assets(type:"bond", assetId: "c1", assetType:"GOVT", CQS:1,currency:Currency.EUR,maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1",issuerCountryCode: "US",issuerSector: "SOVERGRN")
         def eligible = new EligibleResult()
         def agreement = new Agreement(id: "ag1", baseCurrency: Currency.GBP, majorCurrency: [Currency.EUR,Currency.USD,Currency.GBP], trigger: 1,marginType: "Initial",terminateCurrency: Currency.USD)
         def counterpart = new Counterpart(fitchRating: "BBB",countryCode: "US")
 
-
-
         ksession.insert(asset)
-        ksession.insert(issuer)
         ksession.insert(agreement)
         ksession.insert(counterpart)
         ksession.insert(provider)
         ksession.insert(rulelist)
         ksession.insert(eligible)
-
-
 
         and: "we fire all rules"
         ksession.fireAllRules()
@@ -100,7 +85,7 @@ class function_rule2list_test extends Specification  {
         //rulelist.listFXHaircut == 0
         //provider.name == "Fitch"
         rulelist.provider == "Fitch"
-        eligible.isEligible == true
+        eligible.isEligible
         Math.round(eligible.haircut*100000)/100000 == 1-0.98*0.905
         eligible.fxHaircut == 0
         //eligible.haircut ==0

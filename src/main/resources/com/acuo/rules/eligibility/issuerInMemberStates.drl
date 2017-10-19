@@ -7,14 +7,14 @@ global Logger log;
 
 rule "issuerInMemberStates"
 	when
-		$issuer : Issuer(countryCode in ("AT","BE","BG","HR","CY",
+		$asset : Assets(issuerCountryCode in ("AT","BE","BG","HR","CY",
                                   "CZ","DK","EE","FI","FR",
                                   "DE","GR","HU","IE","IT",
                                   "LV","LT","LU","MT","NL",
                                   "PL","PT","RO","SK","SI",
                                   "ES","SE","GB"));
 	then
-		$issuer.setIsMemberState( true );
-		update($issuer);
+		$asset.setIssuerIsMemberState( true );
+		update($asset);
         log.info("Rule: '{}'", drools.getRule().getName());
 end

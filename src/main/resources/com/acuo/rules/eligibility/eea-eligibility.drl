@@ -54,15 +54,11 @@ rule "rule-eea-eli-b"
 end
 
 rule "rule-eea-class-c"
-
 	when
-		$asset : Assets(type == "bond" , assetType == "GOVT")
-
-		$issuer: Issuer(isMemberState == true)
+		$asset : Assets(type == "bond" , assetType == "GOVT", issuerIsMemberState)
 		$provider: HaircutProvider(name == "EEA")
 		$eligible: EligibleResult()
 	then
-
 		$eligible.setClassType( "EEAc" );
 		update($eligible)
 		log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
@@ -70,7 +66,6 @@ end
 
 rule "rule-eea-eli-c"
 	when
-		$issuer: Issuer()
 		$eligible: EligibleResult(classType == "EEAc")
 		//$asset : Assets( (currency!=$issuer.domCurrency && $issuer.domCurrency!=null) || ((currency==$issuer.domCurrency) && CQS in ( 1, 2, 3, 4 )) )
 		$asset : Assets( CQS in ( 1, 2, 3, 4 ))
@@ -81,10 +76,9 @@ rule "rule-eea-eli-c"
 end
 
 rule "rule-eea-class-hi"
-
 	when
-		$asset : Assets(type == "bond")
-		$issuer: Issuer(sector == "SPRA")
+		$asset : Assets(type == "bond",issuerSector=="SPRA")
+		//$issuer: Issuer(sector == "SPRA")
 		$provider: HaircutProvider(name == "EEA")
 		$eligible: EligibleResult()
 	then
@@ -105,9 +99,9 @@ end
 
 rule "rule-eea-class-j"
 	when
-		$asset : Assets( type == "bond", assetType == "GOVT" )
+		$asset : Assets( type == "bond", assetType == "GOVT",!issuerIsMemberState )
 		$eligible: EligibleResult()
-		$issuer: Issuer(isMemberState == false)
+		//$issuer: Issuer(isMemberState == false)
 		$provider: HaircutProvider(name == "EEA")
 
 	then

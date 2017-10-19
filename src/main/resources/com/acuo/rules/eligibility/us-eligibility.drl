@@ -24,9 +24,6 @@ rule "rule-us-class-1"
 		$asset : Assets( type == "cash",$currency:currency )
 		$agreement: Agreement($majorCurrency:majorCurrency,$settlementCurrency:settlementCurrency)
 		eval(ccyInCcys($currency,$majorCurrency)||$currency==$settlementCurrency)
-		//eval($majorCurrency contains $currency||
-		//eval(ccyInCcys($currency,$majorCurrency))
-		//eval($currency==$settlementCurrency)
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
@@ -47,8 +44,8 @@ end
 
 rule "rule-us-class-2"
 	when
-		$asset : Assets( assetType == "GOVT" )
-		$issuer : Issuer(countryCode=="US")
+		$asset : Assets( assetType == "GOVT",issuerCountryCode:"US" )
+		//$issuer : Issuer(countryCode=="US")
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
@@ -69,8 +66,8 @@ end
 
 rule "rule-us-class-3"
 	when
-		$asset : Assets( assetType=="AGNC" )
-		$issuer : Issuer(countryCode == "US")
+		$asset : Assets( assetType=="AGNC", issuerCountryCode:"US" )
+		//$issuer : Issuer(countryCode == "US")
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
@@ -91,14 +88,14 @@ end
 
 rule "rule-us-class-4"
 	when
-		$asset : Assets( assetType=="GOVT" )
-		$issuer : Issuer(isMemberState)
+		$asset : Assets( assetType=="GOVT" , issuerIsMemberState)
+		//$issuer : Issuer(isMemberState)
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
 		$eligible.setClassType( "US4" );
 		update($eligible);
-        log.info("Rule: '{}', asset: '{}',issuer:'{}'", drools.getRule().getName(), $asset, $issuer );
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
 rule "rule-us-eli-4"
@@ -113,8 +110,8 @@ end
 
 rule "rule-us-class-6"
 	when
-		$asset : Assets( )
-		$issuer : Issuer(sector=="SPRA")
+		$asset : Assets(issuerSector=="SPRA" )
+		//$issuer : Issuer(sector=="SPRA")
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then

@@ -27,15 +27,13 @@ class us_bond_haircut_spec  extends Specification{
     }
     def "a bond has haircut 0.02 in US regime"() {
         when: "add a bond asset"
-        def asset = new Assets(assetId: "a1",type:"bond",assetType: "GOVT",maturityYears: 3)
-        def issuer = new Issuer(countryCode: "US")
+        def asset = new Assets(assetId: "a1",type:"bond",assetType: "GOVT",maturityYears: 3,issuerCountryCode: "US")
         def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"US")
         def rulelist = new RuleList()
         ksession.insert(rulelist)
         ksession.insert(provider)
         ksession.insert(asset)
-        ksession.insert(issuer)
         ksession.insert(eligible)
 
         and: "we fire all rules"

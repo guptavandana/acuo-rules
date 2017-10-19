@@ -27,8 +27,7 @@ class rule_csa_fitch_bond_hc_spec extends Specification {
 
     def "An Australian Bond will be applied 1-0.795 haircut."() {
         when: "add a bond asset"
-        def asset = new Assets(type: "bond", assetId: "a1",currency:Currency.AUD,maturityYears: 0.5,fitchRating: "AAA",assetType: "GOVT")
-        def issuer = new Issuer(countryCode: "AU",sector: "SOVERGRN")
+        def asset = new Assets(type: "bond", assetId: "a1",currency:Currency.AUD,maturityYears: 0.5,fitchRating: "AAA",assetType: "GOVT",issuerCountryCode: "AU",issuerSector: "SOVERGRN")
         def agreement = new Agreement(id: "ag1", baseCurrency: Currency.GBP, majorCurrency: [Currency.EUR,Currency.USD,Currency.GBP])
         def haircutProvider = new HaircutProvider(name: "Fitch")
         def counterpart = new Counterpart(fitchRating: "AA",countryCode:"UK")
@@ -36,7 +35,6 @@ class rule_csa_fitch_bond_hc_spec extends Specification {
         def rulelist = new RuleList()
         ksession.insert(rulelist)
         ksession.insert(asset)
-        ksession.insert(issuer)
         ksession.insert(agreement)
         ksession.insert(eligible)
         ksession.insert(haircutProvider)

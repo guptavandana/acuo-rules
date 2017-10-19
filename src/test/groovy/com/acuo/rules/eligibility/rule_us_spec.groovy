@@ -48,15 +48,13 @@ class rule_us_spec extends Specification{
     }
     def "a bond is in US class 2"() {
         when: "add a bond asset"
-        def asset = new com.acuo.common.model.assets.Assets( assetId: "a1",assetType: "GOVT")
-        def issuer = new Issuer(countryCode: "US" )
+        def asset = new com.acuo.common.model.assets.Assets( assetId: "a1",assetType: "GOVT",issuerCountryCode: "US")
         def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"US")
         def rulelist = new RuleList()
         ksession.insert(rulelist)
         ksession.insert(provider)
         ksession.insert(asset)
-        ksession.insert(issuer)
         ksession.insert(eligible)
 
         and: "we fire all rules"
@@ -68,8 +66,7 @@ class rule_us_spec extends Specification{
     }
     def "a bond is in US class 3"() {
         when: "add a bond asset"
-        def asset = new Assets(assetType: "AGNC", assetId: "us3")
-        def issuer = new Issuer(countryCode: "US")
+        def asset = new Assets(assetType: "AGNC", assetId: "us3",issuerCountryCode: "US")
         def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"US")
         def rulelist = new RuleList()
@@ -77,7 +74,6 @@ class rule_us_spec extends Specification{
         ksession.insert(provider)
         ksession.insert(asset)
         ksession.insert(asset)
-        ksession.insert(issuer)
         ksession.insert(eligible)
 
         and: "we fire all rules"
@@ -89,15 +85,13 @@ class rule_us_spec extends Specification{
     }
     def "a bond is in US class 4"() {
         when: "add a bond asset"
-        def asset = new Assets(assetType: "GOVT", assetId: "a1")
-        def issuer = new Issuer(countryCode: "GB")
+        def asset = new Assets(assetType: "GOVT", assetId: "a1",issuerCountryCode: "GB")
         def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"US")
         def rulelist = new RuleList()
         ksession.insert(rulelist)
         ksession.insert(provider)
         ksession.insert(asset)
-        ksession.insert(issuer)
         ksession.insert(eligible)
 
 
@@ -110,15 +104,13 @@ class rule_us_spec extends Specification{
     }
     def "a bond is in US class 6"() {
         when: "add a bond asset"
-        def asset = new Assets(type: "bond", assetId: "us6")
-        def issuer = new Issuer(sector:"SPRA")
+        def asset = new Assets(type: "bond", assetId: "us6",issuerSector: "SPRA")
         def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"US")
         def rulelist = new RuleList()
         ksession.insert(rulelist)
         ksession.insert(provider)
         ksession.insert(asset)
-        ksession.insert(issuer)
         ksession.insert(eligible)
 
 

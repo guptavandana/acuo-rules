@@ -16,10 +16,10 @@ template "countryCurrency"
 
 rule "@{ruleName}"
     when
-        $issuer: Issuer(countryCode=="@{countryCode}")
+        $asset: Assets(issuerCountryCode=="@{countryCode}")
     then
-        $issuer.setDomCurrency(@{domCurrency});
-        update($issuer);
-        log.info("Rule: '{}', issuer: '{}'", drools.getRule().getName(), $issuer );
+        $asset.setIssuerDomCurrency(@{domCurrency});
+        update($asset);
+        log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 end template
