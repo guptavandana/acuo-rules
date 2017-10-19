@@ -3,6 +3,7 @@ package com.acuo.rules.eligibility
 import com.acuo.common.model.assets.Assets
 import com.acuo.common.model.agreements.Agreement
 import com.acuo.common.model.margin.Types
+import com.acuo.common.model.margin.MarginCall
 import com.opengamma.strata.basics.currency.Currency
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
@@ -30,7 +31,7 @@ class eea_CL_test extends Specification {
         def asset2 = new Assets(assetId: "a2", eeaClass:"EEAf",issuerGroupId: "group2",issuerId:"i2",issuerCountryCode: "US")
         def asset3 = new Assets(assetId: "a3", eeaClass:"EEAl",issuerGroupId: "group2",issuerId:"i3",issuerCountryCode: "CA")
         def issuers = new Issuers()
-        def marginCall = new MarginCall(id:"mc1",callType: "Initial",amount:2000000000)
+        def marginCall = new MarginCall(id:"mc1",callType: "Initial",totalCallAmount:2000000000)
         def clResult = new CLResult(index:-1)
         ksession.insert(asset1)
         ksession.insert(asset2)

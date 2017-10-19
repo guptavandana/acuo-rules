@@ -2,7 +2,7 @@ package com.acuo.rules.services
 
 import com.acuo.rules.eligibility.EligibleResult
 import com.acuo.rules.eligibility.HaircutProvider
-import com.acuo.rules.eligibility.Assets1
+import com.acuo.common.model.assets.Assets
 import com.acuo.rules.eligibility.RuleList
 import com.google.common.collect.ImmutableList
 import spock.guice.UseModules
@@ -20,9 +20,9 @@ class EligibilityServiceSpec extends Specification {
 
     def "eligible"() {
         when:
-        Assets1 asset = new Assets1()
+        Assets asset = new Assets()
         asset.setType("cash")
-        asset.setId("a1")
+        asset.setAssetId("a1")
         EligibleResult eligible = new EligibleResult()
         HaircutProvider provider = new HaircutProvider()
         provider.setName("EEA")

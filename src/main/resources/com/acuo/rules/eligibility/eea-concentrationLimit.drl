@@ -3,6 +3,7 @@ package com.acuo.rules.eligibility
 import com.acuo.common.model.assets.Assets
 import com.acuo.common.model.agreements.Agreement
 import com.acuo.common.model.margin.Types
+import com.acuo.common.model.margin.MarginCall
 
 import org.slf4j.Logger
 global Logger log;
@@ -81,7 +82,7 @@ rule "eea-cl-1a-start"
 		        issuerGroupId==$issuerGroupUnique[$index]),
 		        collectList($asset.getAssetId()))
 		eval($assetList.size()>0)
-		$IM: MarginCall(callType:Types.MarginType.Initial,$callAmount:amount)
+		$IM: MarginCall(callType:Types.MarginType.Initial,$callAmount:totalCallAmount)
      then
          CLConstraint $clConstraint = new CLConstraint();
          $clConstraint.setAssetIds($assetList);
@@ -120,7 +121,7 @@ rule "eea-cl-2a-start"
         $assetList : List()
            from accumulate($asset:Assets(eeaClass in ("EEAc","EEAd","EEAl"),issuerCountryCode==$countriesUnique[$index]),
                 collectList($asset.getAssetId()))
-        $IM: MarginCall(callType:Types.MarginType.Initial,$callAmount:amount>1000000000)
+        $IM: MarginCall(callType:Types.MarginType.Initial,$callAmount:totalCallAmount>1000000000)
         eval($assetList.size()>0)
     then
          CLConstraint $clConstraint = new CLConstraint();

@@ -1,5 +1,6 @@
 package com.acuo.rules.marginrules
 
+import com.acuo.common.model.assets.Assets
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
@@ -22,7 +23,7 @@ class rule_test   extends Specification {
     }
     def "A bond with fitch rating AA using standardized approach has correspond CQS 1 "() {
         when: "add a bond asset"
-        def asset = new LocalAsset(id: "a1",type: "cash")
+        def asset = new Assets(assetId: "a1",type: "cash")
         ksession.insert(asset)
         and: "we fire all rules"
         ksession.fireAllRules()

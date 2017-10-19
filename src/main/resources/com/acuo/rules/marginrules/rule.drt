@@ -8,7 +8,5 @@ rule "margin rule hi"
     when
         LocalAsset(type == "cash");
     then
-        //System.out.println($m.getType());
-
         log.info("Rule: '{}'",   drools.getRule().getName() );
 end
