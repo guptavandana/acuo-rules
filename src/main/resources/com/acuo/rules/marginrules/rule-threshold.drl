@@ -1,5 +1,8 @@
 package com.acuo.rules.marginrules
 
+import com.acuo.common.model.margin.MarginCall
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
 import org.slf4j.Logger
 
 global Logger log;
@@ -7,7 +10,7 @@ global Logger log;
 rule "rule-threshold-secured"
     when
         $call: MarginCall($exposure:exposure)
-        $agreement: LocalAgreement(type in ("bilateral","legacy"),$exposure > $threshold: thresholdAmount, thresholdTreatment=="Secured")
+        $agreement: Agreement(thresholdTreatment== "Secured",$exposure>threshold,agreementType in (Types.AgreementType.Regulatory_CSA,Types.AgreementType.CSA))
         $result: ThresholdResult();
     then
         $result.setExposure($exposure);
@@ -19,7 +22,7 @@ end
 rule "rule-threshold-unsecured"
     when
         $call: MarginCall($exposure:exposure)
-        $agreement: LocalAgreement(type in ("bilateral","legacy"),$exposure > $threshold: thresholdAmount, thresholdTreatment=="Unsecured")
+        $agreement: Agreement(thresholdTreatment== "Unsecured",$exposure>threshold,$threshold:threshold, agreementType in (Types.AgreementType.Regulatory_CSA,Types.AgreementType.CSA))
         $result: ThresholdResult();
     then
         $result.setExposure($exposure - $threshold);

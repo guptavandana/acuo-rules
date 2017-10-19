@@ -1,6 +1,10 @@
 
 package com.acuo.rules.eligibility
 
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import com.opengamma.strata.basics.currency.Currency
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
@@ -24,7 +28,7 @@ class rule_csa_moody_haircut_spec  extends Specification {
     }
     def "a cash has haircut 0 in CSA moody rules"() {
         when: "add a cash asset"
-        def asset = new LocalAsset(currency: "GBP", id: "csa_moody_cash",type: "cash")
+        def asset = new Assets(currency: Currency.GBP, assetId: "csa_moody_cash",type: "cash")
         def issuer = new Issuer()
         def eligible = new EligibleResult()
         def haircutProvider = new HaircutProvider(name: "Moody")
@@ -45,7 +49,7 @@ class rule_csa_moody_haircut_spec  extends Specification {
     }
     def "a bond has haircut 0.02 in CSA moody rules with ccy USD"() {
         when: "add a bond asset"
-        def asset = new LocalAsset(currency: "USD", id: "csa_moody_govt",assetType: "GOVT",type: "bond",maturityYears: 0.5, fitchRating:"F1+", rateType: "fix")
+        def asset = new Assets(currency: Currency.USD, assetId: "csa_moody_govt",assetType: "GOVT",type: "bond",maturityYears: 0.5, fitchRating:"F1+", rateType: "fix")
         def issuer = new Issuer(countryCode: "US")
         def eligible = new EligibleResult()
         def haircutProvider = new HaircutProvider(name: "Moody")
@@ -66,7 +70,7 @@ class rule_csa_moody_haircut_spec  extends Specification {
     }
     def "a bond has haircut 0.02 in CSA moody rules with government agency"() {
         when: "add a bond asset"
-        def asset = new LocalAsset(currency: "USD", id: "csa_moody_govt",assetType: "AGNC",type: "bond",maturityYears: 0.5, rateType: "fix")
+        def asset = new Assets(currency: Currency.USD, assetId: "csa_moody_govt",assetType: "AGNC",type: "bond",maturityYears: 0.5, rateType: "fix")
         def issuer = new Issuer(countryCode: "US")
         def eligible = new EligibleResult()
         def haircutProvider = new HaircutProvider(name: "Moody")
@@ -87,7 +91,7 @@ class rule_csa_moody_haircut_spec  extends Specification {
     }
     def "a bond has haircut 0.01 in CSA moody rules with moody rating"() {
         when: "add a bond asset"
-        def asset = new LocalAsset(assetType: "GOVT", currency: "EUR", id: "csa_moody_govt",type: "bond",maturityYears: 0.5, rateType: "fix", moodyRating: "Aa1")
+        def asset = new Assets(assetType: "GOVT", currency: Currency.EUR, assetId: "csa_moody_govt",type: "bond",maturityYears: 0.5, rateType: "fix", moodyRating: "Aa1")
         def issuer = new Issuer()
         def eligible = new EligibleResult()
         def haircutProvider = new HaircutProvider(name: "Moody")
@@ -108,7 +112,7 @@ class rule_csa_moody_haircut_spec  extends Specification {
     }
     def "a bond has haircut 0 in CSA moody rules with UK"() {
         when: "add a bond asset"
-        def asset = new LocalAsset(assetType: "GOVT", currency: "GBP", id: "csa_moody_govt",type: "bond",maturityYears: 0.5, rateType: "fix")
+        def asset = new Assets(assetType: "GOVT", currency: Currency.GBP, assetId: "csa_moody_govt",type: "bond",maturityYears: 0.5, rateType: "fix")
         def issuer = new Issuer(countryCode: "UK")
         def eligible = new EligibleResult()
         def haircutProvider = new HaircutProvider(name: "Moody")

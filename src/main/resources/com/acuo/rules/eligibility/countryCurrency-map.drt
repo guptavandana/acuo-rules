@@ -5,7 +5,12 @@ domCurrency
 
 package com.acuo.rules.eligibility;
 
-global java.util.List list;
+import org.slf4j.Logger
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import com.opengamma.strata.basics.currency.Currency
+global Logger log;
 
 template "countryCurrency"
 
@@ -13,7 +18,7 @@ rule "@{ruleName}"
     when
         $issuer: Issuer(countryCode=="@{countryCode}")
     then
-        $issuer.setDomCurrency("@{domCurrency}");
+        $issuer.setDomCurrency(@{domCurrency});
         update($issuer);
         log.info("Rule: '{}', issuer: '{}'", drools.getRule().getName(), $issuer );
 end

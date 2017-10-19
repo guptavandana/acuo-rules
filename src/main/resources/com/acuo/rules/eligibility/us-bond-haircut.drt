@@ -7,11 +7,16 @@ haircut
 
 package com.acuo.rules.eligibility;
 
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import org.slf4j.Logger
+global Logger log;
+
 template "us-bond-haircut"
 
 rule "@{ruleName}"
     when
-        LocalAsset(type == "bond" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb})
+        Assets(type == "bond" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb})
         $eligible: EligibleResult(classType in (@{classType}))
 
     then

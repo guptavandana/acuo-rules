@@ -1,7 +1,10 @@
 package com.acuo.rules.eligibility
 
-import org.slf4j.Logger
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
 
+import org.slf4j.Logger
 global Logger log;
 
 function double findMax(double a, double b){
@@ -14,7 +17,7 @@ function double findMax(double a, double b){
 rule "set global issuers list"
     when
         $issuers: Issuers(!initiate,$groupIdsUnique:groupIdsUnique,$idsUnique:idsUnique,$countriesUnique:countriesUnique)
-        accumulate($asset:LocalAsset(  //eeaClass in ("EEAb","EEAf","EEAg","EEAl","EEAm","EEAn","EEAo","EEAp","EEAq","EEAr"),
+        accumulate($asset:Assets(  //eeaClass in ("EEAb","EEAf","EEAg","EEAl","EEAm","EEAn","EEAo","EEAp","EEAq","EEAr"),
                 $issuerGroupId:issuerGroupId,$issuerId:issuerId,$issuerCountryCode:issuerCountryCode),
                    $issuerGroup: collectList($issuerGroupId),
                    $issuer: collectList($issuerId),
@@ -74,11 +77,11 @@ rule "eea-cl-1a-start"
         $issuers: Issuers(!end_1a,$index:index,$issuerGroupUnique:groupIdsUnique,index<groupIdsLength)
         $clResult:CLResult(index==$index-1)
 		$assetList : List()
-		   from accumulate($asset:LocalAsset(eeaClass in ("EEAc","EEAd","EEAe","EEAf","EEAg","EEAh","EEAi","EEAj","EEAk","EEAl"),
+		   from accumulate($asset:Assets(eeaClass in ("EEAc","EEAd","EEAe","EEAf","EEAg","EEAh","EEAi","EEAj","EEAk","EEAl"),
 		        issuerGroupId==$issuerGroupUnique[$index]),
-		        collectList($asset.getId()))
+		        collectList($asset.getAssetId()))
 		eval($assetList.size()>0)
-		$IM: MarginCall(callType:"Initial",$callAmount:amount)
+		$IM: MarginCall(callType:Types.MarginType.Initial,$callAmount:amount)
      then
          CLConstraint $clConstraint = new CLConstraint();
          $clConstraint.setAssetIds($assetList);
@@ -115,9 +118,9 @@ rule "eea-cl-2a-start"
         $issuers: Issuers(!end_2a,$index:index,$countriesUnique:countriesUnique,index<countriesLength)
         $clResult:CLResult(index==$index-1)
         $assetList : List()
-           from accumulate($asset:LocalAsset(eeaClass in ("EEAc","EEAd","EEAl"),issuerCountryCode==$countriesUnique[$index]),
-                collectList($asset.getId()))
-        $IM: MarginCall(callType:"Initial",$callAmount:amount>1000000000)
+           from accumulate($asset:Assets(eeaClass in ("EEAc","EEAd","EEAl"),issuerCountryCode==$countriesUnique[$index]),
+                collectList($asset.getAssetId()))
+        $IM: MarginCall(callType:Types.MarginType.Initial,$callAmount:amount>1000000000)
         eval($assetList.size()>0)
     then
          CLConstraint $clConstraint = new CLConstraint();

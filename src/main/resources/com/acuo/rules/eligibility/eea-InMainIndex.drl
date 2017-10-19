@@ -1,7 +1,9 @@
 package com.acuo.rules.eligibility
 
 import org.slf4j.Logger
-import com.acuo.common.model.assets.*
+
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
 
 import java.util.List;
 import java.util.ArrayList;

@@ -1,6 +1,9 @@
-
 package com.acuo.rules.eligibility
 
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import com.opengamma.strata.basics.currency.Currency
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
@@ -24,7 +27,7 @@ class CQS_map_spec  extends Specification {
     }
     def "A bond with fitch rating AA using standardized approach has correspond CQS 1 "() {
         when: "add a bond asset"
-        def asset = new LocalAsset(id: "a1",type: "bond",fitchRating: "AA",ratingMethod: "Standard")
+        def asset = new Assets(assetId: "a1",type: "bond",fitchRating: "AA",ratingMethod: "Standard")
         ksession.insert(asset)
         and: "we fire all rules"
         ksession.fireAllRules()
@@ -35,7 +38,7 @@ class CQS_map_spec  extends Specification {
 
     def "A bond with moody's rating A3 using standardized approach has correspond CQS 2 "() {
         when: "add a bond asset"
-        def asset = new LocalAsset(id: "a1",type: "bond",moodyRating: "A3",ratingMethod: "Standard")
+        def asset = new Assets(assetId: "a1",type: "bond",moodyRating: "A3",ratingMethod: "Standard")
         ksession.insert(asset)
         and: "we fire all rules"
         ksession.fireAllRules()
@@ -45,7 +48,7 @@ class CQS_map_spec  extends Specification {
     }
     def "A bond with moody's short term rating P-1 using standardized approach has correspond CQS 1 "() {
         when: "add a bond asset"
-        def asset = new LocalAsset(id: "a1",type: "bond",moodyRating: "P-1",ratingMethod: "Standard")
+        def asset = new Assets(assetId: "a1",type: "bond",moodyRating: "P-1",ratingMethod: "Standard")
         ksession.insert(asset)
         and: "we fire all rules"
         ksession.fireAllRules()
@@ -55,7 +58,7 @@ class CQS_map_spec  extends Specification {
     }
     def "A bond with S&P long term rating BBB using standardized approach has correspond CQS 3 "() {
         when: "add a bond asset"
-        def asset = new LocalAsset(id: "a1",type: "bond",snpRating: "BBB",ratingMethod: "Standard")
+        def asset = new Assets(assetId: "a1",type: "bond",snpRating: "BBB",ratingMethod: "Standard")
         ksession.insert(asset)
         and: "we fire all rules"
         ksession.fireAllRules()
@@ -65,7 +68,7 @@ class CQS_map_spec  extends Specification {
     }
     def "A bond with Moody's long term rating BBa1 using IRB approach has correspond CQS 8 "() {
         when: "add a bond asset"
-        def asset = new LocalAsset(id: "a1",type: "bond",moodyRating: "Baa1",ratingMethod: "IRB")
+        def asset = new Assets(assetId: "a1",type: "bond",moodyRating: "Baa1",ratingMethod: "IRB")
         ksession.insert(asset)
         and: "we fire all rules"
         ksession.fireAllRules()

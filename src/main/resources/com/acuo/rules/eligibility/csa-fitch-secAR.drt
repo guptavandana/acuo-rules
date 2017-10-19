@@ -12,6 +12,12 @@ print
 
 package com.acuo.rules.eligibility;
 
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import org.slf4j.Logger
+global Logger log;
+
 template "fitch-secAR"
 
 rule "@{ruleName}"
@@ -19,7 +25,7 @@ rule "@{ruleName}"
         HaircutProvider(name == "Fitch")
         $rulelist: RuleList(fitchSecStop == 0)
         Issuer(countryCode in (@{countryCode}) )
-        $asset:LocalAsset(assetType == "@{AssetType}" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && fitchRating in (@{clientRating}))
+        $asset:Assets(assetType == "@{AssetType}" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && fitchRating in (@{clientRating}))
 
         Counterpart(highestRatedNote in (@{highestRatedNote}))
         $eligible: EligibleResult()

@@ -2,7 +2,7 @@ package com.acuo.rules.services
 
 import com.acuo.rules.eligibility.EligibleResult
 import com.acuo.rules.eligibility.HaircutProvider
-import com.acuo.rules.eligibility.LocalAsset
+import com.acuo.rules.eligibility.Assets1
 import com.acuo.rules.eligibility.RuleList
 import com.google.common.collect.ImmutableList
 import spock.guice.UseModules
@@ -20,7 +20,7 @@ class EligibilityServiceSpec extends Specification {
 
     def "eligible"() {
         when:
-        LocalAsset asset = new LocalAsset()
+        Assets1 asset = new Assets1()
         asset.setType("cash")
         asset.setId("a1")
         EligibleResult eligible = new EligibleResult()

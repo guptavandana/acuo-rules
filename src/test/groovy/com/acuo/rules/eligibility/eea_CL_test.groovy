@@ -1,5 +1,9 @@
 package com.acuo.rules.eligibility
 
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import com.opengamma.strata.basics.currency.Currency
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
@@ -22,9 +26,9 @@ class eea_CL_test extends Specification {
     }
     def "Input 3 assets"() {
         when: "add an bond asset"
-        def asset1 = new LocalAsset(id: "a1", eeaClass:"EEAc",issuerGroupId: "group1",issuerId:"i1",issuerCountryCode: "GB")
-        def asset2 = new LocalAsset(id: "a2", eeaClass:"EEAf",issuerGroupId: "group2",issuerId:"i2",issuerCountryCode: "US")
-        def asset3 = new LocalAsset(id: "a3", eeaClass:"EEAl",issuerGroupId: "group2",issuerId:"i3",issuerCountryCode: "CA")
+        def asset1 = new Assets(assetId: "a1", eeaClass:"EEAc",issuerGroupId: "group1",issuerId:"i1",issuerCountryCode: "GB")
+        def asset2 = new Assets(assetId: "a2", eeaClass:"EEAf",issuerGroupId: "group2",issuerId:"i2",issuerCountryCode: "US")
+        def asset3 = new Assets(assetId: "a3", eeaClass:"EEAl",issuerGroupId: "group2",issuerId:"i3",issuerCountryCode: "CA")
         def issuers = new Issuers()
         def marginCall = new MarginCall(id:"mc1",callType: "Initial",amount:2000000000)
         def clResult = new CLResult(index:-1)
@@ -39,6 +43,6 @@ class eea_CL_test extends Specification {
         ksession.fireAllRules()
 
         then: "then we get rules regime and class"
-        asset1.id
+        asset1.assetId
     }
 }

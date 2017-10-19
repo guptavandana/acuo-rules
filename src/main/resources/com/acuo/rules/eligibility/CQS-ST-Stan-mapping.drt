@@ -4,16 +4,19 @@ moodyRatingST
 snpRatingST
 CQS
 
-
 package com.acuo.rules.eligibility;
 
-global java.util.List list;
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import org.slf4j.Logger
+global Logger log;
 
 template "CQS-ST-Stan-mapping"
 
 rule "CQS-ST-Stan-mapping @{row.rowNumber}"
     when
-        $asset: LocalAsset(ratingMethod=="Standard" &&(fitchRating == "@{fitchRatingST}" ||moodyRating == "@{moodyRatingST}" || snpRating == "@{snpRatingST}"))
+        $asset: Assets(ratingMethod=="Standard" &&(fitchRating == "@{fitchRatingST}" ||moodyRating == "@{moodyRatingST}" || snpRating == "@{snpRatingST}"))
     then
         $asset.setCQS(@{CQS});
         update($asset);

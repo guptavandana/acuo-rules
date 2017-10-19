@@ -6,13 +6,17 @@ CQS
 
 package com.acuo.rules.eligibility;
 
-global java.util.List list;
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import org.slf4j.Logger
+global Logger log;
 
 template "CQS-LT-IRB-mapping"
 
 rule "CQS-LT-IRB-mapping @{row.rowNumber}"
     when
-        $asset: LocalAsset(ratingMethod=="IRB" &&(fitchRating == "@{fitchRatingLT}" || moodyRating == "@{moodyRatingLT}"|| snpRating == "@{snpRatingLT}"))
+        $asset: Assets(ratingMethod=="IRB" &&(fitchRating == "@{fitchRatingLT}" || moodyRating == "@{moodyRatingLT}"|| snpRating == "@{snpRatingLT}"))
     then
         $asset.setCQS(@{CQS});
         update($asset);

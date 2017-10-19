@@ -1,0 +1,18 @@
+package com.acuo.rules.assets
+
+import com.acuo.common.model.agreements.*
+import com.acuo.common.model.assets.*
+import com.acuo.common.model.margin.Types
+import org.slf4j.Logger
+global Logger log;
+
+rule "Read a Currency array"
+    when
+        $array: Array($currencies:currencies,!stop, $currency:currency, currencies not contains currency)
+        //eval(!$currency in $currencies))
+     then
+        log.info( "Rule: '{}', asset: '{}'",  drools.getRule().getName(), $array   );
+        System.out.println($currencies[0]);
+        $array.setStop(true);
+        update($array);
+end

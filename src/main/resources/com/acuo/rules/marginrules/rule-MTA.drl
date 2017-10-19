@@ -2,13 +2,16 @@ package com.acuo.rules.marginrules
 
 import org.slf4j.Logger
 
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.MarginCall
+import com.acuo.common.model.margin.Types
 global Logger log;
 
 rule "rule-mta-netExposore-vm"
 	when
-		$callVM: MarginCall(marginType == "Variation",$dirVM:direction, $marginVM:(deliverAmount+returnAmount))
-		not MarginCall(marginType == "Initial")
-        $agreement: LocalAgreement(type in ("bilateral","legacy"),$MTA1: MTA1, $MTA2: MTA2)
+		$callVM: MarginCall(marginType == Types.MarginType.Variation,$dirVM:direction, $marginVM:(deliverAmount+returnAmount))
+		not MarginCall(marginType == Types.MarginType.Initial)
+        $agreement: Agreement(agreementType in (Types.AgreementType.Regulatory_CSA,Types.AgreementType.CSA),$MTA1: MTA1, $MTA2: MTA2)
         // if the client is the posting party, and deliverAmount+returnAmount is larger than MTA1, then margin call should be generated
         // if the client is the collecting party, and deliverAmount+returnAmount is larger than  MTA2, then margin call should be generated
         eval(($callVM.getDirection() == "OUT" && $callVM.getDeliverAmount() + $callVM.getReturnAmount() >= $MTA1) || ($callVM.getDirection() == "IN" && $callVM.getDeliverAmount() + $callVM.getReturnAmount() >= $MTA2))
@@ -22,9 +25,9 @@ end
 
 rule "rule-mta-netExposore-im"
 	when
-		$callIM: MarginCall(marginType == "Initial",$dirIM:direction, $marginIM:(deliverAmount+returnAmount))
-		not MarginCall(marginType == "Variation")
-        $agreement: LocalAgreement(type in ("bilateral","legacy"),$MTA1: MTA1, $MTA2: MTA2)
+		$callIM: MarginCall(marginType == Types.MarginType.Initial,$dirIM:direction, $marginIM:(deliverAmount+returnAmount))
+		not MarginCall(marginType == Types.MarginType.Variation)
+        $agreement: Agreement(agreementType in (Types.AgreementType.Regulatory_CSA,Types.AgreementType.CSA),$MTA1: MTA1, $MTA2: MTA2)
         // if the client is the posting party, and deliverAmount+returnAmount is larger than MTA1, then margin call should be generated
         // if the client is the collecting party, and deliverAmount+returnAmount is larger than  MTA2, then margin call should be generated
         eval(($callIM.getDirection() == "OUT" && $callIM.getDeliverAmount() + $callIM.getReturnAmount() >= $MTA1) || ($callIM.getDirection() == "IN" && $callIM.getDeliverAmount() + $callIM.getReturnAmount() >= $MTA2))
@@ -40,9 +43,9 @@ end
 
 rule "rule-mta-netExposore-vmim-sameDir"
 	when
-		$callVM: MarginCall(marginType == "Variation",$dirVM:direction, $marginVM:(deliverAmount+returnAmount))
-		$callIM: MarginCall(marginType == "Initial",$dirIM:direction, $marginIM:(deliverAmount+returnAmount))
-        $agreement: LocalAgreement(type in ("bilateral","legacy"),$MTA1: MTA1, $MTA2: MTA2)
+		$callVM: MarginCall(marginType == Types.MarginType.Variation,$dirVM:direction, $marginVM:(deliverAmount+returnAmount))
+		$callIM: MarginCall(marginType == Types.MarginType.Initial,$dirIM:direction, $marginIM:(deliverAmount+returnAmount))
+        $agreement: Agreement(agreementType in (Types.AgreementType.Regulatory_CSA,Types.AgreementType.CSA),$MTA1: MTA1, $MTA2: MTA2)
         $result: MarginResult();
         // if the client is the posting party, and deliverAmount+returnAmount of both IM and VM is larger than MTA1, then margin call should be generated
         // if the client is the collecting party, and deliverAmount+returnAmount of both IM and VM is larger than  MTA2, then margin call should be generated
@@ -61,9 +64,9 @@ end
 
 rule "rule-mta-netExposore-vmim-diffDir-vmLarger"
 	when
-		$callVM: MarginCall(marginType == "Variation",$dirVM:direction, $marginVM:(deliverAmount+returnAmount))
-		$callIM: MarginCall(marginType == "Initial",$dirIM:direction,$marginIM:(deliverAmount+returnAmount))
-        $agreement: LocalAgreement(type in ("bilateral","legacy"),$MTA1: MTA1, $MTA2: MTA2)
+		$callVM: MarginCall(marginType == Types.MarginType.Variation,$dirVM:direction, $marginVM:(deliverAmount+returnAmount))
+		$callIM: MarginCall(marginType == Types.MarginType.Initial,$dirIM:direction,$marginIM:(deliverAmount+returnAmount))
+        $agreement: Agreement(agreementType in (Types.AgreementType.Regulatory_CSA,Types.AgreementType.CSA),$MTA1: MTA1, $MTA2: MTA2)
         $result: MarginResult();
         // if the client is posting party of VM and collecting party of IM, then if $marginVM - $marginIM > $MTA1, it will be overall OUT
         // if the client is collecting party of VM and posting party of IM, then if $marginVM - $marginIM > $MTA2, it will be overall IN
@@ -81,9 +84,9 @@ end
 
 rule "rule-mta-netExposore-vmim-diffDir-imLarger"
 	when
-		$callVM: MarginCall(marginType == "Variation",$dirVM:direction, $marginVM:(deliverAmount+returnAmount))
-		$callIM: MarginCall(marginType == "Initial",$dirIM:direction,$marginIM:(deliverAmount+returnAmount))
-        $agreement: LocalAgreement(type in ("bilateral","legacy"),$MTA1: MTA1, $MTA2: MTA2)
+		$callVM: MarginCall(marginType == Types.MarginType.Variation,$dirVM:direction, $marginVM:(deliverAmount+returnAmount))
+		$callIM: MarginCall(marginType == Types.MarginType.Initial,$dirIM:direction,$marginIM:(deliverAmount+returnAmount))
+        $agreement: Agreement(agreementType in (Types.AgreementType.Regulatory_CSA,Types.AgreementType.CSA),$MTA1: MTA1, $MTA2: MTA2)
         $result: MarginResult();
         // if the client is collecting party of VM and posting party of IM, then if $marginIM - $marginVM > $MTA1, it will be overall OUT
         // if the client is posting party of VM and collecting party of IM, then if $marginIM - $marginVM > $MTA2, it will be overall IN

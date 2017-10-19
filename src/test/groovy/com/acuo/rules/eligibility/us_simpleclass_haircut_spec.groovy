@@ -1,5 +1,9 @@
 package com.acuo.rules.eligibility
 
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import com.opengamma.strata.basics.currency.Currency
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
@@ -23,8 +27,8 @@ class us_simpleclass_haircut_spec  extends Specification  {
     }
     def "cash has haircut 0 in US regime"() {
         when: "add an cash asset"
-        def asset = new LocalAsset(type: "cash", id: "a1",currency: "GBP")
-        def agreement = new Agreement(id: "ag1", majorCurrency: "EUR,USD,GBP",settlementCurrency: "JPY")
+        def asset = new Assets(type: "cash", assetId: "a1",currency: Currency.GBP)
+        def agreement = new Agreement(id: "ag1",majorCurrency: [Currency.EUR,Currency.USD,Currency.GBP],settlementCurrency: Currency.JPY)
         def eligible = new EligibleResult()
         def methods = new Methods()
         def provider = new HaircutProvider(name:"US")
@@ -46,7 +50,7 @@ class us_simpleclass_haircut_spec  extends Specification  {
     }
     def "gold has haircut 0.15 in US regime"() {
         when: "add an gold asset"
-        def asset = new LocalAsset(type: "gold", id: "a1")
+        def asset = new Assets(type: "gold", assetId: "a1")
         def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"US")
         def rulelist = new RuleList()

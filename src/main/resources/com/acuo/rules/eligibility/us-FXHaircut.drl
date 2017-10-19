@@ -1,15 +1,15 @@
 package com.acuo.rules.eligibility
 
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
 import org.slf4j.Logger
-import com.acuo.common.model.assets.*
-import java.lang.Number
-
 global Logger log;
 
 rule "us-FXHaircut-im"
 	when
-		$ag: Agreement(marginType == "Initial")
-		$asset: LocalAsset(currency== $ag.terminateCurrency || currency == $ag.settlementCurrency)
+		$ag: Agreement(marginType == Types.MarginType.Initial)
+		$asset: Assets(currency== $ag.getTerminateCurrency() || currency == $ag.getSettlementCurrency())
 		$provider: HaircutProvider(name == "US")
 		$eligible: EligibleResult()
 	then
@@ -20,8 +20,8 @@ end
 
 rule "us-FXHaircut-im-a"
 	when
-		$ag: Agreement(marginType == "Initial")
-		$asset: LocalAsset(currency!= $ag.terminateCurrency && currency != $ag.settlementCurrency)
+		$ag: Agreement(marginType == Types.MarginType.Initial)
+		$asset: Assets(currency!= $ag.getTerminateCurrency() && currency != $ag.getSettlementCurrency())
 		$provider: HaircutProvider(name == "US")
 		$eligible: EligibleResult()
 	then
@@ -30,11 +30,11 @@ rule "us-FXHaircut-im-a"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-
 rule "us-FXHaircut-vm"
 	when
-		$asset: LocalAsset(type!= "cash")
-		$agreement: Agreement(marginType == "Variation", (substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency) )
+		$asset: Assets(type!= "cash",$currency:currency)
+		$agreement: Agreement(marginType == Types.MarginType.Variation,$majorCurrency:majorCurrency,$settlementCurrency:settlementCurrency)
+		eval(ccyInCcys($currency,$majorCurrency)||$currency==$settlementCurrency)
 		$provider: HaircutProvider(name == "US")
 		$eligible: EligibleResult()
 	then
@@ -43,11 +43,11 @@ rule "us-FXHaircut-vm"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-
 rule "us-FXHaircut-vm-a"
 	when
-		$asset: LocalAsset(type!= "cash")
-		$agreement: Agreement(marginType == "Variation", !(substrInStr($asset.currency,majorCurrency) ||$asset.currency==settlementCurrency) )
+		$asset: Assets(type!= "cash",$currency:currency)
+		$agreement: Agreement(marginType == Types.MarginType.Variation,$majorCurrency:majorCurrency,$settlementCurrency:settlementCurrency)
+		eval(!(ccyInCcys($currency,$majorCurrency)||$currency==$settlementCurrency))
 		$provider: HaircutProvider(name == "US")
 		$eligible: EligibleResult()
 	then

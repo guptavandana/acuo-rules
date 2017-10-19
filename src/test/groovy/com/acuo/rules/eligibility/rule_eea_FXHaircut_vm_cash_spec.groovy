@@ -1,5 +1,9 @@
 package com.acuo.rules.eligibility
 
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import com.opengamma.strata.basics.currency.Currency
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
@@ -22,7 +26,7 @@ class rule_eea_FXHaircut_vm_cash_spec extends Specification {
     }
     def "FX Haircut rule vm_cash"() {
         when: "add an asset"
-        def asset = new LocalAsset(type: "cash", id: "vmcash")
+        def asset = new Assets(type: "cash", assetId: "vmcash")
         def agreement = new Agreement(marginType: "Variation")
         def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"EEA")

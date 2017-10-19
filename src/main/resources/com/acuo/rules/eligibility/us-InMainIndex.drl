@@ -1,13 +1,6 @@
 package com.acuo.rules.eligibility
 
 import org.slf4j.Logger
-import com.acuo.common.model.assets.*
-
-import java.util.List;
-import java.util.ArrayList;
-import java.io.*;
-import java.util.*;
-
 global Logger log;
 
 function int inusMainIndex(String index)

@@ -1,8 +1,8 @@
 package com.acuo.rules.assets
 
 import org.slf4j.Logger
-import com.acuo.common.model.assets.*
 import com.acuo.common.model.agreements.*
+import com.acuo.common.model.assets.*
 
 global Logger log;
 

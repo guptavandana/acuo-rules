@@ -1,5 +1,9 @@
 package com.acuo.rules.eligibility
 
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import com.opengamma.strata.basics.currency.Currency
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
@@ -22,8 +26,8 @@ class rule_csa_fitch_fxAR_spec extends Specification{
     }
     def "An Australian Bond will be applied 0.86 fx AR."() {
         when: "add a bond asset"
-        def asset = new LocalAsset(type: "bond", id: "a1",currency:"AUD")
-        def agreement = new Agreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP")
+        def asset = new Assets(type: "bond", assetId: "a1",currency:Currency.AUD)
+        def agreement = new Agreement(id: "ag1", baseCurrency: Currency.GBP,majorCurrency: [Currency.EUR,Currency.USD,Currency.GBP])
         def haircutProvider = new HaircutProvider(name: "Fitch")
         def counterpart = new Counterpart(fitchRating: "AA",countryCode:"UK")
         def eligible = new EligibleResult()
@@ -45,8 +49,8 @@ class rule_csa_fitch_fxAR_spec extends Specification{
     }
     def "A UK Bond will not be applied fx AR."() {
         when: "add a bond asset"
-        def asset = new LocalAsset(type: "bond", id: "a1",currency:"GBP")
-        def agreement = new Agreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP")
+        def asset = new Assets(type: "bond", assetId: "a1",currency: Currency.GBP)
+        def agreement = new Agreement(id: "ag1", baseCurrency: Currency.GBP,majorCurrency: [Currency.EUR,Currency.USD,Currency.GBP])
         def haircutProvider = new HaircutProvider(name: "Fitch")
         def eligible = new EligibleResult()
         def rulelist = new RuleList()

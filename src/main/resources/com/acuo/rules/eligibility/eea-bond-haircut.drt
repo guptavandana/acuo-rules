@@ -9,13 +9,18 @@ haircut
 
 package com.acuo.rules.eligibility;
 
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import org.slf4j.Logger
+global Logger log;
+
 template "eea-bond-haircut"
 
 rule "@{ruleName}"
     when
-        $asset:LocalAsset(type == "bond" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && CQS>= @{CQSLb} && CQS<= @{CQSUb})
+        $asset:Assets(type == "bond" && maturityYears >= @{maturityLb} && maturityYears < @{maturityUb} && CQS>= @{CQSLb} && CQS<= @{CQSUb})
         $eligible: EligibleResult(classType in (@{classType}))
-
     then
         $eligible.setHaircut(@{haircut});
         update($eligible);

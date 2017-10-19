@@ -6,13 +6,17 @@ CQS
 
 package com.acuo.rules.eligibility;
 
-global java.util.List list;
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import org.slf4j.Logger
+global Logger log;
 
 template "CQS-LT-Stan-mapping"
 
 rule "CQS-LT-Stan-mapping @{row.rowNumber}"
     when
-        $asset: LocalAsset(ratingMethod=="Standard" &&(fitchRating == "@{fitchRatingLT}" || moodyRating == "@{moodyRatingLT}"|| snpRating == "@{snpRatingLT}"))
+        $asset: Assets(ratingMethod=="Standard" &&(fitchRating == "@{fitchRatingLT}" || moodyRating == "@{moodyRatingLT}"|| snpRating == "@{snpRatingLT}"))
     then
         $asset.setCQS(@{CQS});
         update($asset);

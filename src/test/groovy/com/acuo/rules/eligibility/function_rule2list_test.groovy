@@ -1,6 +1,10 @@
 package com.acuo.rules.eligibility
 
 
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import com.opengamma.strata.basics.currency.Currency
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
@@ -27,10 +31,10 @@ class function_rule2list_test extends Specification  {
 
         def provider = new HaircutProvider(name: "Fitch,US,Moody,EEA")
         def rulelist = new RuleList()
-        def asset = new LocalAsset(type:"bond", id: "c1", assetType:"GOVT", CQS:1,currency:"EUR",maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
+        def asset = new Assets(type:"bond", assetId: "c1", assetType:"GOVT", CQS:1,currency:Currency.EUR,maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
         def issuer = new Issuer(countryCode: "AT")
         def eligible = new EligibleResult()
-        def agreement = new Agreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP", trigger: 1,marginType: "Initial",terminateCurrency: "USD")
+        def agreement = new Agreement(id: "ag1", baseCurrency: Currency.GBP, majorCurrency: [Currency.EUR,Currency.USD,Currency.GBP], trigger: 1,marginType: "Initial",terminateCurrency: Currency.USD)
         def counterpart = new Counterpart(fitchRating: "AA")
 
 
@@ -70,10 +74,10 @@ class function_rule2list_test extends Specification  {
 
         def provider = new HaircutProvider(name: "Fitch,US,Moody,EEA")
         def rulelist = new RuleList()
-        def asset = new LocalAsset(type:"bond", id: "c1", assetType:"GOVT", CQS:1,currency:"EUR",maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
+        def asset = new Assets(type:"bond", assetId: "c1", assetType:"GOVT", CQS:1,currency:Currency.EUR,maturityYears: 0.5,fitchRating: "AAA", rateType: "fix", moodyRating: "Aa1")
         def issuer = new Issuer(countryCode: "US")
         def eligible = new EligibleResult()
-        def agreement = new Agreement(id: "ag1", baseCurrency: "GBP", majorCurrency: "EUR,USD,GBP", trigger: 1,marginType: "Initial",terminateCurrency: "USD")
+        def agreement = new Agreement(id: "ag1", baseCurrency: Currency.GBP, majorCurrency: [Currency.EUR,Currency.USD,Currency.GBP], trigger: 1,marginType: "Initial",terminateCurrency: Currency.USD)
         def counterpart = new Counterpart(fitchRating: "BBB",countryCode: "US")
 
 

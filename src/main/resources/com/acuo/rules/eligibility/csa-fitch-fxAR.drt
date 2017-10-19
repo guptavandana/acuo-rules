@@ -5,6 +5,11 @@ fxAR
 
 package com.acuo.rules.eligibility;
 
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import com.opengamma.strata.basics.currency.Currency
+
 template "fitch-fxAR"
 
 rule "rule-fitch-fxAR-@{row.rowNumber}"
@@ -12,7 +17,7 @@ rule "rule-fitch-fxAR-@{row.rowNumber}"
         HaircutProvider(name == "Fitch")
         $eligible: EligibleResult()
         $rulelist: RuleList(fitchFxStop == 0)
-        $asset: LocalAsset(currency in (@{currencyList}))
+        $asset: Assets(currency in (@{currencyList}))
         Agreement(baseCurrency!=$asset.getCurrency())
         Counterpart(highestRatedNote in (@{highestRatedNote}))
 
@@ -31,7 +36,7 @@ rule "rule-fitch-fxAR-0"
         HaircutProvider(name == "Fitch")
         $eligible: EligibleResult()
         $rulelist: RuleList(fitchFxStop == 0)
-        $asset: LocalAsset()
+        $asset: Assets()
         Agreement(baseCurrency==$asset.getCurrency())
 
     then

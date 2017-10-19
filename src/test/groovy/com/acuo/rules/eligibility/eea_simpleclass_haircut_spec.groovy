@@ -1,5 +1,9 @@
 package com.acuo.rules.eligibility
 
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import com.opengamma.strata.basics.currency.Currency
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
@@ -23,7 +27,7 @@ class eea_simpleclass_haircut_spec extends Specification  {
     }
     def "cash has haircut 0 in EEA  regime"() {
         when: "add an cash asset"
-        def asset = new LocalAsset(type: "cash", id: "a1")
+        def asset = new Assets(type: "cash", assetId: "a1")
         def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"EEA")
         def rulelist = new RuleList()

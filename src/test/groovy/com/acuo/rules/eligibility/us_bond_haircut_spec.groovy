@@ -1,5 +1,9 @@
 package com.acuo.rules.eligibility
 
+import com.acuo.common.model.assets.Assets
+import com.acuo.common.model.agreements.Agreement
+import com.acuo.common.model.margin.Types
+import com.opengamma.strata.basics.currency.Currency
 import org.kie.api.KieServices
 import org.kie.api.runtime.KieSession
 import org.slf4j.Logger
@@ -23,7 +27,7 @@ class us_bond_haircut_spec  extends Specification{
     }
     def "a bond has haircut 0.02 in US regime"() {
         when: "add a bond asset"
-        def asset = new LocalAsset(id: "a1",type:"bond",assetType: "GOVT",maturityYears: 3)
+        def asset = new Assets(assetId: "a1",type:"bond",assetType: "GOVT",maturityYears: 3)
         def issuer = new Issuer(countryCode: "US")
         def eligible = new EligibleResult()
         def provider = new HaircutProvider(name:"US")
