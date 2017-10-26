@@ -28,7 +28,7 @@ class eea_CL_test extends Specification {
         def asset3 = new Assets(assetId: "a3", eeaClass:"EEAl",issuerGroupId: "group2",issuerId:"i3",issuerCountryCode: "CA")
         def issuers = new Issuers()
         def marginCall = new MarginCall(id:"mc1",callType: "Initial",totalCallAmount:2000000000)
-        def clResult = new com.acuo.rules.eligibility.CLResult(index:-1)
+        def clResult = new CLResult(index:-1)
         ksession.insert(asset1)
         ksession.insert(asset2)
         ksession.insert(asset3)
@@ -40,6 +40,6 @@ class eea_CL_test extends Specification {
         ksession.fireAllRules()
 
         then: "then we get rules regime and class"
-        asset1.assetId
+        //clResult.constraints.assetIds
     }
 }
