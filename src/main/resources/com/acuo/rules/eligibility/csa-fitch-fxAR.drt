@@ -12,7 +12,7 @@ import com.opengamma.strata.basics.currency.Currency
 
 template "fitch-fxAR"
 
-rule "rule-fitch-fxAR-@{row.rowNumber}"
+rule "fitch-fxAR-@{row.rowNumber}"
     when
         HaircutProvider(name == "Fitch")
         $eligible: EligibleResult()
@@ -31,7 +31,7 @@ rule "rule-fitch-fxAR-@{row.rowNumber}"
 end
 end template
 
-rule "rule-fitch-fxAR-0"
+rule "fitch-fxAR-0"
     when
         HaircutProvider(name == "Fitch")
         $eligible: EligibleResult()

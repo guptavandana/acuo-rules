@@ -7,7 +7,7 @@ import com.acuo.common.model.margin.Types
 import org.slf4j.Logger
 global Logger log;
 
-rule "rule-eea-class-a"
+rule "eea-class-a"
 	when
 		$asset : Assets( type == "cash" )
 		$eligible: EligibleResult()
@@ -20,7 +20,7 @@ rule "rule-eea-class-a"
 
 end
 
-rule "rule-eea-eli-a"
+rule "eea-eli-a"
 	when
 		$asset : Assets( )
 		$eligible: EligibleResult(classType == "EEAa")
@@ -30,7 +30,7 @@ rule "rule-eea-eli-a"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-eea-class-b"
+rule "eea-class-b"
 	when
 		$asset : Assets( type == "gold" )
 		$eligible: EligibleResult()
@@ -43,7 +43,7 @@ rule "rule-eea-class-b"
 
 end
 
-rule "rule-eea-eli-b"
+rule "eea-eli-b"
 	when
 		$asset : Assets( )
 		$eligible: EligibleResult(classType == "EEAb")
@@ -53,7 +53,7 @@ rule "rule-eea-eli-b"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-eea-class-c"
+rule "eea-class-c"
 	when
 		$asset : Assets(type == "bond" , assetType == "GOVT", issuerIsMemberState)
 		$provider: HaircutProvider(name == "EEA")
@@ -64,7 +64,7 @@ rule "rule-eea-class-c"
 		log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-eea-eli-c"
+rule "eea-eli-c"
 	when
 		$eligible: EligibleResult(classType == "EEAc")
 		//$asset : Assets( (currency!=$issuer.domCurrency && $issuer.domCurrency!=null) || ((currency==$issuer.domCurrency) && CQS in ( 1, 2, 3, 4 )) )
@@ -75,7 +75,7 @@ rule "rule-eea-eli-c"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-eea-class-hi"
+rule "eea-class-hi"
 	when
 		$asset : Assets(type == "bond",issuerSector=="SPRA")
 		//$issuer: Issuer(sector == "SPRA")
@@ -87,7 +87,7 @@ rule "rule-eea-class-hi"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-eea-eli-hi"
+rule "eea-eli-hi"
 	when
 		$asset : Assets( )
 		$eligible: EligibleResult(classType == "EEAhi")
@@ -97,7 +97,7 @@ rule "rule-eea-eli-hi"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-eea-class-j"
+rule "eea-class-j"
 	when
 		$asset : Assets( type == "bond", assetType == "GOVT",!issuerIsMemberState )
 		$eligible: EligibleResult()
@@ -111,7 +111,7 @@ rule "rule-eea-class-j"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-eea-eli-j"
+rule "eea-eli-j"
 	when
 		$asset : Assets(CQS in ( 1, 2, 3 ))
 		$eligible: EligibleResult(classType == "EEAj")
@@ -121,7 +121,7 @@ rule "rule-eea-eli-j"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-eea-class-n"
+rule "eea-class-n"
 	when
 		$asset : Assets( type == "bond", assetType == "CORP" )
 		$eligible: EligibleResult()
@@ -133,7 +133,7 @@ rule "rule-eea-class-n"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-eea-eli-n"
+rule "eea-eli-n"
 	when
 	    $asset: Assets(CQS in ( 1, 2, 3 ))
 		$eligible: EligibleResult(classType == "EEAn")

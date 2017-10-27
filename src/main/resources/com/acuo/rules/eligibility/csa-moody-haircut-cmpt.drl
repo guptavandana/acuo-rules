@@ -7,7 +7,7 @@ import org.slf4j.Logger
 
 global Logger log;
 
-rule "rule-moody-haircut-cmpt"
+rule "moody-haircut-cmpt"
 	when
 		$provider:HaircutProvider(name=="Moody")
 		$eligible:EligibleResult($vp: valuationPercentage!=-1)

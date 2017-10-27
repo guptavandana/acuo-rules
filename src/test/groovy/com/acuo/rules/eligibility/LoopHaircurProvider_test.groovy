@@ -11,7 +11,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import spock.lang.Specification
 
-class function_rule2list_test extends Specification  {
+class LoopHaircurProvider_test extends Specification  {
     String ksessionName = "EligibilityKS"
 
     KieSession ksession

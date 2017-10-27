@@ -19,7 +19,7 @@ function boolean ccyInCcys(com.opengamma.strata.basics.currency.Currency ccy, co
     return false;
 }
 
-rule "rule-us-class-1"
+rule "us-class-1"
 	when
 		$asset : Assets( type == "cash",$currency:currency )
 		$agreement: Agreement($majorCurrency:majorCurrency,$settlementCurrency:settlementCurrency)
@@ -32,7 +32,7 @@ rule "rule-us-class-1"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-US-eli-1"
+rule "US-eli-1"
 	when
 		$asset : Assets( )
 		$eligible: EligibleResult(classType == "US1")
@@ -42,10 +42,9 @@ rule "rule-US-eli-1"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-us-class-2"
+rule "us-class-2"
 	when
 		$asset : Assets( assetType == "GOVT",issuerCountryCode:"US" )
-		//$issuer : Issuer(countryCode=="US")
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
@@ -54,7 +53,7 @@ rule "rule-us-class-2"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-us-eli-2"
+rule "us-eli-2"
 	when
 		$asset : Assets( )
 		$eligible: EligibleResult(classType == "US2")
@@ -64,10 +63,9 @@ rule "rule-us-eli-2"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-us-class-3"
+rule "us-class-3"
 	when
 		$asset : Assets( assetType=="AGNC", issuerCountryCode:"US" )
-		//$issuer : Issuer(countryCode == "US")
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
@@ -76,7 +74,7 @@ rule "rule-us-class-3"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-us-eli-3"
+rule "us-eli-3"
 	when
 		$asset : Assets( )
 		$eligible: EligibleResult(classType == "US3")
@@ -86,7 +84,7 @@ rule "rule-us-eli-3"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-us-class-4"
+rule "us-class-4"
 	when
 		$asset : Assets( assetType=="GOVT" , issuerIsMemberState)
 		//$issuer : Issuer(isMemberState)
@@ -98,7 +96,7 @@ rule "rule-us-class-4"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-us-eli-4"
+rule "us-eli-4"
 	when
 		$asset : Assets( )
 		$eligible: EligibleResult(classType == "US4")
@@ -108,10 +106,9 @@ rule "rule-us-eli-4"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-us-class-6"
+rule "us-class-6"
 	when
 		$asset : Assets(issuerSector=="SPRA" )
-		//$issuer : Issuer(sector=="SPRA")
 		$eligible: EligibleResult()
 		$provider: HaircutProvider(name == "US")
 	then
@@ -120,7 +117,7 @@ rule "rule-us-class-6"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-us-eli-6"
+rule "us-eli-6"
 	when
 		$asset : Assets( )
 		$eligible: EligibleResult(classType == "US6")
@@ -130,7 +127,7 @@ rule "rule-us-eli-6"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-us-class-10"
+rule "us-class-10"
 	when
 		$asset : Assets( type == "gold" )
 		$eligible: EligibleResult()
@@ -141,7 +138,7 @@ rule "rule-us-class-10"
         log.info("Rule: '{}', asset: '{}'", drools.getRule().getName(), $asset );
 end
 
-rule "rule-us-eli-10"
+rule "us-eli-10"
 	when
 		$asset : Assets( )
 		$eligible: EligibleResult(classType == "US10")
