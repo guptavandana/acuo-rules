@@ -7,7 +7,7 @@ import org.slf4j.Logger
 
 global Logger log;
 
-rule "rule-threshold-secured"
+rule "threshold-secured"
     when
         $call: MarginCall($exposure:exposure)
         $agreement: Agreement(thresholdTreatment== "Secured",$exposure>threshold,agreementType in (Types.AgreementType.Regulatory_CSA,Types.AgreementType.CSA))
@@ -19,7 +19,7 @@ rule "rule-threshold-secured"
         log.info("Rule: '{}', threshold result: '{}'", drools.getRule().getName(), $result );
 end
 
-rule "rule-threshold-unsecured"
+rule "threshold-unsecured"
     when
         $call: MarginCall($exposure:exposure)
         $agreement: Agreement(thresholdTreatment== "Unsecured",$exposure>threshold,$threshold:threshold, agreementType in (Types.AgreementType.Regulatory_CSA,Types.AgreementType.CSA))

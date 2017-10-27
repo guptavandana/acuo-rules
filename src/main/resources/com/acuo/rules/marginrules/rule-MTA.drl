@@ -7,7 +7,7 @@ import com.acuo.common.model.margin.MarginCall
 import com.acuo.common.model.margin.Types
 global Logger log;
 
-rule "rule-mta-netExposore-vm"
+rule "mta-netExposore-vm"
 	when
 		$callVM: MarginCall(marginType == Types.MarginType.Variation,$dirVM:direction, $marginVM:(deliverAmount+returnAmount))
 		not MarginCall(marginType == Types.MarginType.Initial)
@@ -23,7 +23,7 @@ rule "rule-mta-netExposore-vm"
        log.info("Rule: '{}', margin result: '{}'", drools.getRule().getName(), $result );
 end
 
-rule "rule-mta-netExposore-im"
+rule "mta-netExposore-im"
 	when
 		$callIM: MarginCall(marginType == Types.MarginType.Initial,$dirIM:direction, $marginIM:(deliverAmount+returnAmount))
 		not MarginCall(marginType == Types.MarginType.Variation)
@@ -41,7 +41,7 @@ end
 
 
 
-rule "rule-mta-netExposore-vmim-sameDir"
+rule "mta-netExposore-vmim-sameDir"
 	when
 		$callVM: MarginCall(marginType == Types.MarginType.Variation,$dirVM:direction, $marginVM:(deliverAmount+returnAmount))
 		$callIM: MarginCall(marginType == Types.MarginType.Initial,$dirIM:direction, $marginIM:(deliverAmount+returnAmount))
@@ -62,7 +62,7 @@ rule "rule-mta-netExposore-vmim-sameDir"
         log.info("Rule: '{}', margin result: '{}'", drools.getRule().getName(), $result );
 end
 
-rule "rule-mta-netExposore-vmim-diffDir-vmLarger"
+rule "mta-netExposore-vmim-diffDir-vmLarger"
 	when
 		$callVM: MarginCall(marginType == Types.MarginType.Variation,$dirVM:direction, $marginVM:(deliverAmount+returnAmount))
 		$callIM: MarginCall(marginType == Types.MarginType.Initial,$dirIM:direction,$marginIM:(deliverAmount+returnAmount))
@@ -82,7 +82,7 @@ rule "rule-mta-netExposore-vmim-diffDir-vmLarger"
         log.info("Rule: '{}', margin result: '{}'", drools.getRule().getName(), $result );
 end
 
-rule "rule-mta-netExposore-vmim-diffDir-imLarger"
+rule "mta-netExposore-vmim-diffDir-imLarger"
 	when
 		$callVM: MarginCall(marginType == Types.MarginType.Variation,$dirVM:direction, $marginVM:(deliverAmount+returnAmount))
 		$callIM: MarginCall(marginType == Types.MarginType.Initial,$dirIM:direction,$marginIM:(deliverAmount+returnAmount))
